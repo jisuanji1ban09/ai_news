@@ -1,0 +1,37 @@
+请对下面的中文事实稿做事实校正，并以 JSON 输出。
+要求：
+1. 只校正事实完整性、措辞准确性、数字和主体是否遗漏。
+2. 不扩写，不生成 title，不生成 summary。
+3. 仅输出 JSON，格式：{"items":[{"id":"1","fact_cn_checked":"..."}]}
+输入：[
+  {
+    "id": "1",
+    "title_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google - Benzinga",
+    "content_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google. OpenAI To Nearly Double Staff. OpenAI’s expansion comes at a crucial time as it faces increasing competition in t",
+    "fact_cn": "OpenAI 计划在与 Anthropic 和谷歌的 AI 竞争加剧之际，将其员工规模扩大近一倍。"
+  },
+  {
+    "id": "4",
+    "title_en": "OpenAI's data center pivot underscores Wall Street spending concerns ahead of IPO - CNBC",
+    "content_en": "When OpenAI CEO Sam Altman took the stage at BlackRock's U.S. Infrastructure Summit earlier this month, he acknowledged his company is facing a harsh reality: data centers are hard. \"Anything at t",
+    "fact_cn": "OpenAI CEO 山姆·阿尔特曼在本月早些时候的黑石美国基础设施峰会上承认数据中心建设面临严峻现实，此举凸显了华尔街在其 IPO 前对支出规模的担忧。"
+  },
+  {
+    "id": "5",
+    "title_en": "An exclusive tour of Amazon's Trainium lab, the chip that's won over Anthropic, OpenAI, even Apple - TechCrunch",
+    "content_en": "An exclusive tour of Amazon’s Trainium lab, the chip that’s won over Anthropic, OpenAI, even Apple. Shortly after Amazon CEO Andy Jassy announced AWS’s groundbreaking $50 billion investment deal",
+    "fact_cn": ""
+  },
+  {
+    "id": "7",
+    "title_en": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
+    "content_en": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin",
+    "fact_cn": "路透社北京 3 月 22 日电，腾讯（0700.HK）于周日推出工具，在中国科技竞争背景下将微信与 OpenClaw AI 智能体进行集成。"
+  },
+  {
+    "id": "8",
+    "title_en": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
+    "content_en": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th",
+    "fact_cn": "特朗普的 AI 战略暴露了欧洲的战略模糊性，立法者明确表示担忧，欧洲通常以轻触式监管、市场优先和风险容忍的视角看待美国 AI 政策。"
+  }
+]
