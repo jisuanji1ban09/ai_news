@@ -340,8 +340,15 @@ PYEOF
     export BAILIAN_API_KEY BAILIAN_MODEL BAILIAN_BASE_URL
     export DATA_DIR RUN_ID
 
-    set +e
-    python3 <<'PYEOF'
+    # Step 3 内部重试：复用 candidates.json，不重跑 Step1+2
+    STEP3_MAX_RETRIES=3
+    STEP3_ATTEMPT=0
+    STEP3_SUCCESS=0
+    while [ $STEP3_ATTEMPT -lt $STEP3_MAX_RETRIES ]; do
+        STEP3_ATTEMPT=$((STEP3_ATTEMPT + 1))
+        log "Step3 attempt ${STEP3_ATTEMPT}/${STEP3_MAX_RETRIES}"
+        set +e
+        python3 <<'PYEOF'
 import json
 import os
 import re
@@ -657,6 +664,26 @@ with open(json_file, "w", encoding="utf-8") as f:
 print(f"Step3 DONE: top5={top5_json_file}")
 print(f"Step3 DONE: daily_brief={json_file}")
 PYEOF
+        PY_EXIT_CODE=$?
+        set -e
+
+        if [ $PY_EXIT_CODE -eq 0 ] && [ -f "$TOP5_JSON_FILE" ] && [ -f "$JSON_FILE" ]; then
+            STEP3_SUCCESS=1
+            break
+        fi
+        log "Step3 attempt ${STEP3_ATTEMPT} failed (exit: $PY_EXIT_CODE)"
+        if [ $STEP3_ATTEMPT -lt $STEP3_MAX_RETRIES ]; then
+            log "Retrying Step3 in 5 seconds..."
+            sleep 5
+        fi
+    done
+
+    if [ $STEP3_SUCCESS -ne 1 ]; then
+        ERROR_MSG="Top5 JSON generation failed after ${STEP3_MAX_RETRIES} attempts"
+        log_step_fail "$CURRENT_STEP" "$ERROR_MSG"
+        continue
+    fi
+    log_step_ok "$CURRENT_STEP"
 
     # Step 4: Refine overflowing summaries (best-effort; never blocks rendering)
     CURRENT_STEP="[4/8] Refining long summaries"
@@ -682,20 +709,33 @@ PYEOF
     log_step_start "$CURRENT_STEP"
 
     cd "$SKILL_DIR"
-    set +e
-    OUTPUT=$(python3 scripts/openclaw_render.py --input "$JSON_FILE" 2>&1)
-    RENDER_CODE=$?
-    set -e
-
-    if [ $RENDER_CODE -ne 0 ] || ! echo "$OUTPUT" | grep -q "MEDIA:"; then
-        ERROR_MSG="Render failed (exit: $RENDER_CODE): $OUTPUT"
-        log_step_fail "$CURRENT_STEP" "$ERROR_MSG"
-        continue
-    fi
-
-    IMAGE_PATH=$(echo "$OUTPUT" | grep "MEDIA:" | sed 's/MEDIA://')
-    if [ ! -f "$IMAGE_PATH" ]; then
-        ERROR_MSG="Image file not found: $IMAGE_PATH"
+    # Step 5 内部重试：复用 daily_brief.json，不重跑 Step1~4
+    STEP5_MAX_RETRIES=2
+    STEP5_ATTEMPT=0
+    STEP5_SUCCESS=0
+    IMAGE_PATH=""
+    while [ $STEP5_ATTEMPT -lt $STEP5_MAX_RETRIES ]; do
+        STEP5_ATTEMPT=$((STEP5_ATTEMPT + 1))
+        log "Step5 attempt ${STEP5_ATTEMPT}/${STEP5_MAX_RETRIES}"
+        set +e
+        OUTPUT=$(python3 scripts/openclaw_render.py --input "$JSON_FILE" 2>&1)
+        RENDER_CODE=$?
+        set -e
+        if [ $RENDER_CODE -eq 0 ] && echo "$OUTPUT" | grep -q "MEDIA:"; then
+            IMAGE_PATH=$(echo "$OUTPUT" | grep "MEDIA:" | sed 's/MEDIA://')
+            if [ -f "$IMAGE_PATH" ]; then
+                STEP5_SUCCESS=1
+                break
+            fi
+        fi
+        log "Step5 attempt ${STEP5_ATTEMPT} failed (exit: $RENDER_CODE)"
+        if [ $STEP5_ATTEMPT -lt $STEP5_MAX_RETRIES ]; then
+            log "Retrying Step5 in 3 seconds..."
+            sleep 3
+        fi
+    done
+    if [ $STEP5_SUCCESS -ne 1 ]; then
+        ERROR_MSG="Render failed after ${STEP5_MAX_RETRIES} attempts: $OUTPUT"
         log_step_fail "$CURRENT_STEP" "$ERROR_MSG"
         continue
     fi
@@ -733,13 +773,29 @@ else:
 PY
 )"
     export TOP5_JSON_FILE VOICEOVER_SCRIPT_FILE
-    set +e
-    python3 "$WORKSPACE/scripts/generate_voiceover.py"
-    VOICEOVER_CODE=$?
-    set -e
-
-    if [ $VOICEOVER_CODE -ne 0 ] || [ ! -f "$VOICEOVER_SCRIPT_FILE" ]; then
-        ERROR_MSG="Voiceover generation failed (exit: $VOICEOVER_CODE)"
+    # Step 6 内部重试：复用 top5.json，不重跑 Step1~5
+    STEP6_MAX_RETRIES=3
+    STEP6_ATTEMPT=0
+    STEP6_SUCCESS=0
+    while [ $STEP6_ATTEMPT -lt $STEP6_MAX_RETRIES ]; do
+        STEP6_ATTEMPT=$((STEP6_ATTEMPT + 1))
+        log "Step6 attempt ${STEP6_ATTEMPT}/${STEP6_MAX_RETRIES}"
+        set +e
+        python3 "$WORKSPACE/scripts/generate_voiceover.py"
+        VOICEOVER_CODE=$?
+        set -e
+        if [ $VOICEOVER_CODE -eq 0 ] && [ -f "$VOICEOVER_SCRIPT_FILE" ]; then
+            STEP6_SUCCESS=1
+            break
+        fi
+        log "Step6 attempt ${STEP6_ATTEMPT} failed (exit: $VOICEOVER_CODE)"
+        if [ $STEP6_ATTEMPT -lt $STEP6_MAX_RETRIES ]; then
+            log "Retrying Step6 in 5 seconds..."
+            sleep 5
+        fi
+    done
+    if [ $STEP6_SUCCESS -ne 1 ]; then
+        ERROR_MSG="Voiceover generation failed after ${STEP6_MAX_RETRIES} attempts"
         log_step_fail "$CURRENT_STEP" "$ERROR_MSG"
         continue
     fi
@@ -830,7 +886,27 @@ done
 log "=== FAILED ==="
 log "Final error: $ERROR_MSG"
 
-# Send failure notification (robust: do not fail if notification fails)
+# 写本地失败标记文件，方便每天检查
+mkdir -p "$OUTPUT_DIR"
+FAILED_MARK_FILE="$OUTPUT_DIR/FAILED.txt"
+cat > "$FAILED_MARK_FILE" <<FAILED_EOF
+日期：$DATE_STR
+时间：$(TZ="Asia/Shanghai" date +"%Y-%m-%d %H:%M:%S")
+错误：$ERROR_MSG
+日志：$RUN_LOG_FILE
+Run ID：$RUN_ID
+FAILED_EOF
+log "失败标记已写入：$FAILED_MARK_FILE"
+
+# 打印失败摘要到终端，方便 cron 邮件捕获
+echo "=============================="
+echo "❌ AI 每日资讯任务失败"
+echo "日期：$DATE_STR"
+echo "错误：$ERROR_MSG"
+echo "日志：$RUN_LOG_FILE"
+echo "=============================="
+
+# 发飞书失败通知（best-effort，失败不阻断）
 set +e
 openclaw message send \
     --channel feishu \
