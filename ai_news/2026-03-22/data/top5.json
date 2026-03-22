@@ -1,40 +1,40 @@
 [
   {
     "id": "1",
-    "title": "OpenAI 计划员工扩至近两倍",
+    "title": "OpenAI 计划员工扩招近一倍",
     "summary": "应对与 Anthropic 及谷歌的竞争",
     "source": "Benzinga",
     "url": "https://www.benzinga.com/markets/tech/26/03/51396475/openai-to-almost-double-its-workforce",
     "category": "bigtech"
   },
   {
-    "id": "4",
+    "id": "3",
     "title": "腾讯集成微信与 OpenClaw AI",
-    "summary": "3 月 22 日推出新工具实现消息互通",
+    "summary": "3 月 22 日推出工具实现消息互通",
     "source": "Reuters",
     "url": "https://www.reuters.com/technology/tencent-integrates-wechat-with-openclaw-ai-agent-amid-china-tech-battle-2026-03-22/",
     "category": "china_ai"
   },
   {
-    "id": "6",
-    "title": "阿尔特曼承认数据中心建设困难",
-    "summary": "黑石峰会发言引发华尔街支出担忧",
+    "id": "5",
+    "title": "阿尔特曼承认数据中心建设难",
+    "summary": "引发华尔街对 IPO 前支出的担忧",
     "source": "Cnbc",
     "url": "https://www.cnbc.com/2026/03/22/openai-data-center-pivot-underscores-wall-street-ipo-concerns.html",
     "category": "chip_infrastructure"
   },
   {
-    "id": "7",
-    "title": "亚马逊 Trainium 芯片获多方认可",
-    "summary": "AWS 达成 500 亿美元投资协议后确认",
+    "id": "6",
+    "title": "AWS Trainium 芯片获多家认可",
+    "summary": "紧随亚马逊 500 亿美元投资协议",
     "source": "Techcrunch",
     "url": "https://techcrunch.com/2026/03/22/an-exclusive-tour-of-amazons-trainium-lab-the-chip-thats-won-over-anthropic-openai-even-apple/",
     "category": "chip_infrastructure"
   },
   {
-    "id": "9",
+    "id": "8",
     "title": "特朗普 AI 战略暴露欧洲模糊性",
-    "summary": "监管与市场优先性问题引发关切",
+    "summary": "立法者担忧美国轻监管高风险政策",
     "source": "Moderndiplomacy",
     "url": "https://moderndiplomacy.eu/2026/03/21/trumps-ai-strategy-exposes-europes-strategic-ambiguity/",
     "category": "regulation_policy"

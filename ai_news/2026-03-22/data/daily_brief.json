@@ -3,24 +3,24 @@
   "template": "b",
   "items": [
     {
-      "title": "OpenAI 计划员工扩至近两倍",
+      "title": "OpenAI 计划员工扩招近一倍",
       "summary": "应对与 Anthropic 及谷歌的竞争"
     },
     {
       "title": "腾讯集成微信与 OpenClaw AI",
-      "summary": "3 月 22 日推出新工具实现消息互通"
+      "summary": "3 月 22 日推出工具实现消息互通"
     },
     {
-      "title": "阿尔特曼承认数据中心建设困难",
-      "summary": "黑石峰会发言引发华尔街支出担忧"
+      "title": "阿尔特曼承认数据中心建设难",
+      "summary": "引发华尔街对 IPO 前支出的担忧"
     },
     {
-      "title": "亚马逊 Trainium 芯片获多方认可",
-      "summary": "AWS 达成 500 亿美元投资协议后确认"
+      "title": "AWS Trainium 芯片获多家认可",
+      "summary": "紧随亚马逊 500 亿美元投资协议"
     },
     {
       "title": "特朗普 AI 战略暴露欧洲模糊性",
-      "summary": "监管与市场优先性问题引发关切"
+      "summary": "立法者担忧美国轻监管高风险政策"
     }
   ]
 }
