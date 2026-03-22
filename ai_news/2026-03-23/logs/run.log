@@ -1,48 +1,63 @@
-[2026-03-23 00:05:05] === Attempt 1/3 ===
-[2026-03-23 00:05:05] Cleaning up old artifacts for attempt 1...
-[2026-03-23 00:05:05] STEP status=start step="[1/8] Fetching AI news" attempt=1 run_id=20260323-000505-30043_22748
-[2026-03-23 00:05:22] STEP status=ok step="[1/8] Fetching AI news" attempt=1 run_id=20260323-000505-30043_22748
-[2026-03-23 00:05:22] Fetch error log: /Users/wzh/project/news/ai_news/2026-03-23/data/fetch_errors.log
-[2026-03-23 00:05:22] STEP status=start step="[2/8] Parsing candidates" attempt=1 run_id=20260323-000505-30043_22748
+[2026-03-23 00:43:12] === Attempt 1/3 ===
+[2026-03-23 00:43:12] Checking cached artifacts for attempt 1...
+[2026-03-23 00:43:12] STEP status=start step="[1/8] Fetching AI news" attempt=1 run_id=20260323-004312-34233_32555
+[2026-03-23 00:43:25] STEP status=ok step="[1/8] Fetching AI news" attempt=1 run_id=20260323-004312-34233_32555
+[2026-03-23 00:43:25] Fetch error log: /Users/wzh/project/news/ai_news/2026-03-23/data/fetch_errors.log
+[2026-03-23 00:43:25] STEP status=start step="[2/8] Parsing candidates" attempt=1 run_id=20260323-004312-34233_32555
 Parsed 18 candidates after filter+dedup
-Category breakdown: {'bigtech': 7, 'chip_infrastructure': 3, 'general_ai': 6, 'china_ai': 1, 'regulation_policy': 1}
-[2026-03-23 00:05:23] Parsed candidates: 18
-[2026-03-23 00:05:23] STEP status=ok step="[2/8] Parsing candidates" attempt=1 run_id=20260323-000505-30043_22748
-[2026-03-23 00:05:23] STEP status=start step="[3/8] Generating Top5 JSON" attempt=1 run_id=20260323-000505-30043_22748
-[2026-03-23 00:05:23] Step3 attempt 1/3
+Category breakdown: {'bigtech': 5, 'regulation_policy': 1, 'chip_infrastructure': 5, 'general_ai': 6, 'china_ai': 1}
+[2026-03-23 00:43:26] Parsed candidates: 18
+[2026-03-23 00:43:26] STEP status=ok step="[2/8] Parsing candidates" attempt=1 run_id=20260323-004312-34233_32555
+[2026-03-23 00:43:26] STEP status=start step="[3/8] Generating Top5 JSON" attempt=1 run_id=20260323-004312-34233_32555
+[2026-03-23 00:43:26] Step3 attempt 1/3
 Sub-step A_select OK
-Sub-step A OK: selected ids=['1', '4', '5', '7', '8']
+Sub-step A OK: selected ids=['1', '5', '6', '7', '10']
 Sub-step B_translate OK
 Sub-step B OK: translated 5 items
 Sub-step C_check OK
 Sub-step C OK: checked 5 items
 Sub-step D_title OK
 Sub-step D OK: generated 5 pairs
-VISUAL_CHECK id=1 title_vlen=13.34 summary_vlen=15.32 combined=28.66 title='OpenAI 计划员工扩至近两倍' summary='应对与 Anthropic 及谷歌的竞争'
-VISUAL_CHECK id=4 title_vlen=12.7 summary_vlen=14.8 combined=27.5 title='山姆·阿尔特曼承认建设难题' summary='引发华尔街对 IPO 前支出的担忧'
-VISUAL_CHECK id=5 title_vlen=15.7 summary_vlen=14.86 combined=30.56 title='亚马逊 Trainium 芯片获多方青睐' summary='AWS 已宣布高达 500 亿美元投资'
-VISUAL_CHECK id=7 title_vlen=15.8 summary_vlen=12.0 combined=27.8 title='腾讯集成微信与 OpenClaw 智能体' summary='周日推出工具应对科技竞争'
-VISUAL_CHECK id=8 title_vlen=13.0 summary_vlen=14.0 combined=27.0 title='特朗普战略暴露欧洲立场模糊' summary='立法者担忧美国轻触式监管政策'
+VISUAL_CHECK id=1 title_vlen=14.34 summary_vlen=17.32 combined=31.66 title='OpenAI 计划员工规模扩近一倍' summary='旨在应对与 Anthropic 及谷歌的竞争'
+VISUAL_CHECK id=5 title_vlen=14.08 summary_vlen=16.0 combined=30.08 title='特朗普 AI 战略暴露欧洲模糊性' summary='欧方担忧美方轻监管及容忍风险政策'
+VISUAL_CHECK id=6 title_vlen=14.0 summary_vlen=19.14 combined=33.14 title='阿尔特曼承认数据中心建设困难' summary='凸显华尔街对 OpenAI IPO 前支出的担忧'
+VISUAL_CHECK id=7 title_vlen=15.7 summary_vlen=20.18 combined=35.88 title='亚马逊 Trainium 芯片获多家青睐' summary='客户含 Anthropic 及苹果，AWS 投 500 亿'
+VISUAL_CHECK id=10 title_vlen=15.8 summary_vlen=17.7 combined=33.5 title='腾讯集成微信与 OpenClaw 智能体' summary='3 月 22 日推出工具以应对科技领域竞争'
 Step3 DONE: top5=/Users/wzh/project/news/ai_news/2026-03-23/data/top5.json
 Step3 DONE: daily_brief=/Users/wzh/project/news/ai_news/2026-03-23/data/daily_brief.json
-[2026-03-23 00:05:54] STEP status=ok step="[3/8] Generating Top5 JSON" attempt=1 run_id=20260323-000505-30043_22748
-[2026-03-23 00:05:54] STEP status=start step="[4/8] Refining long summaries" attempt=1 run_id=20260323-000505-30043_22748
-[2026-03-23 00:05:55] Summary refiner result: {"status": "ok", "checked_count": 5, "rewritten_count": 0, "one_line_count": 5, "fallback_kept_count": 0, "template": "b"}
-[2026-03-23 00:05:55] STEP status=ok step="[4/8] Refining long summaries" attempt=1 run_id=20260323-000505-30043_22748
-[2026-03-23 00:05:55] STEP status=start step="[5/8] Rendering poster" attempt=1 run_id=20260323-000505-30043_22748
-[2026-03-23 00:05:55] Step5 attempt 1/2
-[2026-03-23 00:05:59] STEP status=ok step="[5/8] Rendering poster" attempt=1 run_id=20260323-000505-30043_22748
-[2026-03-23 00:05:59] Poster generated: /Users/wzh/project/news/skills/daily-brief-to-poster/output/poster_2026_03_23_b.png
-[2026-03-23 00:05:59] Poster copied to unified path: /Users/wzh/project/news/ai_news/2026-03-23/output/poster.png
-[2026-03-23 00:05:59] STEP status=start step="[6/8] Generating voiceover script" attempt=1 run_id=20260323-000505-30043_22748
-[2026-03-23 00:05:59] Step6 attempt 1/3
-2026-03-23 00:05:59,984 [INFO] Calling Bailian LLM for voiceover generation...
-2026-03-23 00:06:07,091 [INFO] Voiceover script generated, length=304 chars
-2026-03-23 00:06:07,092 [INFO] Saved voiceover script to /Users/wzh/project/news/ai_news/2026-03-23/data/voice_script.txt
-2026-03-23 00:06:07,092 [INFO] Voiceover script generated successfully
-[2026-03-23 00:06:07] STEP status=ok step="[6/8] Generating voiceover script" attempt=1 run_id=20260323-000505-30043_22748
-[2026-03-23 00:06:07] Voiceover script generated: /Users/wzh/project/news/ai_news/2026-03-23/data/voice_script.txt
-[2026-03-23 00:06:07] === SUCCESS ===
-[2026-03-23 00:06:07] Poster: /Users/wzh/project/news/ai_news/2026-03-23/output/poster.png
-[2026-03-23 00:06:07] Voiceover: /Users/wzh/project/news/ai_news/2026-03-23/data/voice_script.txt
-[2026-03-23 00:06:07] Run ID: 20260323-000505-30043_22748
+[2026-03-23 00:43:52] STEP status=ok step="[3/8] Generating Top5 JSON" attempt=1 run_id=20260323-004312-34233_32555
+[2026-03-23 00:43:52] STEP status=start step="[4/8] Refining long summaries" attempt=1 run_id=20260323-004312-34233_32555
+[2026-03-23 00:43:52] Summary refiner result: {"status": "ok", "checked_count": 5, "rewritten_count": 0, "one_line_count": 5, "fallback_kept_count": 0, "template": "b"}
+[2026-03-23 00:43:52] STEP status=ok step="[4/8] Refining long summaries" attempt=1 run_id=20260323-004312-34233_32555
+[2026-03-23 00:43:52] Step5 SKIP: poster.png already exists, using cached image
+[2026-03-23 00:43:52] STEP status=ok step="[5/8] Rendering poster" attempt=1 run_id=20260323-004312-34233_32555
+[2026-03-23 00:43:52] STEP status=start step="[6/8] Generating voiceover script" attempt=1 run_id=20260323-004312-34233_32555
+[2026-03-23 00:43:53] Step6 attempt 1/3
+2026-03-23 00:43:53,402 [INFO] Calling Bailian LLM for voiceover generation...
+2026-03-23 00:43:59,689 [INFO] Voiceover script generated, length=353 chars
+2026-03-23 00:43:59,690 [INFO] Saved voiceover script to /Users/wzh/project/news/ai_news/2026-03-23/data/voice_script.txt
+2026-03-23 00:43:59,690 [INFO] Voiceover script generated successfully
+[2026-03-23 00:43:59] STEP status=ok step="[6/8] Generating voiceover script" attempt=1 run_id=20260323-004312-34233_32555
+[2026-03-23 00:43:59] Voiceover script generated: /Users/wzh/project/news/ai_news/2026-03-23/data/voice_script.txt
+[2026-03-23 00:43:59] === SUCCESS ===
+[2026-03-23 00:43:59] Poster: /Users/wzh/project/news/ai_news/2026-03-23/output/poster.png
+[2026-03-23 00:43:59] Voiceover: /Users/wzh/project/news/ai_news/2026-03-23/data/voice_script.txt
+[2026-03-23 00:43:59] Run ID: 20260323-004312-34233_32555
+[2026-03-23 00:44:10] === Attempt 1/3 ===
+[2026-03-23 00:44:10] Checking cached artifacts for attempt 1...
+[2026-03-23 00:44:11] Step1 SKIP: news_raw.txt already exists, using cached data
+[2026-03-23 00:44:11] STEP status=ok step="[1/8] Fetching AI news" attempt=1 run_id=20260323-004410-34358_1005
+[2026-03-23 00:44:11] Step2 SKIP: candidates.json already exists, using cached data
+[2026-03-23 00:44:11] STEP status=ok step="[2/8] Parsing candidates" attempt=1 run_id=20260323-004410-34358_1005
+[2026-03-23 00:44:11] Step3 SKIP: top5.json and daily_brief.json already exist, using cached data
+[2026-03-23 00:44:11] STEP status=ok step="[3/8] Generating Top5 JSON" attempt=1 run_id=20260323-004410-34358_1005
+[2026-03-23 00:44:11] Step4 SKIP: step4_done marker exists, refiner already ran
+[2026-03-23 00:44:11] STEP status=ok step="[4/8] Refining long summaries" attempt=1 run_id=20260323-004410-34358_1005
+[2026-03-23 00:44:11] Step5 SKIP: poster.png already exists, using cached image
+[2026-03-23 00:44:11] STEP status=ok step="[5/8] Rendering poster" attempt=1 run_id=20260323-004410-34358_1005
+[2026-03-23 00:44:11] Step6 SKIP: voice_script.txt already exists, using cached script
+[2026-03-23 00:44:11] STEP status=ok step="[6/8] Generating voiceover script" attempt=1 run_id=20260323-004410-34358_1005
+[2026-03-23 00:44:11] === SUCCESS ===
+[2026-03-23 00:44:11] Poster: /Users/wzh/project/news/ai_news/2026-03-23/output/poster.png
+[2026-03-23 00:44:11] Voiceover: /Users/wzh/project/news/ai_news/2026-03-23/data/voice_script.txt
+[2026-03-23 00:44:11] Run ID: 20260323-004410-34358_1005

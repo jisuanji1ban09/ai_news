@@ -41,6 +41,8 @@ CANDIDATE_JSON_FILE="$DATA_DIR/candidates.json"
 TOP5_JSON_FILE="$DATA_DIR/top5.json"
 VOICEOVER_SCRIPT_FILE="$DATA_DIR/voice_script.txt"
 SEND_SUMMARY_FILE="$DATA_DIR/send_summary_plus.txt"
+NEWS_RAW_FILE="$DATA_DIR/news_raw.txt"
+STEP4_DONE_FILE="$DATA_DIR/step4_done"
 RUN_LOG_DIR="$LOG_ROOT_DIR"
 RUN_ID="$(TZ="Asia/Shanghai" date +"%Y%m%d-%H%M%S")-$$_$RANDOM"
 RUN_LOG_FILE="$RUN_LOG_DIR/run.log"
@@ -80,12 +82,16 @@ while [ $ATTEMPT_NO -lt $MAX_ATTEMPTS ]; do
     ERROR_MSG=""
     CURRENT_STEP=""
 
-    # Clean up old artifacts at start of each attempt
-    log "Cleaning up old artifacts for attempt $ATTEMPT_NO..."
-    rm -f "$CANDIDATE_JSON_FILE" "$TOP5_JSON_FILE" "$JSON_FILE" "$VOICEOVER_SCRIPT_FILE" "$SEND_SUMMARY_FILE"
+    # 断点续跑模式：不清理已有产出，各步骤自行检查缓存
+    log "Checking cached artifacts for attempt $ATTEMPT_NO..."
 
     # Step 1: Fetch News
     CURRENT_STEP="[1/8] Fetching AI news"
+
+    if [ -f "$NEWS_RAW_FILE" ] && [ -s "$NEWS_RAW_FILE" ]; then
+        log "Step1 SKIP: news_raw.txt already exists, using cached data"
+        log_step_ok "$CURRENT_STEP"
+    else
     log_step_start "$CURRENT_STEP"
 
     mkdir -p "$DATA_DIR"
@@ -135,13 +141,25 @@ while [ $ATTEMPT_NO -lt $MAX_ATTEMPTS ]; do
         continue
     fi
 
+    # 落盘原始数据供 Step2 读取（也用于断点续跑）
+    printf '%s' "$NEWS_RAW" > "$NEWS_RAW_FILE"
     log_step_ok "$CURRENT_STEP"
     log "Fetch error log: $FETCH_ERR_FILE"
+    fi  # end Step1 cache check
 
     # Step 2: Parse Candidates
     CURRENT_STEP="[2/8] Parsing candidates"
+
+    if [ -f "$CANDIDATE_JSON_FILE" ]; then
+        log "Step2 SKIP: candidates.json already exists, using cached data"
+        log_step_ok "$CURRENT_STEP"
+    else
     log_step_start "$CURRENT_STEP"
 
+    # 从落盘文件读取原始数据（支持 Step1 跳过的情况）
+    if [ -f "$NEWS_RAW_FILE" ]; then
+        NEWS_RAW=$(cat "$NEWS_RAW_FILE")
+    fi
     export NEWS_RAW NOW_STR DATE_DIR CANDIDATE_JSON_FILE
     set +e
     python3 <<'PYEOF'
@@ -331,9 +349,15 @@ PYEOF
     fi
     log "Parsed candidates: $CANDIDATE_COUNT"
     log_step_ok "$CURRENT_STEP"
+    fi  # end Step2 cache check
 
     # Step 3: Generate Top5 JSON (Robust JSON parsing & validation)
     CURRENT_STEP="[3/8] Generating Top5 JSON"
+
+    if [ -f "$TOP5_JSON_FILE" ] && [ -f "$JSON_FILE" ]; then
+        log "Step3 SKIP: top5.json and daily_brief.json already exist, using cached data"
+        log_step_ok "$CURRENT_STEP"
+    else
     log_step_start "$CURRENT_STEP"
 
     export DATE_STR JSON_FILE CANDIDATE_JSON_FILE TOP5_JSON_FILE
@@ -684,9 +708,15 @@ PYEOF
         continue
     fi
     log_step_ok "$CURRENT_STEP"
+    fi  # end Step3 cache check
 
     # Step 4: Refine overflowing summaries (best-effort; never blocks rendering)
     CURRENT_STEP="[4/8] Refining long summaries"
+
+    if [ -f "$STEP4_DONE_FILE" ]; then
+        log "Step4 SKIP: step4_done marker exists, refiner already ran"
+        log_step_ok "$CURRENT_STEP"
+    else
     log_step_start "$CURRENT_STEP"
 
     set +e
@@ -702,10 +732,19 @@ PYEOF
     else
         log "Summary refiner result: $REFINER_OUTPUT"
     fi
+    # 写 step4_done 标记文件
+    touch "$STEP4_DONE_FILE"
     log_step_ok "$CURRENT_STEP"
+    fi  # end Step4 cache check
 
     # Step 5: Render Poster
     CURRENT_STEP="[5/8] Rendering poster"
+
+    if [ -f "$OUTPUT_DIR/poster.png" ]; then
+        IMAGE_PATH="$OUTPUT_DIR/poster.png"
+        log "Step5 SKIP: poster.png already exists, using cached image"
+        log_step_ok "$CURRENT_STEP"
+    else
     log_step_start "$CURRENT_STEP"
 
     cd "$SKILL_DIR"
@@ -748,9 +787,15 @@ PYEOF
         IMAGE_PATH="$OUTPUT_DIR/poster.png"
         log "Poster copied to unified path: $IMAGE_PATH"
     fi
+    fi  # end Step5 cache check
 
     # Step 6: Generate Voiceover Script
     CURRENT_STEP="[6/8] Generating voiceover script"
+
+    if [ -f "$VOICEOVER_SCRIPT_FILE" ]; then
+        log "Step6 SKIP: voice_script.txt already exists, using cached script"
+        log_step_ok "$CURRENT_STEP"
+    else
     log_step_start "$CURRENT_STEP"
 
     # Ensure DATE_STR is in Chinese full-date format (cross-platform: macOS/Linux).
@@ -802,6 +847,7 @@ PY
 
     log_step_ok "$CURRENT_STEP"
     log "Voiceover script generated: $VOICEOVER_SCRIPT_FILE"
+    fi  # end Step6 cache check
     log "=== SUCCESS ==="
     log "Poster: $OUTPUT_DIR/poster.png"
     log "Voiceover: $VOICEOVER_SCRIPT_FILE"
