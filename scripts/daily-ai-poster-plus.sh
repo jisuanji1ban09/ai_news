@@ -463,6 +463,9 @@ def call_llm(prompt, step_label):
         "seed": 42,
         "stream": False,
         "response_format": {"type": "json_object"},
+        # 禁用 thinking 模式：兼容 qwen3 系列模型，避免 reasoning_content
+        # 导致响应体过大或解析失败
+        "enable_thinking": False,
     }
     body_bytes = json.dumps(body, ensure_ascii=False).encode("utf-8")
     req = urllib.request.Request(
@@ -480,19 +483,41 @@ def call_llm(prompt, step_label):
         with urllib.request.urlopen(req, timeout=curl_timeout) as resp:
             raw = resp.read().decode("utf-8")
     except urllib.error.HTTPError as e:
-        raise RuntimeError(f"HTTP {e.code}: {e.read().decode('utf-8','replace')[:400]}")
+        err_body = e.read().decode("utf-8", "replace")[:400]
+        print(f"ERROR [{step_label}] HTTP {e.code}: {err_body}", file=sys.stderr)
+        raise RuntimeError(f"HTTP {e.code}: {err_body}")
     except urllib.error.URLError as e:
+        print(f"ERROR [{step_label}] 连接失败: {e.reason}", file=sys.stderr)
         raise RuntimeError(f"连接失败: {e.reason}")
+    except Exception as e:
+        print(f"ERROR [{step_label}] 未知错误: {type(e).__name__}: {e}", file=sys.stderr)
+        raise
     if data_dir:
         with open(os.path.join(data_dir, f"step3_{step_label}_{run_id}.response.json"),
                   "w", encoding="utf-8") as f:
             f.write(raw)
-    payload = json.loads(raw)
+
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError as e:
+        print(f"ERROR [{step_label}] JSON 解析失败: {e}, 原始内容前200字: {raw[:200]}",
+              file=sys.stderr)
+        raise RuntimeError(f"[{step_label}] 响应 JSON 解析失败: {e}")
+
     content = (payload.get("choices", [{}])[0]
                       .get("message", {}).get("content", ""))
+
+    if not content:
+        print(f"ERROR [{step_label}] content 为空，完整响应: {raw[:500]}", file=sys.stderr)
+        raise RuntimeError(f"[{step_label}] 模型返回 content 为空")
+
     obj = extract_first_json(content)
     if obj is None:
-        raise RuntimeError(f"[{step_label}] 未找到合法 JSON，预览: {content[:300]}")
+        print(f"ERROR [{step_label}] 未找到合法 JSON，content 预览: {content[:400]}",
+              file=sys.stderr)
+        raise RuntimeError(f"[{step_label}] 未找到合法 JSON")
+
+    print(f"Sub-step {step_label} OK")
     return obj
 
 with open(candidate_json_file, "r", encoding="utf-8") as f:

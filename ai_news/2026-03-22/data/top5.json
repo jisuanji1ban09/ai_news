@@ -1,0 +1,37 @@
+[
+  {
+    "id": "1",
+    "title": "欧洲立法者担忧美国 AI 政策",
+    "summary": "指出美方轻度监管视角，暴露欧方战略模糊",
+    "source": "Moderndiplomacy",
+    "url": "https://moderndiplomacy.eu/2026/03/21/trumps-ai-strategy-exposes-europes-strategic-ambiguity/"
+  },
+  {
+    "id": "3",
+    "title": "腾讯集成微信与 OpenClaw AI",
+    "summary": "3 月 22 日推出新工具，应对国内科技竞争加剧",
+    "source": "Reuters",
+    "url": "https://www.reuters.com/technology/tencent-integrates-wechat-with-openclaw-ai-agent-amid-china-tech-battle-2026-03-22/"
+  },
+  {
+    "id": "4",
+    "title": "OpenAI 计划员工人数增加近一倍",
+    "summary": "旨在应对与 Anthropic 及谷歌的激烈市场竞争",
+    "source": "Benzinga",
+    "url": "https://www.benzinga.com/markets/tech/26/03/51396475/openai-to-almost-double-its-workforce"
+  },
+  {
+    "id": "10",
+    "title": "亚马逊 AWS 达成 500 亿美元投资",
+    "summary": "Trainium 芯片获 Anthropic、OpenAI 及苹果青睐",
+    "source": "Techcrunch",
+    "url": "https://techcrunch.com/2026/03/22/an-exclusive-tour-of-amazons-trainium-lab-the-chip-thats-won-over-anthropic-openai-even-apple/"
+  },
+  {
+    "id": "7",
+    "title": "OpenAI 拟获 140 亿美元私募融资",
+    "summary": "正与 TPG 等四家机构谈判，加速企业级应用落地",
+    "source": "Forbes",
+    "url": "https://www.forbes.com/sites/josipamajic/2026/03/21/pe-firms-offer-ai-labs-a-14b-shortcut-to-enterprise-adoption/"
+  }
+]
