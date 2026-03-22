@@ -1,0 +1,37 @@
+请对下面的中文事实稿做事实校正，并以 JSON 输出。
+要求：
+1. 只校正事实完整性、措辞准确性、数字和主体是否遗漏。
+2. 不扩写，不生成 title，不生成 summary。
+3. 仅输出 JSON，格式：{"items":[{"id":"1","fact_cn_checked":"..."}]}
+输入：[
+  {
+    "id": "1",
+    "title_en": "OpenAI's data center pivot underscores Wall Street spending concerns ahead of IPO - CNBC",
+    "content_en": "When OpenAI CEO Sam Altman took the stage at BlackRock's U.S. Infrastructure Summit earlier this month, he acknowledged his company is facing a harsh reality: data centers are hard. \"Anything at t",
+    "fact_cn": "本月早些时候，OpenAI 首席执行官山姆·阿尔特曼在贝莱德美国基础设施峰会上承认，公司面临数据中心建设困难的现实。这一动向凸显了华尔街在 OpenAI 首次公开募股前对其支出问题的担忧。"
+  },
+  {
+    "id": "3",
+    "title_en": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
+    "content_en": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin",
+    "fact_cn": "路透社 3 月 22 日消息，腾讯于周日推出了一项新工具，旨在将其微信消息服务与 OpenClaw AI 代理进行集成。"
+  },
+  {
+    "id": "4",
+    "title_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google - Benzinga",
+    "content_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google. OpenAI To Nearly Double Staff. OpenAI’s expansion comes at a crucial time as it faces increasing competition in t",
+    "fact_cn": "OpenAI 计划在与 Anthropic 及 Google 的 AI 竞争背景下，将近其员工规模扩大一倍。"
+  },
+  {
+    "id": "6",
+    "title_en": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
+    "content_en": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th",
+    "fact_cn": "特朗普的 AI 战略暴露了欧洲的战略模糊性。欧洲通常以轻触式监管、市场优先和风险容忍度来看待美国 AI 政策，立法者的声明明确表明了他们对相关问题的担忧。"
+  },
+  {
+    "id": "7",
+    "title_en": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption - Forbes",
+    "content_en": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption. On March 16, Reuters reported that OpenAI is in advanced talks with TPG, Advent International, Bain Capital, and Brookfield Asset M",
+    "fact_cn": "私募股权公司为 AI 实验室提供 140 亿美元的企业采用捷径。3 月 16 日，路透社报道 OpenAI 正与 TPG、Advent International、Bain Capital 及 Brookfield Asset Management 进行高级谈判。"
+  }
+]

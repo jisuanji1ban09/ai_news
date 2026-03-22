@@ -7,15 +7,21 @@
 输入：[
   {
     "id": "1",
-    "title_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google - Benzinga",
-    "source": "Benzinga",
-    "content": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google. OpenAI To Nearly Double Staff. OpenAI’s expansion comes at a crucial time as it faces increasing competition in t"
+    "title_en": "OpenAI's data center pivot underscores Wall Street spending concerns ahead of IPO - CNBC",
+    "source": "Cnbc",
+    "content": "When OpenAI CEO Sam Altman took the stage at BlackRock's U.S. Infrastructure Summit earlier this month, he acknowledged his company is facing a harsh reality: data centers are hard. \"Anything at t"
   },
   {
-    "id": "4",
+    "id": "3",
     "title_en": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
     "source": "Reuters",
     "content": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin"
+  },
+  {
+    "id": "4",
+    "title_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google - Benzinga",
+    "source": "Benzinga",
+    "content": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google. OpenAI To Nearly Double Staff. OpenAI’s expansion comes at a crucial time as it faces increasing competition in t"
   },
   {
     "id": "6",
@@ -24,15 +30,9 @@
     "content": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th"
   },
   {
-    "id": "8",
-    "title_en": "I'm a 24-year-old with the 'hottest job in AI.' These are the skills you need to get a role like mine. - Business Insider",
-    "source": "Businessinsider",
-    "content": "I'm a 24-year-old with the 'hottest job in AI.' These are the skills you need to get a role like mine. Kanav Bhatnagar's job title, forward deployed engineer, has been described as the \"hottes"
-  },
-  {
-    "id": "12",
-    "title_en": "What Is Physical AI, and What Does It Mean for Government? - GovTech",
-    "source": "Govtech",
-    "content": "WHAT IS PHYSICAL AI? IBM: “What is physical AI?”— “Physical AI refers to artificial intelligence (AI) systems that operate in and interact with the physical world, rather than existing onl"
+    "id": "7",
+    "title_en": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption - Forbes",
+    "source": "Forbes",
+    "content": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption. On March 16, Reuters reported that OpenAI is in advanced talks with TPG, Advent International, Bain Capital, and Brookfield Asset M"
   }
 ]

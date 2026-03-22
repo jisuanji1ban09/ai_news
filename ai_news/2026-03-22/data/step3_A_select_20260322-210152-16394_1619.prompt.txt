@@ -1,0 +1,155 @@
+请从下面的 AI 新闻候选中选出 Top5，并以 JSON 输出。
+要求：
+1. 只做选择，不翻译，不生成 title，不生成 summary。
+2. 优先选择 rank_score 高、category 多样、信息完整的新闻。
+3. 尽量覆盖：bigtech、china_ai、chip_infrastructure、funding_mna、regulation_policy
+4. 同一事件只选一条，不重复。
+5. 仅输出 JSON，不要 markdown，不要解释。
+输出格式：{"items":[{"id":"1"},{"id":"2"},{"id":"3"},{"id":"4"},{"id":"5"}]}
+候选（共 18 条）：
+[
+  {
+    "id": "1",
+    "title": "OpenAI's data center pivot underscores Wall Street spending concerns ahead of IPO - CNBC",
+    "source": "Cnbc",
+    "rank_score": 98.2,
+    "category": "chip_infrastructure",
+    "content": "When OpenAI CEO Sam Altman took the stage at BlackRock's U.S. Infrastructure Summit earlier this month, he acknowledged his company is facing a harsh reality: data centers are hard. \"Anything at t"
+  },
+  {
+    "id": "2",
+    "title": "An exclusive tour of Amazon's Trainium lab, the chip that's won over Anthropic, OpenAI, even Apple - TechCrunch",
+    "source": "Techcrunch",
+    "rank_score": 97.5,
+    "category": "chip_infrastructure",
+    "content": "An exclusive tour of Amazon’s Trainium lab, the chip that’s won over Anthropic, OpenAI, even Apple. Shortly after Amazon CEO Andy Jassy announced AWS’s groundbreaking $50 billion investment deal"
+  },
+  {
+    "id": "3",
+    "title": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
+    "source": "Reuters",
+    "rank_score": 88.35,
+    "category": "china_ai",
+    "content": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin"
+  },
+  {
+    "id": "4",
+    "title": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google - Benzinga",
+    "source": "Benzinga",
+    "rank_score": 83.4,
+    "category": "bigtech",
+    "content": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google. OpenAI To Nearly Double Staff. OpenAI’s expansion comes at a crucial time as it faces increasing competition in t"
+  },
+  {
+    "id": "5",
+    "title": "The Hypocrisy at the Heart of the AI Industry - The Atlantic",
+    "source": "Theatlantic",
+    "rank_score": 82.7,
+    "category": "bigtech",
+    "content": "This large-scale piracy has been excused in a number of ways: OpenAI (which has a corporate partnership with The Atlantic ’s business team) has claimed that the company uses “publicly available i"
+  },
+  {
+    "id": "6",
+    "title": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
+    "source": "Moderndiplomacy",
+    "rank_score": 81.15,
+    "category": "regulation_policy",
+    "content": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th"
+  },
+  {
+    "id": "7",
+    "title": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption - Forbes",
+    "source": "Forbes",
+    "rank_score": 79.9,
+    "category": "bigtech",
+    "content": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption. On March 16, Reuters reported that OpenAI is in advanced talks with TPG, Advent International, Bain Capital, and Brookfield Asset M"
+  },
+  {
+    "id": "8",
+    "title": "Amid Meta, Google layoffs, Sam Altman's OpenAI plans to double workforce to 8000; here's why - DNA India",
+    "source": "Dnaindia",
+    "rank_score": 79.2,
+    "category": "bigtech",
+    "content": "+ Amid Meta, Google layoffs, Sam Altman’s OpenAI plans to double workforce to 8000; here’s why. Amid Meta, Google layoffs, Sam Altman’s OpenAI plans to double workforce to 8000; here’s why. Ami"
+  },
+  {
+    "id": "9",
+    "title": "OpenAI Takes Aim at Google (GOOGL) and Microsoft (MSFT) With Stunning SuperApp - TipRanks",
+    "source": "Tipranks",
+    "rank_score": 78.5,
+    "category": "bigtech",
+    "content": "OpenAI is developing a desktop “superapp” that combines its core products into a single platform, a move that could intensify competition with Alphabet’s (GOOGL) subsidiary Google and Microsoft (M"
+  },
+  {
+    "id": "10",
+    "title": "Trump White House Sends Congress Its \"One Rulebook\" AI Blueprint - prismnews.com",
+    "source": "Prismedia",
+    "rank_score": 74.35,
+    "category": "general_ai",
+    "content": "The White House released a national AI framework aimed at replacing a growing patchwork of state laws, sparking immediate praise and sharp Democratic criticism. \"In December, President Trump signe"
+  },
+  {
+    "id": "11",
+    "title": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports - The Star",
+    "source": "Thestar",
+    "rank_score": 73.25,
+    "category": "bigtech",
+    "content": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports. Tennis-Wimbledon to introduce video review technology. UBS faced technology outage that impacted trading business, Bloom"
+  },
+  {
+    "id": "12",
+    "title": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race - News18",
+    "source": "News18",
+    "rank_score": 71.5,
+    "category": "bigtech",
+    "content": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race. OpenAI plans to double staff to 8000 by 2026, boost hiring in research, product and technical ambassadorship, after"
+  },
+  {
+    "id": "13",
+    "title": "What Is Physical AI, and What Does It Mean for Government? - GovTech",
+    "source": "Govtech",
+    "rank_score": 70.55,
+    "category": "chip_infrastructure",
+    "content": "WHAT IS PHYSICAL AI? IBM: “What is physical AI?”— “Physical AI refers to artificial intelligence (AI) systems that operate in and interact with the physical world, rather than existing onl"
+  },
+  {
+    "id": "14",
+    "title": "Mod Op Tool Helps Brands Respond To Dangerous AI-Generated Content 03/03/2026 - MediaPost",
+    "source": "Mediapost",
+    "rank_score": 67.4,
+    "category": "chip_infrastructure",
+    "content": "Subscribe today to gain access to every Research Intelligencer article we publish as well as the exclusive daily newsletter, full access to The MediaPost Cases , first-look research and daily i"
+  },
+  {
+    "id": "15",
+    "title": "How the FBI can conduct mass surveillance – even without AI - The Guardian",
+    "source": "Theguardian",
+    "rank_score": 66.65,
+    "category": "general_ai",
+    "content": "Patel’s admission underscores how the government is able to conduct mass surveillance despite its assurances to abide by lawful use of AI and fourth amendment protections against unreasonable sear"
+  },
+  {
+    "id": "16",
+    "title": "I'm a 24-year-old with the 'hottest job in AI.' These are the skills you need to get a role like mine. - Business Insider",
+    "source": "Businessinsider",
+    "rank_score": 64.55,
+    "category": "general_ai",
+    "content": "I'm a 24-year-old with the 'hottest job in AI.' These are the skills you need to get a role like mine. Kanav Bhatnagar's job title, forward deployed engineer, has been described as the \"hottes"
+  },
+  {
+    "id": "17",
+    "title": "Campaigns Deploy AI-Generated Ads Targeting Voters - Let's Data Science",
+    "source": "Letsdatascience",
+    "rank_score": 63.85,
+    "category": "general_ai",
+    "content": "1,500+ Questions · 15 Domains · Unlimited Audio. Campaigns Deploy AI-Generated Ads Targeting Voters. At least 15 campaign ads featuring AI-generated content have aired since November across loca"
+  },
+  {
+    "id": "18",
+    "title": "The Real AI Race Is Not The One You Think - Forbes",
+    "source": "Forbes",
+    "rank_score": 62.45,
+    "category": "general_ai",
+    "content": "As opposed to AI consumption, which risks turning people into the very product of AI, AI production is what makes AI a true asset: something to be explored, governed, and directed toward opening n"
+  }
+]

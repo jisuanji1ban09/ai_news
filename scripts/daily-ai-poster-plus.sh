@@ -632,10 +632,7 @@ print(f"Step3 DONE: top5={top5_json_file}")
 print(f"Step3 DONE: daily_brief={json_file}")
 PYEOF
 
-
-    exit 0
     # Step 4: Refine overflowing summaries (best-effort; never blocks rendering)
-    exit 0
     CURRENT_STEP="[4/8] Refining long summaries"
     log_step_start "$CURRENT_STEP"
 
@@ -679,13 +676,14 @@ PYEOF
 
     log_step_ok "$CURRENT_STEP"
     log "Poster generated: $IMAGE_PATH"
-# Ensure final poster is placed at the unified output location with a stable name
-if [ -f "$IMAGE_PATH" ]; then
-    cp -f "$IMAGE_PATH" "$OUTPUT_DIR/poster.png"
-    IMAGE_PATH="$OUTPUT_DIR/poster.png"
-    log "Poster copied to unified path: $IMAGE_PATH"
-fi
+    # Ensure final poster is placed at the unified output location with a stable name
+    if [ -f "$IMAGE_PATH" ]; then
+        cp -f "$IMAGE_PATH" "$OUTPUT_DIR/poster.png"
+        IMAGE_PATH="$OUTPUT_DIR/poster.png"
+        log "Poster copied to unified path: $IMAGE_PATH"
+    fi
 
+    exit 0
     # Step 6: Generate Voiceover Script
     CURRENT_STEP="[6/8] Generating voiceover script"
     log_step_start "$CURRENT_STEP"

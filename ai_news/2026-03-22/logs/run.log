@@ -218,3 +218,167 @@ VISUAL_CHECK id=8 title_vlen=18.52 summary_vlen=17.48 combined=36.0 title='Kanav
 VISUAL_CHECK id=12 title_vlen=17.56 summary_vlen=14.0 combined=31.56 title='IBM 定义物理 AI 为物理世界交互系统' summary='讨论涉及概念对政府领域的意义'
 Step3 DONE: top5=/Users/wzh/project/news/ai_news/2026-03-22/data/top5.json
 Step3 DONE: daily_brief=/Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json
+[2026-03-22 21:01:52] === Attempt 1/3 ===
+[2026-03-22 21:01:52] Cleaning up old artifacts for attempt 1...
+[2026-03-22 21:01:52] STEP status=start step="[1/8] Fetching AI news" attempt=1 run_id=20260322-210152-16394_1619
+[2026-03-22 21:02:10] STEP status=ok step="[1/8] Fetching AI news" attempt=1 run_id=20260322-210152-16394_1619
+[2026-03-22 21:02:10] Fetch error log: /Users/wzh/project/news/ai_news/2026-03-22/data/fetch_errors.log
+[2026-03-22 21:02:10] STEP status=start step="[2/8] Parsing candidates" attempt=1 run_id=20260322-210152-16394_1619
+Parsed 19 candidates after filter+dedup
+Category breakdown: {'chip_infrastructure': 5, 'china_ai': 1, 'bigtech': 7, 'regulation_policy': 1, 'general_ai': 5}
+[2026-03-22 21:02:11] Parsed candidates: 19
+[2026-03-22 21:02:11] STEP status=ok step="[2/8] Parsing candidates" attempt=1 run_id=20260322-210152-16394_1619
+[2026-03-22 21:02:11] STEP status=start step="[3/8] Generating Top5 JSON" attempt=1 run_id=20260322-210152-16394_1619
+Sub-step A OK: selected ids=['1', '3', '4', '6', '7']
+Sub-step B OK: translated 5 items
+Sub-step C OK: checked 5 items
+Traceback (most recent call last):
+  File "<stdin>", line 253, in <module>
+  File "<stdin>", line 136, in call_llm
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 214, in urlopen
+    return opener.open(url, data, timeout)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 517, in open
+    response = self._open(req, data)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 534, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 494, in _call_chain
+    result = func(*args)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1389, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1350, in do_open
+    r = h.getresponse()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1349, in getresponse
+    response.begin()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 316, in begin
+    version, status, reason = self._read_status()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 277, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1241, in recv_into
+    return self.read(nbytes, buffer)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1099, in read
+    return self._sslobj.read(len, buffer)
+socket.timeout: The read operation timed out
+[2026-03-22 21:10:59] STEP status=start step="[4/8] Refining long summaries" attempt=1 run_id=20260322-210152-16394_1619
+[2026-03-22 21:11:00] WARNING: Summary refiner failed (non-blocking). Continue rendering. details: Traceback (most recent call last):
+  File "/Users/wzh/project/news/skills/summary-one-line-refiner/scripts/refine_summaries.py", line 262, in <module>
+    raise SystemExit(main())
+  File "/Users/wzh/project/news/skills/summary-one-line-refiner/scripts/refine_summaries.py", line 175, in main
+    raise FileNotFoundError(f"brief not found: {brief_path}")
+FileNotFoundError: brief not found: /Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json
+[2026-03-22 21:11:00] STEP status=ok step="[4/8] Refining long summaries" attempt=1 run_id=20260322-210152-16394_1619
+[2026-03-22 21:11:00] STEP status=start step="[5/8] Rendering poster" attempt=1 run_id=20260322-210152-16394_1619
+[2026-03-22 21:11:00] STEP status=fail step="[5/8] Rendering poster" attempt=1 error="Render failed (exit: 1): [ERROR] JSON file not found: /Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json
+{"status": "error", "error": "JSON file not found: /Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json"}" run_id=20260322-210152-16394_1619
+[2026-03-22 21:11:00] === Attempt 2/3 ===
+[2026-03-22 21:11:00] Cleaning up old artifacts for attempt 2...
+[2026-03-22 21:11:00] STEP status=start step="[1/8] Fetching AI news" attempt=2 run_id=20260322-210152-16394_1619
+[2026-03-22 21:11:25] STEP status=ok step="[1/8] Fetching AI news" attempt=2 run_id=20260322-210152-16394_1619
+[2026-03-22 21:11:25] Fetch error log: /Users/wzh/project/news/ai_news/2026-03-22/data/fetch_errors.log
+[2026-03-22 21:11:25] STEP status=start step="[2/8] Parsing candidates" attempt=2 run_id=20260322-210152-16394_1619
+Parsed 19 candidates after filter+dedup
+Category breakdown: {'chip_infrastructure': 5, 'china_ai': 1, 'bigtech': 7, 'regulation_policy': 1, 'general_ai': 5}
+[2026-03-22 21:11:25] Parsed candidates: 19
+[2026-03-22 21:11:25] STEP status=ok step="[2/8] Parsing candidates" attempt=2 run_id=20260322-210152-16394_1619
+[2026-03-22 21:11:25] STEP status=start step="[3/8] Generating Top5 JSON" attempt=2 run_id=20260322-210152-16394_1619
+Sub-step A OK: selected ids=['1', '2', '3', '4', '6']
+Sub-step B OK: translated 5 items
+Sub-step C OK: checked 5 items
+Traceback (most recent call last):
+  File "<stdin>", line 253, in <module>
+  File "<stdin>", line 136, in call_llm
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 214, in urlopen
+    return opener.open(url, data, timeout)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 517, in open
+    response = self._open(req, data)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 534, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 494, in _call_chain
+    result = func(*args)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1389, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1350, in do_open
+    r = h.getresponse()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1349, in getresponse
+    response.begin()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 316, in begin
+    version, status, reason = self._read_status()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 277, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1241, in recv_into
+    return self.read(nbytes, buffer)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1099, in read
+    return self._sslobj.read(len, buffer)
+socket.timeout: The read operation timed out
+[2026-03-22 21:20:57] STEP status=start step="[4/8] Refining long summaries" attempt=2 run_id=20260322-210152-16394_1619
+[2026-03-22 21:20:58] WARNING: Summary refiner failed (non-blocking). Continue rendering. details: Traceback (most recent call last):
+  File "/Users/wzh/project/news/skills/summary-one-line-refiner/scripts/refine_summaries.py", line 262, in <module>
+    raise SystemExit(main())
+  File "/Users/wzh/project/news/skills/summary-one-line-refiner/scripts/refine_summaries.py", line 175, in main
+    raise FileNotFoundError(f"brief not found: {brief_path}")
+FileNotFoundError: brief not found: /Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json
+[2026-03-22 21:20:58] STEP status=ok step="[4/8] Refining long summaries" attempt=2 run_id=20260322-210152-16394_1619
+[2026-03-22 21:20:58] STEP status=start step="[5/8] Rendering poster" attempt=2 run_id=20260322-210152-16394_1619
+[2026-03-22 21:20:58] STEP status=fail step="[5/8] Rendering poster" attempt=2 error="Render failed (exit: 1): [ERROR] JSON file not found: /Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json
+{"status": "error", "error": "JSON file not found: /Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json"}" run_id=20260322-210152-16394_1619
+[2026-03-22 21:20:58] === Attempt 3/3 ===
+[2026-03-22 21:20:58] Cleaning up old artifacts for attempt 3...
+[2026-03-22 21:20:58] STEP status=start step="[1/8] Fetching AI news" attempt=3 run_id=20260322-210152-16394_1619
+[2026-03-22 21:21:13] STEP status=ok step="[1/8] Fetching AI news" attempt=3 run_id=20260322-210152-16394_1619
+[2026-03-22 21:21:13] Fetch error log: /Users/wzh/project/news/ai_news/2026-03-22/data/fetch_errors.log
+[2026-03-22 21:21:13] STEP status=start step="[2/8] Parsing candidates" attempt=3 run_id=20260322-210152-16394_1619
+Parsed 18 candidates after filter+dedup
+Category breakdown: {'chip_infrastructure': 4, 'china_ai': 1, 'bigtech': 7, 'regulation_policy': 1, 'general_ai': 5}
+[2026-03-22 21:21:13] Parsed candidates: 18
+[2026-03-22 21:21:13] STEP status=ok step="[2/8] Parsing candidates" attempt=3 run_id=20260322-210152-16394_1619
+[2026-03-22 21:21:13] STEP status=start step="[3/8] Generating Top5 JSON" attempt=3 run_id=20260322-210152-16394_1619
+Sub-step A OK: selected ids=['1', '3', '4', '6', '7']
+Sub-step B OK: translated 5 items
+Sub-step C OK: checked 5 items
+Traceback (most recent call last):
+  File "<stdin>", line 253, in <module>
+  File "<stdin>", line 136, in call_llm
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 214, in urlopen
+    return opener.open(url, data, timeout)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 517, in open
+    response = self._open(req, data)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 534, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 494, in _call_chain
+    result = func(*args)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1389, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1350, in do_open
+    r = h.getresponse()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1349, in getresponse
+    response.begin()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 316, in begin
+    version, status, reason = self._read_status()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 285, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+[2026-03-22 21:28:43] STEP status=start step="[4/8] Refining long summaries" attempt=3 run_id=20260322-210152-16394_1619
+[2026-03-22 21:28:43] WARNING: Summary refiner failed (non-blocking). Continue rendering. details: Traceback (most recent call last):
+  File "/Users/wzh/project/news/skills/summary-one-line-refiner/scripts/refine_summaries.py", line 262, in <module>
+    raise SystemExit(main())
+  File "/Users/wzh/project/news/skills/summary-one-line-refiner/scripts/refine_summaries.py", line 175, in main
+    raise FileNotFoundError(f"brief not found: {brief_path}")
+FileNotFoundError: brief not found: /Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json
+[2026-03-22 21:28:43] STEP status=ok step="[4/8] Refining long summaries" attempt=3 run_id=20260322-210152-16394_1619
+[2026-03-22 21:28:43] STEP status=start step="[5/8] Rendering poster" attempt=3 run_id=20260322-210152-16394_1619
+[2026-03-22 21:28:44] STEP status=fail step="[5/8] Rendering poster" attempt=3 error="Render failed (exit: 1): [ERROR] JSON file not found: /Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json
+{"status": "error", "error": "JSON file not found: /Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json"}" run_id=20260322-210152-16394_1619
+[2026-03-22 21:28:44] === FAILED ===
+[2026-03-22 21:28:44] Final error: Render failed (exit: 1): [ERROR] JSON file not found: /Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json
+{"status": "error", "error": "JSON file not found: /Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json"}
+[plugins] feishu_doc: Registered feishu_doc, feishu_app_scopes
+[plugins] feishu_chat: Registered feishu_chat tool
+[plugins] feishu_wiki: Registered feishu_wiki tool
+[plugins] feishu_drive: Registered feishu_drive tool
+[plugins] feishu_bitable: Registered bitable tools
+[info]: [ 'client ready' ]
+✅ Sent via Feishu. Message ID: om_x100b54caa4e988acc31b93a1741d92d (chat ou_fe30fbdabcf5e38016c49c53f55abf76)
+[2026-03-22 21:29:07] Failure notification sent.

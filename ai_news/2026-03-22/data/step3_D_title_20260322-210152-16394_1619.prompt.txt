@@ -27,22 +27,22 @@ summary: "对手包括 Anthropic 及 Google，Benzinga 报"  ← 残句且信息
 输入：[
   {
     "id": "1",
-    "fact_cn_checked": "OpenAI 计划在与 Anthropic 及 Google 的人工智能竞争中，将员工规模扩大近一倍。此次人员扩张发生在该公司面临日益激烈竞争的关键时刻。"
+    "fact_cn_checked": "本月早些时候，OpenAI 首席执行官山姆·阿尔特曼在贝莱德美国基础设施峰会上承认，公司面临数据中心建设困难的现实。这一动向凸显了华尔街在 OpenAI 首次公开募股前对其支出问题的担忧。"
+  },
+  {
+    "id": "3",
+    "fact_cn_checked": "路透社 3 月 22 日消息，腾讯 (0700.HK) 于周日推出了一项新工具，旨在将其微信消息服务与 OpenClaw AI 代理进行集成。"
   },
   {
     "id": "4",
-    "fact_cn_checked": "3 月 22 日，腾讯（0700.HK）于周日推出了一项工具，用于将其微信消息功能与 OpenClaw AI 代理进行集成。该动作被视为中国科技竞争背景下的一项举措。"
+    "fact_cn_checked": "OpenAI 计划在与 Anthropic 及 Google 的 AI 竞争背景下，将近其员工规模扩大一倍。"
   },
   {
     "id": "6",
-    "fact_cn_checked": "特朗普的人工智能战略暴露了欧洲的战略模糊性。欧洲通常以轻触式监管、市场优先和风险容忍度的视角看待美国人工智能政策。立法者的声明明确表明了他们对相关问题的担忧。"
+    "fact_cn_checked": "特朗普的 AI 战略暴露了欧洲的战略模糊性。欧洲通常以轻触式监管、市场优先和风险容忍度来看待美国 AI 政策，立法者的声明明确表明了他们对相关问题的担忧。"
   },
   {
-    "id": "8",
-    "fact_cn_checked": "24 岁的 Kanav Bhatnagar 担任前线部署工程师一职，该职位被称为“人工智能领域最热门的工作”。相关报道介绍了获得此类角色所需的技能。"
-  },
-  {
-    "id": "12",
-    "fact_cn_checked": "IBM 将物理 AI 定义为在物理世界中运行并与之交互的人工智能系统。相关讨论涉及该概念对政府领域的意义。"
+    "id": "7",
+    "fact_cn_checked": "私募股权公司为 AI 实验室提供 140 亿美元的企业采用捷径。3 月 16 日，路透社报道 OpenAI 正与 TPG、Advent International、Bain Capital 及 Brookfield Asset Management 进行高级谈判。"
   }
 ]
