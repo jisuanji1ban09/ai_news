@@ -27,15 +27,15 @@ summary: "对手包括 Anthropic 及 Google，Benzinga 报"  ← 残句且信息
 输入：[
   {
     "id": "1",
-    "fact_cn_checked": "欧洲常以轻度监管、市场优先及风险容忍的视角审视美国人工智能政策，立法者的声明明确表达了对此的担忧，同时也暴露了欧洲自身在战略上的模糊性。"
+    "fact_cn_checked": "欧洲观察人士指出，美国在人工智能政策上倾向于轻触式监管、市场主导及容忍风险，立法者的言论明确表达了对特朗普政府相关战略模糊性的担忧。"
   },
   {
     "id": "3",
-    "fact_cn_checked": "3 月 22 日，腾讯（0700.HK）推出新工具，将其微信消息服务与 OpenClaw AI 智能体集成，此举发生在中国科技竞争加剧的背景下。"
+    "fact_cn_checked": "腾讯（0700.HK）于 3 月 22 日周日推出新工具，旨在将其微信消息服务与 OpenClaw AI 智能体进行整合，以应对中国科技领域的竞争。"
   },
   {
     "id": "4",
-    "fact_cn_checked": "在与 Anthropic 和谷歌的人工智能竞争加剧之际，OpenAI 计划将员工人数增加近一倍，以应对关键时期的市场竞争。"
+    "fact_cn_checked": "面对来自 Anthropic 和谷歌的日益激烈的竞争，OpenAI 计划将其员工规模扩大近一倍。"
   },
   {
     "id": "10",
@@ -43,6 +43,6 @@ summary: "对手包括 Anthropic 及 Google，Benzinga 报"  ← 残句且信息
   },
   {
     "id": "7",
-    "fact_cn_checked": "3 月 16 日路透社报道，OpenAI 正与 TPG、Advent International、贝恩资本和布鲁克菲尔德资产管理公司进行高级谈判，私募股权公司拟提供 140 亿美元助力 AI 实验室加速企业级应用落地。"
+    "fact_cn_checked": "据路透社 3 月 16 日报道，OpenAI 正与 TPG、Advent International、贝恩资本和布鲁克菲尔德资产管理公司进行高级谈判；私募股权公司拟提供 140 亿美元助力 AI 实验室加速企业级应用落地。"
   }
 ]

@@ -33,14 +33,14 @@ DATE_STR = os.environ.get("DATE_STR")
 TITLE_KEYS = ("short_title", "title")
 SUMMARY_KEYS = ("short_summary", "summary", "summary_cn")
 UNCERTAIN_KEYWORDS = (
-    "计划",
     "拟",
     "预计",
-    "将",
     "或将",
     "考虑",
     "下周公布",
     "传闻",
+    "据悉",
+    "消息称",
 )
 CATEGORY_MAP = {
     "china_ai": "policy",
@@ -417,18 +417,22 @@ def generate_insight_sentence(item: Mapping[str, Any], index: int) -> str:
 
 
 def generate_script(items: Sequence[Mapping[str, Any]], date_str: str | None = None) -> str:
-    """Generate the full voiceover script."""
+    """Generate the full voiceover script in Douyin short-video style."""
     if len(items) != 5:
         raise ValueError(f"生成口播前需要 5 条新闻，当前为 {len(items)}")
 
     script_date = format_date(date_str)
     ordinals = ("第一条", "第二条", "第三条", "第四条", "第五条")
 
+    # 钩子式开场：用最重要的第一条新闻做诱饵
+    first_title = get_preferred_value(items[0], TITLE_KEYS)
+    first_subject = extract_subject(first_title) if first_title else "AI圈"
+
     lines = [
-        "AI 每日资讯来了！",
-        f"{script_date}，AI 圈 5 条重点消息，带你快速看懂行业最新动态。",
+        f"{first_subject}有大动作！今天 AI 圈这 5 条消息你一定要知道。",
         "",
     ]
+
     group_counts: dict[str, int] = {}
 
     for index, item in enumerate(items, start=1):
@@ -438,11 +442,12 @@ def generate_script(items: Sequence[Mapping[str, Any]], date_str: str | None = N
         insight_sentence = generate_insight_sentence(item, group_counts[group])
         lines.append(f"{ordinals[index - 1]}，{news_sentence}。{insight_sentence}。")
 
+    # 互动引导结尾
     lines.extend(
         [
             "",
-            "以上就是今天的 5 条重点消息。",
-            "关注我，每天带你快速看懂 AI 行业最新动态。",
+            f"以上是{script_date}的 5 条 AI 重点消息。",
+            "觉得哪条最震惊？评论区告诉我。关注我，每天第一时间掌握 AI 行业动态。",
         ]
     )
     return "\n".join(lines)
