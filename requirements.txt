@@ -1,0 +1,1 @@
+-r skills/daily-brief-to-poster/requirements.txt

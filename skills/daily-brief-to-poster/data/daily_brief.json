@@ -1,0 +1,26 @@
+{
+  "date": "2026.03.16",
+  "template": "a",
+  "items": [
+    {
+      "title": "NVIDIA GTC 2026 开幕",
+      "summary": "30,000 与会者，AI 基础设施新突破"
+    },
+    {
+      "title": "Meta 投资 270 亿用于 AI 基",
+      "summary": "五年内，Meta 将大规模采购 Nebius AI 计算资源"
+    },
+    {
+      "title": "NewPhotonics 推出无加热 M",
+      "summary": "Syncra™ 微环调制器提升高密度光子芯片性能"
+    },
+    {
+      "title": "ByteDance 暂缓 Seedanc",
+      "summary": "全球发布推迟，聚焦技术完善与合规审查"
+    },
+    {
+      "title": "瑞典副总理呼吁包容性 AI",
+      "summary": "强调 AI 发展需兼顾多元与公平"
+    }
+  ]
+}

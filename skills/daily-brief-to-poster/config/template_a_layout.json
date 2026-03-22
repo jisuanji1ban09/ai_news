@@ -1,0 +1,127 @@
+{
+  "template_name": "Template A v1",
+  "template_id": "a",
+  "output_suffix": "a",
+  "canvas": {
+    "width": 1365,
+    "height": 2048
+  },
+  "safe_margin": {
+    "left": 120,
+    "right": 120,
+    "top": 120,
+    "bottom": 120
+  },
+  "title_area": {
+    "x": 140,
+    "y": 140,
+    "w": 1085,
+    "h": 190
+  },
+  "date_area": {
+    "x": 390,
+    "y": 350,
+    "w": 585,
+    "h": 80
+  },
+  "news_group_area": {
+    "x": 137,
+    "y": 500,
+    "w": 1091,
+    "h": 980
+  },
+  "news_cards": [
+    {
+      "x": 137,
+      "y": 500,
+      "w": 1091,
+      "h": 175
+    },
+    {
+      "x": 137,
+      "y": 701,
+      "w": 1091,
+      "h": 175
+    },
+    {
+      "x": 137,
+      "y": 902,
+      "w": 1091,
+      "h": 175
+    },
+    {
+      "x": 137,
+      "y": 1103,
+      "w": 1091,
+      "h": 175
+    },
+    {
+      "x": 137,
+      "y": 1304,
+      "w": 1091,
+      "h": 175
+    }
+  ],
+  "card_padding": {
+    "left_right": 30,
+    "top": 13,
+    "bottom": 39
+  },
+  "forbidden_zone": {
+    "bottom_text_limit_y": 1500
+  },
+  "fonts": {
+    "title": "assets/fonts/SourceHanSansSC-Bold.otf",
+    "date": "assets/fonts/SourceHanSansSC-Medium.otf",
+    "card_title": "assets/fonts/SourceHanSansSC-Bold.otf",
+    "card_summary": "assets/fonts/SourceHanSansSC-Regular.otf"
+  },
+  "styles": {
+    "title": {
+      "text": "AI每日资讯",
+      "font_size": 118,
+      "color": "#F7FCFF",
+      "glow_color": "#59D8FF",
+      "glow_blur": 18,
+      "align": "center"
+    },
+    "date": {
+      "font_size": 52,
+      "color": "#F2F8FF",
+      "align": "center"
+    },
+    "card_container": {
+      "fill": "rgba(7,20,42,0.50)",
+      "border_color": "rgba(91,221,255,0.85)",
+      "border_width": 2,
+      "radius": 28,
+      "glow_color": "rgba(91,221,255,0.55)",
+      "glow_blur": 10
+    },
+    "card_title": {
+      "font_size": 54,
+      "min_font_size": 42,
+      "color": "#F7FBFF",
+      "align": "center",
+      "line_spacing": 6
+    },
+    "card_summary": {
+      "font_size": 34,
+      "min_font_size": 24,
+      "color": "#D8EAFF",
+      "align": "center",
+      "line_spacing": 4
+    },
+    "card_content": {
+      "title_summary_gap": 12
+    },
+    "debug": {
+      "safe_margin_color": "rgba(255,255,0,0.9)",
+      "area_color": "rgba(88,235,255,0.9)",
+      "card_color": "rgba(255,154,54,0.95)",
+      "forbidden_color": "rgba(255,45,45,0.95)",
+      "text_bbox_color": "rgba(255,255,255,0.9)",
+      "line_width": 3
+    }
+  }
+}
