@@ -10,6 +10,15 @@
   },
   {
     "id": "2",
+    "title": "OpenAI reportedly plans to double its workforce to 8,000 employees - Engadget",
+    "source": "Engadget",
+    "url": "https://www.engadget.com/ai/openai-reportedly-plans-to-double-its-workforce-to-8000-employees-161028377.html",
+    "summary_cn": "# OpenAI reportedly plans to double its workforce to 8,000 employees. According to a report from the *Financial Times*, the AI giant is looking to expand its workforce to 8,000 employees by the en...",
+    "category": "bigtech",
+    "importance_score": 100.9
+  },
+  {
+    "id": "3",
     "title": "Amid Meta, Google layoffs, Sam Altman's OpenAI plans to double workforce to 8000; here's why - DNA India",
     "source": "Dnaindia",
     "url": "https://www.dnaindia.com/technology/report-amid-meta-google-layoffs-sam-altman-s-openai-plans-to-double-workforce-to-8000-here-s-why-3203858",
@@ -18,7 +27,7 @@
     "importance_score": 100.55
   },
   {
-    "id": "3",
+    "id": "4",
     "title": "OpenAI plans to double workforce to 8,000 amid rising competition - Telangana Today",
     "source": "Telanganatoday",
     "url": "https://telanganatoday.com/openai-plans-to-double-workforce-to-8000-amid-rising-competition",
@@ -27,7 +36,16 @@
     "importance_score": 98.45
   },
   {
-    "id": "4",
+    "id": "5",
+    "title": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
+    "source": "Moderndiplomacy",
+    "url": "https://moderndiplomacy.eu/2026/03/21/trumps-ai-strategy-exposes-europes-strategic-ambiguity/",
+    "summary_cn": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th...",
+    "category": "regulation_policy",
+    "importance_score": 98.3
+  },
+  {
+    "id": "6",
     "title": "OpenAI's data center pivot underscores Wall Street spending concerns ahead of IPO - CNBC",
     "source": "Cnbc",
     "url": "https://www.cnbc.com/2026/03/22/openai-data-center-pivot-underscores-wall-street-ipo-concerns.html",
@@ -36,7 +54,7 @@
     "importance_score": 98.2
   },
   {
-    "id": "5",
+    "id": "7",
     "title": "An exclusive tour of Amazon's Trainium lab, the chip that's won over Anthropic, OpenAI, even Apple - TechCrunch",
     "source": "Techcrunch",
     "url": "https://techcrunch.com/2026/03/22/an-exclusive-tour-of-amazons-trainium-lab-the-chip-thats-won-over-anthropic-openai-even-apple/",
@@ -45,7 +63,7 @@
     "importance_score": 97.5
   },
   {
-    "id": "6",
+    "id": "8",
     "title": "The Smartest Minds in AI Just Learned the World’s Most Valuable F-Word - WSJ",
     "source": "Wsj",
     "url": "https://www.wsj.com/tech/ai/openai-anthropic-claude-code-apple-steve-jobs-4cdc28d2?gaa_at=eafs&gaa_n=AWEtsqf4InLKiTQUCcAvj4h9ppr9Om0k4i9FFLboDvPDMwf0kL-0dGS3MU6C&gaa_ts=69be17bd&gaa_sig=GfkPbjTRPgw8-2x_UDmuFcLW62Q6KiwYFXhRs50NjIPf5UKiun_r1kbQUS83eAKYqEsJCT4g345oIq2AwoPnqw%3D%3D",
@@ -54,7 +72,16 @@
     "importance_score": 89.4
   },
   {
-    "id": "7",
+    "id": "9",
+    "title": "Trump White House Sends Congress Its \"One Rulebook\" AI Blueprint - prismnews.com",
+    "source": "Prismedia",
+    "url": "https://www.prismedia.ai/news/trump-white-house-sends-congress-its-one-rulebook-ai",
+    "summary_cn": "The White House released a national AI framework aimed at replacing a growing patchwork of state laws, sparking immediate praise and sharp Democratic criticism. \"In December, President Trump signe...",
+    "category": "general_ai",
+    "importance_score": 89.4
+  },
+  {
+    "id": "10",
     "title": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
     "source": "Reuters",
     "url": "https://www.reuters.com/technology/tencent-integrates-wechat-with-openclaw-ai-agent-amid-china-tech-battle-2026-03-22/",
@@ -63,74 +90,47 @@
     "importance_score": 88.35
   },
   {
-    "id": "8",
-    "title": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
-    "source": "Moderndiplomacy",
-    "url": "https://moderndiplomacy.eu/2026/03/21/trumps-ai-strategy-exposes-europes-strategic-ambiguity/",
-    "summary_cn": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th...",
-    "category": "regulation_policy",
-    "importance_score": 81.15
-  },
-  {
-    "id": "9",
-    "title": "Trump White House Sends Congress Its \"One Rulebook\" AI Blueprint - prismnews.com",
-    "source": "Prismedia",
-    "url": "https://www.prismedia.ai/news/trump-white-house-sends-congress-its-one-rulebook-ai",
-    "summary_cn": "The White House released a national AI framework aimed at replacing a growing patchwork of state laws, sparking immediate praise and sharp Democratic criticism. \"In December, President Trump signe...",
-    "category": "general_ai",
-    "importance_score": 74.35
-  },
-  {
-    "id": "10",
-    "title": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports - The Star",
-    "source": "Thestar",
-    "url": "https://www.thestar.com.my/tech/tech-news/2026/03/21/openai-to-nearly-double-workforce-to-8000-by-end-2026-ft-reports",
-    "summary_cn": "# OpenAI to nearly double workforce to 8,000 by end-2026, FT reports. ## Tennis-Wimbledon to introduce video review technology. ## UBS faced technology outage that impacted trading business, Bloom...",
-    "category": "bigtech",
-    "importance_score": 73.25
-  },
-  {
     "id": "11",
-    "title": "Google Search test replaces headlines and website titles with AI - 9to5Google",
-    "source": "9To5Google",
-    "url": "https://9to5google.com/2026/03/21/google-search-test-replaces-headlines-and-website-titles-with-ai/",
-    "summary_cn": "# Google Search test replaces headlines and website titles with AI. Google Search has started testing the use of AI to replace headlines and website titles, a change that seems both unnecessary an...",
-    "category": "bigtech",
-    "importance_score": 71.15
-  },
-  {
-    "id": "12",
-    "title": "OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports - Reuters",
-    "source": "Reuters",
-    "url": "https://www.reuters.com/business/media-telecom/openai-expand-ads-chatgpt-all-free-low-cost-users-information-reports-2026-03-21/",
-    "summary_cn": "# OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports. March 21 (Reuters) - OpenAI has told ​advertising agencies it ‌is increasing the number ​of users ​shown ...",
-    "category": "bigtech",
-    "importance_score": 70.1
-  },
-  {
-    "id": "13",
-    "title": "OpenAI reportedly plans to double its workforce to 8,000 employees - Engadget",
-    "source": "Engadget",
-    "url": "https://www.engadget.com/ai/openai-reportedly-plans-to-double-its-workforce-to-8000-employees-161028377.html",
-    "summary_cn": "# OpenAI reportedly plans to double its workforce to 8,000 employees. According to a report from the *Financial Times*, the AI giant is looking to expand its workforce to 8,000 employees by the en...",
-    "category": "bigtech",
-    "importance_score": 68.7
-  },
-  {
-    "id": "14",
     "title": "AI - New York Post",
     "source": "Nypost",
     "url": "https://nypost.com/2026/03/22/tech/as-ai-takes-over-consumers-face-a-hard-choice-between-safety-and-privacy/",
     "summary_cn": "US privacy law is not sufficiently armed with penalties strong enough to incentivize companies to do better.”. “The privacy erosion isn’t a bug but a feature of the business model of most tech com...",
     "category": "general_ai",
-    "importance_score": 68.05
+    "importance_score": 78.9
   },
   {
-    "id": "15",
+    "id": "12",
+    "title": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports - The Star",
+    "source": "Thestar",
+    "url": "https://www.thestar.com.my/tech/tech-news/2026/03/21/openai-to-nearly-double-workforce-to-8000-by-end-2026-ft-reports",
+    "summary_cn": "# OpenAI to nearly double workforce to 8,000 by end-2026, FT reports. ## Tennis-Wimbledon to introduce video review technology. ## UBS faced technology outage that impacted trading business, Bloom...",
+    "category": "bigtech",
+    "importance_score": 68.35
+  },
+  {
+    "id": "13",
+    "title": "Letters to the Editor: Want proof that AI doesn’t have human-like intelligence? Tell it to make you laugh - Los Angeles Times",
+    "source": "Latimes",
+    "url": "https://www.latimes.com/opinion/letters-to-the-editor/story/2026-03-22/ai-human-intelligence-jokes",
+    "summary_cn": "Tap to enable a layout that focuses on the article. # Letters to the Editor: Want proof that AI doesn’t have human-like intelligence? * Click here to listen to this article. This is read by an aut...",
+    "category": "chip_infrastructure",
+    "importance_score": 67.75
+  },
+  {
+    "id": "14",
     "title": "What Is Physical AI, and What Does It Mean for Government? - GovTech",
     "source": "Govtech",
     "url": "https://www.govtech.com/blogs/lohrmann-on-cybersecurity/what-is-physical-ai-and-what-does-it-mean-for-government",
     "summary_cn": "### WHAT IS PHYSICAL AI? **IBM:** “What is physical AI?”— “Physical AI refers to artificial intelligence (AI) systems that operate in and interact with the physical world, rather than existing onl...",
+    "category": "chip_infrastructure",
+    "importance_score": 66.7
+  },
+  {
+    "id": "15",
+    "title": "Nvidia Wants You to Build an 'OpenClaw Strategy'—If You Don't Know What That Means, You're Already Behind - inc.com",
+    "source": "Inc",
+    "url": "https://www.inc.com/kevin-haynes/nvidia-wants-you-to-build-an-openclaw-strategy-if-you-dont-know-what-that-means-youre-already-behind/91320500",
+    "summary_cn": "CEO Jensen Huang hails “the new computer”—and “the single most important release of software, probably ever.”. Nvidia chief executive Jensen Huang had one pointed question for all the developers, ...",
     "category": "chip_infrastructure",
     "importance_score": 66.7
   },
@@ -150,7 +150,7 @@
     "url": "https://letsdatascience.com/news/campaigns-deploy-ai-generated-ads-targeting-voters-d729bd25",
     "summary_cn": "1,500+ Questions · 15 Domains · Unlimited Audio. # Campaigns Deploy AI-Generated Ads Targeting Voters. At least 15 campaign ads featuring AI-generated content have aired since November across loca...",
     "category": "general_ai",
-    "importance_score": 63.85
+    "importance_score": 66.3
   },
   {
     "id": "18",

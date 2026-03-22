@@ -18,6 +18,14 @@
   },
   {
     "id": "2",
+    "title": "OpenAI reportedly plans to double its workforce to 8,000 employees - Engadget",
+    "source": "Engadget",
+    "rank_score": 100.9,
+    "category": "bigtech",
+    "content": "OpenAI reportedly plans to double its workforce to 8,000 employees. According to a report from the Financial Times , the AI giant is looking to expand its workforce to 8,000 employees by the en"
+  },
+  {
+    "id": "3",
     "title": "Amid Meta, Google layoffs, Sam Altman's OpenAI plans to double workforce to 8000; here's why - DNA India",
     "source": "Dnaindia",
     "rank_score": 100.55,
@@ -25,7 +33,7 @@
     "content": "+ Amid Meta, Google layoffs, Sam Altman’s OpenAI plans to double workforce to 8000; here’s why. Amid Meta, Google layoffs, Sam Altman’s OpenAI plans to double workforce to 8000; here’s why. Ami"
   },
   {
-    "id": "3",
+    "id": "4",
     "title": "OpenAI plans to double workforce to 8,000 amid rising competition - Telangana Today",
     "source": "Telanganatoday",
     "rank_score": 98.45,
@@ -33,7 +41,15 @@
     "content": "Home | Science & Tech | Openai Plans To Double Workforce To 8000 Amid Rising Competition. OpenAI plans to double workforce to 8,000 amid rising competition. OpenAI plans to nearly double its wor"
   },
   {
-    "id": "4",
+    "id": "5",
+    "title": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
+    "source": "Moderndiplomacy",
+    "rank_score": 98.3,
+    "category": "regulation_policy",
+    "content": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th"
+  },
+  {
+    "id": "6",
     "title": "OpenAI's data center pivot underscores Wall Street spending concerns ahead of IPO - CNBC",
     "source": "Cnbc",
     "rank_score": 98.2,
@@ -41,7 +57,7 @@
     "content": "When OpenAI CEO Sam Altman took the stage at BlackRock's U.S. Infrastructure Summit earlier this month, he acknowledged his company is facing a harsh reality: data centers are hard. \"Anything at t"
   },
   {
-    "id": "5",
+    "id": "7",
     "title": "An exclusive tour of Amazon's Trainium lab, the chip that's won over Anthropic, OpenAI, even Apple - TechCrunch",
     "source": "Techcrunch",
     "rank_score": 97.5,
@@ -49,7 +65,7 @@
     "content": "An exclusive tour of Amazon’s Trainium lab, the chip that’s won over Anthropic, OpenAI, even Apple. Shortly after Amazon CEO Andy Jassy announced AWS’s groundbreaking $50 billion investment deal"
   },
   {
-    "id": "6",
+    "id": "8",
     "title": "The Smartest Minds in AI Just Learned the World’s Most Valuable F-Word - WSJ",
     "source": "Wsj",
     "rank_score": 89.4,
@@ -57,7 +73,15 @@
     "content": "Answer"
   },
   {
-    "id": "7",
+    "id": "9",
+    "title": "Trump White House Sends Congress Its \"One Rulebook\" AI Blueprint - prismnews.com",
+    "source": "Prismedia",
+    "rank_score": 89.4,
+    "category": "general_ai",
+    "content": "The White House released a national AI framework aimed at replacing a growing patchwork of state laws, sparking immediate praise and sharp Democratic criticism. \"In December, President Trump signe"
+  },
+  {
+    "id": "10",
     "title": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
     "source": "Reuters",
     "rank_score": 88.35,
@@ -65,68 +89,44 @@
     "content": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin"
   },
   {
-    "id": "8",
-    "title": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
-    "source": "Moderndiplomacy",
-    "rank_score": 81.15,
-    "category": "regulation_policy",
-    "content": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th"
-  },
-  {
-    "id": "9",
-    "title": "Trump White House Sends Congress Its \"One Rulebook\" AI Blueprint - prismnews.com",
-    "source": "Prismedia",
-    "rank_score": 74.35,
-    "category": "general_ai",
-    "content": "The White House released a national AI framework aimed at replacing a growing patchwork of state laws, sparking immediate praise and sharp Democratic criticism. \"In December, President Trump signe"
-  },
-  {
-    "id": "10",
-    "title": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports - The Star",
-    "source": "Thestar",
-    "rank_score": 73.25,
-    "category": "bigtech",
-    "content": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports. Tennis-Wimbledon to introduce video review technology. UBS faced technology outage that impacted trading business, Bloom"
-  },
-  {
     "id": "11",
-    "title": "Google Search test replaces headlines and website titles with AI - 9to5Google",
-    "source": "9To5Google",
-    "rank_score": 71.15,
-    "category": "bigtech",
-    "content": "Google Search test replaces headlines and website titles with AI. Google Search has started testing the use of AI to replace headlines and website titles, a change that seems both unnecessary an"
-  },
-  {
-    "id": "12",
-    "title": "OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports - Reuters",
-    "source": "Reuters",
-    "rank_score": 70.1,
-    "category": "bigtech",
-    "content": "OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports. March 21 (Reuters) - OpenAI has told ​advertising agencies it ‌is increasing the number ​of users ​shown"
-  },
-  {
-    "id": "13",
-    "title": "OpenAI reportedly plans to double its workforce to 8,000 employees - Engadget",
-    "source": "Engadget",
-    "rank_score": 68.7,
-    "category": "bigtech",
-    "content": "OpenAI reportedly plans to double its workforce to 8,000 employees. According to a report from the Financial Times , the AI giant is looking to expand its workforce to 8,000 employees by the en"
-  },
-  {
-    "id": "14",
     "title": "AI - New York Post",
     "source": "Nypost",
-    "rank_score": 68.05,
+    "rank_score": 78.9,
     "category": "general_ai",
     "content": "US privacy law is not sufficiently armed with penalties strong enough to incentivize companies to do better.”. “The privacy erosion isn’t a bug but a feature of the business model of most tech com"
   },
   {
-    "id": "15",
+    "id": "12",
+    "title": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports - The Star",
+    "source": "Thestar",
+    "rank_score": 68.35,
+    "category": "bigtech",
+    "content": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports. Tennis-Wimbledon to introduce video review technology. UBS faced technology outage that impacted trading business, Bloom"
+  },
+  {
+    "id": "13",
+    "title": "Letters to the Editor: Want proof that AI doesn’t have human-like intelligence? Tell it to make you laugh - Los Angeles Times",
+    "source": "Latimes",
+    "rank_score": 67.75,
+    "category": "chip_infrastructure",
+    "content": "Tap to enable a layout that focuses on the article. Letters to the Editor: Want proof that AI doesn’t have human-like intelligence? Click here to listen to this article. This is read by an aut"
+  },
+  {
+    "id": "14",
     "title": "What Is Physical AI, and What Does It Mean for Government? - GovTech",
     "source": "Govtech",
     "rank_score": 66.7,
     "category": "chip_infrastructure",
     "content": "WHAT IS PHYSICAL AI? IBM: “What is physical AI?”— “Physical AI refers to artificial intelligence (AI) systems that operate in and interact with the physical world, rather than existing onl"
+  },
+  {
+    "id": "15",
+    "title": "Nvidia Wants You to Build an 'OpenClaw Strategy'—If You Don't Know What That Means, You're Already Behind - inc.com",
+    "source": "Inc",
+    "rank_score": 66.7,
+    "category": "chip_infrastructure",
+    "content": "CEO Jensen Huang hails “the new computer”—and “the single most important release of software, probably ever.”. Nvidia chief executive Jensen Huang had one pointed question for all the developers"
   },
   {
     "id": "16",
@@ -140,7 +140,7 @@
     "id": "17",
     "title": "Campaigns Deploy AI-Generated Ads Targeting Voters - Let's Data Science",
     "source": "Letsdatascience",
-    "rank_score": 63.85,
+    "rank_score": 66.3,
     "category": "general_ai",
     "content": "1,500+ Questions · 15 Domains · Unlimited Audio. Campaigns Deploy AI-Generated Ads Targeting Voters. At least 15 campaign ads featuring AI-generated content have aired since November across loca"
   },
