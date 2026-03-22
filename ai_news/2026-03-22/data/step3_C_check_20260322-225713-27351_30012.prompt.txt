@@ -8,19 +8,19 @@
     "id": "1",
     "title_en": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
     "content_en": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th",
-    "fact_cn": "欧洲常以轻度监管、市场优先及风险容忍的视角审视美国人工智能政策，立法者的声明明确表达了对此的担忧，同时也暴露了欧洲自身在战略上的模糊性。"
+    "fact_cn": "欧洲观察人士指出，美国在人工智能政策上倾向于轻触式监管、市场主导及容忍风险，立法者的言论明确表达了对相关战略模糊性的担忧。"
   },
   {
     "id": "3",
     "title_en": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
     "content_en": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin",
-    "fact_cn": "3 月 22 日，腾讯（0700.HK）推出新工具，将其微信消息服务与 OpenClaw AI 智能体集成，此举发生在中国科技竞争加剧的背景下。"
+    "fact_cn": "腾讯（0700.HK）于 3 月 22 日周日推出新工具，旨在将其微信消息服务与 OpenClaw AI 智能体进行整合，以应对中国科技领域的竞争。"
   },
   {
     "id": "4",
     "title_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google - Benzinga",
     "content_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google. OpenAI To Nearly Double Staff. OpenAI’s expansion comes at a crucial time as it faces increasing competition in t",
-    "fact_cn": "在与 Anthropic 和谷歌的人工智能竞争加剧之际，OpenAI 计划将员工人数增加近一倍，以应对关键时期的市场竞争。"
+    "fact_cn": "面对来自 Anthropic 和谷歌的日益激烈的竞争，OpenAI 计划将其员工规模扩大近一倍，以巩固其在人工智能竞赛中的地位。"
   },
   {
     "id": "10",
@@ -32,6 +32,6 @@
     "id": "7",
     "title_en": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption - Forbes",
     "content_en": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption. On March 16, Reuters reported that OpenAI is in advanced talks with TPG, Advent International, Bain Capital, and Brookfield Asset M",
-    "fact_cn": "3 月 16 日路透社报道，OpenAI 正与 TPG、Advent International、贝恩资本和布鲁克菲尔德资产管理公司进行高级谈判，私募股权公司拟提供 140 亿美元助力 AI 实验室加速企业级应用落地。"
+    "fact_cn": "据路透社 3 月 16 日报道，OpenAI 正与 TPG、Advent International、贝恩资本和布鲁克菲尔德资产管理公司进行高级谈判，私募股权公司拟提供 140 亿美元助力 AI 实验室加速企业级应用落地。"
   }
 ]

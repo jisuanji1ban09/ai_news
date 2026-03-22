@@ -640,7 +640,8 @@ for item in title_items:
         raise RuntimeError(f"id={sid} title 或 summary 为空")
     src = top5_map.get(sid, {})
     final_items.append({"id": sid, "title": title, "summary": summary,
-                        "source": src.get("source",""), "url": src.get("url","")})
+                        "source": src.get("source",""), "url": src.get("url",""),
+                        "category": src.get("category","general_ai")})
     brief_items.append({"title": title, "summary": summary})
 
 if len(final_items) != 5:
