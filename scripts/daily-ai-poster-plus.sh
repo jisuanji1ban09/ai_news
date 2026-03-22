@@ -426,23 +426,54 @@ def smart_truncate(text: str, max_vlen: float) -> str:
         acc += w
     return "".join(out).rstrip()
 
+# 中文标点断句优先位置（截断时优先在这些位置停止）
+_BREAK_CHARS = set("，。！？、；：")
+
+def _truncate_at_boundary(text: str, max_vlen: float) -> str:
+    """
+    先用 smart_truncate 按视觉长度截断，
+    然后尝试在最近的标点边界处截断，避免残句。
+    如果找不到合适边界则保留 smart_truncate 结果。
+    """
+    truncated = smart_truncate(text, max_vlen)
+    if not truncated:
+        return truncated
+    # 如果截断点恰好在完整词/句末尾则直接返回
+    if truncated == text:
+        return truncated
+    # 向前找最近的标点断点（最多回退 6 个字符）
+    for i in range(len(truncated) - 1, max(len(truncated) - 7, -1), -1):
+        if truncated[i] in _BREAK_CHARS:
+            return truncated[:i + 1]
+    # 找不到标点边界，返回 smart_truncate 结果
+    return truncated
+
 def enforce_visual_limits(title: str, summary: str):
     title   = clean_text(title)
     summary = clean_text(summary)
     # 如果 summary 以 title 开头则去重
     if summary.startswith(title):
         summary = clean_text(summary[len(title):])
-    if len(title)   > TITLE_MAX_CHARS:   title   = title[:TITLE_MAX_CHARS]
-    if len(summary) > SUMMARY_MAX_CHARS: summary = summary[:SUMMARY_MAX_CHARS]
+
     t_len = calc_visual_length(title)
     s_len = calc_visual_length(summary)
+
+    # 先处理 summary
     if s_len > 34 or (t_len + s_len) > 52:
-        summary = smart_truncate(summary, min(34, 52 - t_len))
+        allowed_s = min(34.0, 52.0 - t_len)
+        summary = _truncate_at_boundary(summary, allowed_s)
+        summary = clean_text(summary)
+
     t_len = calc_visual_length(title)
     s_len = calc_visual_length(summary)
+
+    # 再处理 title
     if t_len > 22 or (t_len + s_len) > 52:
-        title = smart_truncate(title, min(22, 52 - s_len))
-    return clean_text(title), clean_text(summary)
+        allowed_t = min(22.0, 52.0 - s_len)
+        title = _truncate_at_boundary(title, allowed_t)
+        title = clean_text(title)
+
+    return title, summary
 
 def extract_first_json(text: str):
     cleaned = re.sub(r"^```json\s*", "", text.strip(), flags=re.I)
@@ -659,22 +690,42 @@ view_for_title = [
 
 prompt_title = f"""请基于下面校正后的中文事实稿，为每条新闻生成最终 title 和 summary，并以 JSON 输出。
 
-要求：
-1. title 与 summary 必须低重复，summary 必须补充 title 没有的新信息。
-2. 中文表达自然、克制、资讯化。
-3. title 必须点明主体，禁止使用"该公司""某公司""人工智能公司"等泛称。
-4. title 不超过 22 个中文字符；summary 不超过 34 个中文字符。
-5. title 和 summary 都必须是完整短句，不能出现残句。
-6. 一条新闻只能表达一个主事件，不得并列混写两个信息点。
-7. title 概括"谁做了什么"，summary 补充关键结果、数字或背景。
-8. 不要照搬事实稿整句，不要写成评论句，不要使用夸张或判断性措辞。
-9. 输出必须是 JSON，不要 markdown，不要解释。
-10. 输出格式：
+【长度硬约束——必须在生成时就满足，不能靠截断补救】
+视觉长度计算规则：中文字符=1.0，大写字母=0.72，小写字母=0.62，
+数字=0.58，标点=0.35，空格=0.32。
+- title 视觉长度必须 <= 22
+- summary 视觉长度必须 <= 34
+- title + summary 视觉长度合计必须 <= 52
+- title 和 summary 都必须在完整语义处结束，不能在词语、数字、
+  公司名、金额中间截断，不能出现残句
+
+【内容约束】
+1. title 概括"谁做了什么"，点明主体公司或人物全名，
+   禁止使用"该公司""某公司""人工智能公司"等泛称。
+2. summary 必须补充 title 没有的新信息，优先补充：
+   关键数字（金额、比例、规模）、具体结果、核心原因。
+   禁止只写时间、背景或重复 title 的主谓结构。
+3. title 与 summary 禁止同义改写，禁止换词重复。
+4. 中文表达自然、克制、资讯化，不写评论句，
+   不使用夸张或判断性措辞。
+5. 一条新闻只表达一个主事件，不得并列两个信息点。
+
+【输出格式】
+输出必须是 JSON，不要 markdown，不要解释。
 {{
   "items": [
     {{"id": "1", "title": "...", "summary": "..."}}
   ]
 }}
+
+【示例——合格】
+title: "OpenAI 计划将员工扩至 8000 人"
+summary: "现有员工约 4500 人，年底前完成翻倍扩招"
+→ title 完整，summary 补充了具体数字，无重复
+
+【示例——不合格】
+title: "OpenAI 计划在 AI 竞争期间将员工人"   ← 残句，在"人"处截断
+summary: "对手包括 Anthropic 及 Google，Benzinga 报"  ← 残句 + 来源不是新信息
 
 输入：
 {json.dumps(view_for_title, ensure_ascii=False, indent=2)}

@@ -17,32 +17,32 @@
 [
   {
     "id": "1",
-    "title_en": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
-    "source": "Reuters",
-    "content": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin"
-  },
-  {
-    "id": "2",
     "title_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google - Benzinga",
     "source": "Benzinga",
     "content": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google. OpenAI To Nearly Double Staff. OpenAI’s expansion comes at a crucial time as it faces increasing competition in t"
   },
   {
     "id": "4",
+    "title_en": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
+    "source": "Reuters",
+    "content": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin"
+  },
+  {
+    "id": "5",
+    "title_en": "OpenAI Unifies ChatGPT, Browser and Codex Into One Desktop Super App, Redefining Productivity and Focus - Qoo10.co.id",
+    "source": "Qoo10",
+    "content": "OpenAI Unifies ChatGPT, Browser and Codex Into One Desktop Super App, Redefining Productivity and Focus. OpenAI plans to integrate its ChatGPT app, web browser, and Codex coding app into a singl"
+  },
+  {
+    "id": "10",
     "title_en": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
     "source": "Moderndiplomacy",
     "content": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th"
   },
   {
-    "id": "7",
-    "title_en": "Blue Origin Submits Application for Satellite Network to Host Data Centers in Orbit - MLQ.ai",
-    "source": "Mlq",
-    "content": "The company has only flown the New Glenn rocket twice, the launch vehicle planned for datacenter satellite deployments.[1] Additionally, Blue Origin has not yet launched a single TeraWave satellit"
-  },
-  {
     "id": "12",
-    "title_en": "Oasis Security raises $120M Series B to secure rise of enterprise AI agents - ynetnews",
-    "source": "Ynetnews",
-    "content": "Funding lifts total raised to $195 million as startup pushes platform to manage access for AI agents and other non-human identities across enterprise systems. The company said the latest round"
+    "title_en": "What Is Physical AI, and What Does It Mean for Government? - GovTech",
+    "source": "Govtech",
+    "content": "WHAT IS PHYSICAL AI? IBM: “What is physical AI?”— “Physical AI refers to artificial intelligence (AI) systems that operate in and interact with the physical world, rather than existing onl"
   }
 ]

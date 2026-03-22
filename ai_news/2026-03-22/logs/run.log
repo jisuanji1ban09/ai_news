@@ -41,3 +41,158 @@ VISUAL_CHECK id=12 title_vlen=13.05 summary_vlen=27.17 combined=40.22 title='Oas
 Step3 DONE: top5=/Users/wzh/project/news/ai_news/2026-03-22/data/top5.json
 Step3 DONE: daily_brief=/Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json
 [2026-03-22 18:16:47] STEP status=ok step="[3/8] Generating Top5 JSON" attempt=1 run_id=20260322-180909-11314_14502
+[2026-03-22 18:24:27] === Attempt 1/3 ===
+[2026-03-22 18:24:27] Cleaning up old artifacts for attempt 1...
+[2026-03-22 18:24:27] STEP status=start step="[1/8] Fetching AI news" attempt=1 run_id=20260322-182427-12099_18138
+[2026-03-22 18:24:48] STEP status=ok step="[1/8] Fetching AI news" attempt=1 run_id=20260322-182427-12099_18138
+[2026-03-22 18:24:48] Fetch error log: /Users/wzh/project/news/ai_news/2026-03-22/data/fetch_errors.log
+[2026-03-22 18:24:48] STEP status=start step="[2/8] Parsing candidates" attempt=1 run_id=20260322-182427-12099_18138
+Parsed 19 candidates after filter+dedup
+Category breakdown: {'bigtech': 7, 'china_ai': 1, 'general_ai': 7, 'regulation_policy': 1, 'chip_infrastructure': 3}
+[2026-03-22 18:24:48] Parsed candidates: 19
+[2026-03-22 18:24:48] STEP status=ok step="[2/8] Parsing candidates" attempt=1 run_id=20260322-182427-12099_18138
+[2026-03-22 18:24:48] STEP status=start step="[3/8] Generating Top5 JSON" attempt=1 run_id=20260322-182427-12099_18138
+Sub-step A OK: selected ids=['1', '4', '5', '10', '16']
+Sub-step B OK: translated 5 items
+Sub-step C OK: checked 5 items
+Traceback (most recent call last):
+  File "<stdin>", line 380, in <module>
+  File "<stdin>", line 170, in call_llm
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 214, in urlopen
+    return opener.open(url, data, timeout)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 517, in open
+    response = self._open(req, data)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 534, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 494, in _call_chain
+    result = func(*args)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1389, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1350, in do_open
+    r = h.getresponse()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1349, in getresponse
+    response.begin()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 316, in begin
+    version, status, reason = self._read_status()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 277, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1241, in recv_into
+    return self.read(nbytes, buffer)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1099, in read
+    return self._sslobj.read(len, buffer)
+socket.timeout: The read operation timed out
+[2026-03-22 18:33:36] STEP status=fail step="[3/8] Generating Top5 JSON" attempt=1 error="Top5 JSON generation failed (exit: 1)" run_id=20260322-182427-12099_18138
+[2026-03-22 18:33:36] === Attempt 2/3 ===
+[2026-03-22 18:33:36] Cleaning up old artifacts for attempt 2...
+[2026-03-22 18:33:36] STEP status=start step="[1/8] Fetching AI news" attempt=2 run_id=20260322-182427-12099_18138
+[2026-03-22 18:33:50] STEP status=ok step="[1/8] Fetching AI news" attempt=2 run_id=20260322-182427-12099_18138
+[2026-03-22 18:33:50] Fetch error log: /Users/wzh/project/news/ai_news/2026-03-22/data/fetch_errors.log
+[2026-03-22 18:33:50] STEP status=start step="[2/8] Parsing candidates" attempt=2 run_id=20260322-182427-12099_18138
+Parsed 18 candidates after filter+dedup
+Category breakdown: {'bigtech': 6, 'china_ai': 1, 'general_ai': 8, 'regulation_policy': 1, 'chip_infrastructure': 2}
+[2026-03-22 18:33:50] Parsed candidates: 18
+[2026-03-22 18:33:50] STEP status=ok step="[2/8] Parsing candidates" attempt=2 run_id=20260322-182427-12099_18138
+[2026-03-22 18:33:50] STEP status=start step="[3/8] Generating Top5 JSON" attempt=2 run_id=20260322-182427-12099_18138
+Sub-step A OK: selected ids=['1', '4', '5', '10', '12']
+Sub-step B OK: translated 5 items
+Sub-step C OK: checked 5 items
+Traceback (most recent call last):
+  File "<stdin>", line 380, in <module>
+  File "<stdin>", line 170, in call_llm
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 214, in urlopen
+    return opener.open(url, data, timeout)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 517, in open
+    response = self._open(req, data)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 534, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 494, in _call_chain
+    result = func(*args)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1389, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1350, in do_open
+    r = h.getresponse()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1349, in getresponse
+    response.begin()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 316, in begin
+    version, status, reason = self._read_status()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 277, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1241, in recv_into
+    return self.read(nbytes, buffer)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1099, in read
+    return self._sslobj.read(len, buffer)
+socket.timeout: The read operation timed out
+[2026-03-22 18:43:08] STEP status=fail step="[3/8] Generating Top5 JSON" attempt=2 error="Top5 JSON generation failed (exit: 1)" run_id=20260322-182427-12099_18138
+[2026-03-22 18:43:08] === Attempt 3/3 ===
+[2026-03-22 18:43:08] Cleaning up old artifacts for attempt 3...
+[2026-03-22 18:43:08] STEP status=start step="[1/8] Fetching AI news" attempt=3 run_id=20260322-182427-12099_18138
+[2026-03-22 18:43:21] STEP status=ok step="[1/8] Fetching AI news" attempt=3 run_id=20260322-182427-12099_18138
+[2026-03-22 18:43:21] Fetch error log: /Users/wzh/project/news/ai_news/2026-03-22/data/fetch_errors.log
+[2026-03-22 18:43:21] STEP status=start step="[2/8] Parsing candidates" attempt=3 run_id=20260322-182427-12099_18138
+Parsed 19 candidates after filter+dedup
+Category breakdown: {'bigtech': 7, 'china_ai': 1, 'general_ai': 7, 'regulation_policy': 1, 'chip_infrastructure': 3}
+[2026-03-22 18:43:22] Parsed candidates: 19
+[2026-03-22 18:43:22] STEP status=ok step="[2/8] Parsing candidates" attempt=3 run_id=20260322-182427-12099_18138
+[2026-03-22 18:43:22] STEP status=start step="[3/8] Generating Top5 JSON" attempt=3 run_id=20260322-182427-12099_18138
+Traceback (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1346, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1257, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1303, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1252, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1012, in _send_output
+    self.send(msg)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 952, in send
+    self.connect()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1426, in connect
+    self.sock = self._context.wrap_socket(self.sock,
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 500, in wrap_socket
+    return self.sslsocket_class._create(
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1040, in _create
+    self.do_handshake()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1309, in do_handshake
+    self._sslobj.do_handshake()
+socket.timeout: _ssl.c:1112: The handshake operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 170, in call_llm
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 214, in urlopen
+    return opener.open(url, data, timeout)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 517, in open
+    response = self._open(req, data)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 534, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 494, in _call_chain
+    result = func(*args)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1389, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1349, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error _ssl.c:1112: The handshake operation timed out>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 241, in <module>
+  File "<stdin>", line 176, in call_llm
+RuntimeError: 百炼接口连接失败：_ssl.c:1112: The handshake operation timed out
+[2026-03-22 18:46:22] STEP status=fail step="[3/8] Generating Top5 JSON" attempt=3 error="Top5 JSON generation failed (exit: 1)" run_id=20260322-182427-12099_18138
+[2026-03-22 18:46:22] === FAILED ===
+[2026-03-22 18:46:22] Final error: Top5 JSON generation failed (exit: 1)
+[plugins] feishu_doc: Registered feishu_doc, feishu_app_scopes
+[plugins] feishu_chat: Registered feishu_chat tool
+[plugins] feishu_wiki: Registered feishu_wiki tool
+[plugins] feishu_drive: Registered feishu_drive tool
+[plugins] feishu_bitable: Registered bitable tools
+[info]: [ 'client ready' ]
+✅ Sent via Feishu. Message ID: om_x100b54c8c7f614b4c2b28d1dc959bdf (chat ou_fe30fbdabcf5e38016c49c53f55abf76)
+[2026-03-22 18:46:44] Failure notification sent.

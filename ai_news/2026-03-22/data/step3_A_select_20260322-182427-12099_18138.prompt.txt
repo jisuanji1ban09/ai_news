@@ -1,0 +1,175 @@
+请从下面的 AI 新闻候选中选出 Top5，并以 JSON 输出。
+
+要求：
+1. 只做选择，不翻译，不生成 title，不生成 summary。
+2. 优先选择 rank_score 高、category 多样、信息完整的新闻。
+3. 尽量覆盖以下类别（有则选，无则跳过）：
+   bigtech、china_ai、chip_infrastructure、funding_mna、regulation_policy
+4. 同一事件只选一条，不重复。
+5. 输出必须是 JSON，不要 markdown，不要解释。
+6. 输出格式：
+{
+  "items": [
+    {"id": "1"},
+    {"id": "2"},
+    {"id": "3"},
+    {"id": "4"},
+    {"id": "5"}
+  ]
+}
+
+候选新闻（共 19 条）：
+[
+  {
+    "id": "1",
+    "title": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google - Benzinga",
+    "source": "Benzinga",
+    "rank_score": 101.6,
+    "category": "bigtech",
+    "content": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google. OpenAI To Nearly Double Staff. OpenAI’s expansion comes at a crucial time as it faces increasing competition in t"
+  },
+  {
+    "id": "2",
+    "title": "OpenAI reportedly plans to double its workforce to 8,000 employees - Engadget",
+    "source": "Engadget",
+    "rank_score": 100.9,
+    "category": "bigtech",
+    "content": "OpenAI reportedly plans to double its workforce to 8,000 employees. According to a report from the Financial Times , the AI giant is looking to expand its workforce to 8,000 employees by the en"
+  },
+  {
+    "id": "3",
+    "title": "Amid Meta, Google layoffs, Sam Altman's OpenAI plans to double workforce to 8000; here's why - DNA India",
+    "source": "Dnaindia",
+    "rank_score": 100.55,
+    "category": "bigtech",
+    "content": "+ Amid Meta, Google layoffs, Sam Altman’s OpenAI plans to double workforce to 8000; here’s why. Amid Meta, Google layoffs, Sam Altman’s OpenAI plans to double workforce to 8000; here’s why. Ami"
+  },
+  {
+    "id": "4",
+    "title": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
+    "source": "Reuters",
+    "rank_score": 100.25,
+    "category": "china_ai",
+    "content": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin"
+  },
+  {
+    "id": "5",
+    "title": "OpenAI Unifies ChatGPT, Browser and Codex Into One Desktop Super App, Redefining Productivity and Focus - Qoo10.co.id",
+    "source": "Qoo10",
+    "rank_score": 99.5,
+    "category": "bigtech",
+    "content": "OpenAI Unifies ChatGPT, Browser and Codex Into One Desktop Super App, Redefining Productivity and Focus. OpenAI plans to integrate its ChatGPT app, web browser, and Codex coding app into a singl"
+  },
+  {
+    "id": "6",
+    "title": "OpenAI plans to double workforce to 8,000 amid rising competition - Telangana Today",
+    "source": "Telanganatoday",
+    "rank_score": 98.45,
+    "category": "bigtech",
+    "content": "Home | Science & Tech | Openai Plans To Double Workforce To 8000 Amid Rising Competition. OpenAI plans to double workforce to 8,000 amid rising competition. OpenAI plans to nearly double its wor"
+  },
+  {
+    "id": "7",
+    "title": "The Smartest Minds in AI Just Learned the World’s Most Valuable F-Word - WSJ",
+    "source": "Wsj",
+    "rank_score": 89.4,
+    "category": "general_ai",
+    "content": "Answer"
+  },
+  {
+    "id": "8",
+    "title": "I'm a 24-year-old with the 'hottest job in AI.' These are the skills you need to get a role like mine. - Business Insider",
+    "source": "Businessinsider",
+    "rank_score": 81.35,
+    "category": "general_ai",
+    "content": "I'm a 24-year-old with the 'hottest job in AI.' These are the skills you need to get a role like mine. Kanav Bhatnagar's job title, forward deployed engineer, has been described as the \"hottes"
+  },
+  {
+    "id": "9",
+    "title": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race - News18",
+    "source": "News18",
+    "rank_score": 81.3,
+    "category": "bigtech",
+    "content": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race. OpenAI plans to double staff to 8000 by 2026, boost hiring in research, product and technical ambassadorship, after"
+  },
+  {
+    "id": "10",
+    "title": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
+    "source": "Moderndiplomacy",
+    "rank_score": 81.15,
+    "category": "regulation_policy",
+    "content": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th"
+  },
+  {
+    "id": "11",
+    "title": "Kodiak CEO says making trucks drive themselves is only half the battle - The Verge",
+    "source": "Theverge",
+    "rank_score": 74.35,
+    "category": "general_ai",
+    "content": "In addition to Aurora’s plan to deploy hundreds of autonomous big rigs and Waabi expanding into robotaxis, you’ve also got Kodiak AI aiming to launch its own fully driverless long-haul freight ope"
+  },
+  {
+    "id": "12",
+    "title": "OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports - Reuters",
+    "source": "Reuters",
+    "rank_score": 70.1,
+    "category": "bigtech",
+    "content": "OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports. March 21 (Reuters) - OpenAI has told ​advertising agencies it ‌is increasing the number ​of users ​shown"
+  },
+  {
+    "id": "13",
+    "title": "The great robot race: How companies can balance speed to market and compliance in the U.S. - The Robot Report",
+    "source": "Therobotreport",
+    "rank_score": 68.75,
+    "category": "general_ai",
+    "content": "The current U.S. environment presents both challenges and opportunities for consumer robotics manufacturers and developers of AI-enabled products. The current absence of federal mandatory safety s"
+  },
+  {
+    "id": "14",
+    "title": "What Is Physical AI, and What Does It Mean for Government? - GovTech",
+    "source": "Govtech",
+    "rank_score": 66.7,
+    "category": "chip_infrastructure",
+    "content": "WHAT IS PHYSICAL AI? IBM: “What is physical AI?”— “Physical AI refers to artificial intelligence (AI) systems that operate in and interact with the physical world, rather than existing onl"
+  },
+  {
+    "id": "15",
+    "title": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports - Reuters",
+    "source": "Reuters",
+    "rank_score": 66.7,
+    "category": "chip_infrastructure",
+    "content": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports. March 21 (Reuters) - Artificial intelligence start-up OpenAI plans to nearly ​double its workforce to 8,000 ‌from 4,500 by the"
+  },
+  {
+    "id": "16",
+    "title": "Nvidia Wants You to Build an 'OpenClaw Strategy'—If You Don't Know What That Means, You're Already Behind - inc.com",
+    "source": "Inc",
+    "rank_score": 66.7,
+    "category": "chip_infrastructure",
+    "content": "CEO Jensen Huang hails “the new computer”—and “the single most important release of software, probably ever.”. Nvidia chief executive Jensen Huang had one pointed question for all the developers"
+  },
+  {
+    "id": "17",
+    "title": "How the FBI can conduct mass surveillance – even without AI - The Guardian",
+    "source": "Theguardian",
+    "rank_score": 66.65,
+    "category": "general_ai",
+    "content": "Patel’s admission underscores how the government is able to conduct mass surveillance despite its assurances to abide by lawful use of AI and fourth amendment protections against unreasonable sear"
+  },
+  {
+    "id": "18",
+    "title": "A brave Marine colonel took on the Pentagon — and paid the price for it - Fox News",
+    "source": "Foxnews",
+    "rank_score": 65.25,
+    "category": "general_ai",
+    "content": "Everything about how Marine Colonel Drew Cukor ran Project Maven, the Department of Defense’s upstart AI initiative, put a target on his back. When Cukor launched Maven in 2017, the government sti"
+  },
+  {
+    "id": "19",
+    "title": "Self-Driving Scooters Launching In China - Interesting Engineering",
+    "source": "Interestingengineering",
+    "rank_score": 62.45,
+    "category": "general_ai",
+    "content": "NewslettersFrom daily news and career tips to monthly insights on AI, sustainability, Aerospace, and more—pick what matters and get it in your inbox. Access expert insights, exclusive content, and"
+  }
+]
