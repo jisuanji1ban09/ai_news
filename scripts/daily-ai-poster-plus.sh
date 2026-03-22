@@ -709,7 +709,6 @@ PYEOF
         log "Poster copied to unified path: $IMAGE_PATH"
     fi
 
-    exit 0
     # Step 6: Generate Voiceover Script
     CURRENT_STEP="[6/8] Generating voiceover script"
     log_step_start "$CURRENT_STEP"
@@ -747,6 +746,11 @@ PY
 
     log_step_ok "$CURRENT_STEP"
     log "Voiceover script generated: $VOICEOVER_SCRIPT_FILE"
+    log "=== SUCCESS ==="
+    log "Poster: $OUTPUT_DIR/poster.png"
+    log "Voiceover: $VOICEOVER_SCRIPT_FILE"
+    log "Run ID: $RUN_ID"
+    exit 0
 
     # Step 7: Prepare Message Content
     CURRENT_STEP="[7/8] Preparing message content"
