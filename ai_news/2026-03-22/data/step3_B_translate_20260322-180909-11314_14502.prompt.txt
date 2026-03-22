@@ -1,0 +1,48 @@
+请将下面的 Top5 英文 AI 新闻翻译为中文标准事实稿，并以 JSON 输出。
+
+要求：
+1. 每条只生成一段中文标准事实稿，不生成 title，不生成 summary。
+2. 中文表达自然、克制、资讯化。
+3. 尽量保留关键事实：时间、公司、人物、金额、产品、动作、数字。
+4. 不添加背景，不做评论，不延伸推断。
+5. 输出必须是 JSON，不要 markdown，不要解释。
+6. 输出格式：
+{
+  "items": [
+    {"id": "1", "fact_cn": "..."}
+  ]
+}
+
+输入：
+[
+  {
+    "id": "1",
+    "title_en": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
+    "source": "Reuters",
+    "content": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin"
+  },
+  {
+    "id": "2",
+    "title_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google - Benzinga",
+    "source": "Benzinga",
+    "content": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google. OpenAI To Nearly Double Staff. OpenAI’s expansion comes at a crucial time as it faces increasing competition in t"
+  },
+  {
+    "id": "4",
+    "title_en": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
+    "source": "Moderndiplomacy",
+    "content": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th"
+  },
+  {
+    "id": "7",
+    "title_en": "Blue Origin Submits Application for Satellite Network to Host Data Centers in Orbit - MLQ.ai",
+    "source": "Mlq",
+    "content": "The company has only flown the New Glenn rocket twice, the launch vehicle planned for datacenter satellite deployments.[1] Additionally, Blue Origin has not yet launched a single TeraWave satellit"
+  },
+  {
+    "id": "12",
+    "title_en": "Oasis Security raises $120M Series B to secure rise of enterprise AI agents - ynetnews",
+    "source": "Ynetnews",
+    "content": "Funding lifts total raised to $195 million as startup pushes platform to manage access for AI agents and other non-human identities across enterprise systems. The company said the latest round"
+  }
+]

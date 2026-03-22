@@ -1,0 +1,47 @@
+请对下面的中文事实稿做事实校正，并以 JSON 输出。
+
+要求：
+1. 只校正事实完整性、措辞准确性、数字和主体是否遗漏。
+2. 不扩写背景，不生成 title，不生成 summary。
+3. 如原稿已经准确，可微调措辞，但不要明显改写主题。
+4. 输出必须是 JSON，不要 markdown，不要解释。
+5. 输出格式：
+{
+  "items": [
+    {"id": "1", "fact_cn_checked": "..."}
+  ]
+}
+
+输入：
+[
+  {
+    "id": "1",
+    "title_en": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
+    "content_en": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin",
+    "fact_cn": "路透社 3 月 22 日电，腾讯 (0700.HK) 于周日推出工具，将微信消息服务与 OpenClaw AI 代理集成，此举处于中国科技竞争背景下。"
+  },
+  {
+    "id": "2",
+    "title_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google - Benzinga",
+    "content_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google. OpenAI To Nearly Double Staff. OpenAI’s expansion comes at a crucial time as it faces increasing competition in t",
+    "fact_cn": "Benzinga 报道称，OpenAI 计划在与 Anthropic 及 Google 的 AI 竞争期间，将员工人数增加近一倍。"
+  },
+  {
+    "id": "4",
+    "title_en": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
+    "content_en": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th",
+    "fact_cn": "Modern Diplomacy 刊文称，特朗普的 AI 战略暴露了欧洲的战略模糊性，欧洲通常以轻触式监管、市场优先和风险容忍的视角看待美国 AI 政策，立法者声明明确指出了相关担忧。"
+  },
+  {
+    "id": "7",
+    "title_en": "Blue Origin Submits Application for Satellite Network to Host Data Centers in Orbit - MLQ.ai",
+    "content_en": "The company has only flown the New Glenn rocket twice, the launch vehicle planned for datacenter satellite deployments.[1] Additionally, Blue Origin has not yet launched a single TeraWave satellit",
+    "fact_cn": "MLQ.ai 报道称，Blue Origin 提交申请构建卫星网络以在轨道上托管数据中心，该公司仅发射过两次计划用于数据中心卫星部署的 New Glenn 火箭，且尚未发射任何 TeraWave 卫星。"
+  },
+  {
+    "id": "12",
+    "title_en": "Oasis Security raises $120M Series B to secure rise of enterprise AI agents - ynetnews",
+    "content_en": "Funding lifts total raised to $195 million as startup pushes platform to manage access for AI agents and other non-human identities across enterprise systems. The company said the latest round",
+    "fact_cn": "ynetnews 报道称，Oasis Security 完成 1.2 亿美元 B 轮融资，融资总额升至 1.95 亿美元，资金用于推动平台管理企业系统中 AI 代理及其他非人类身份的访问权限。"
+  }
+]

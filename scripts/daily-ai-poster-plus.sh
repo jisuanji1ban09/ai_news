@@ -343,102 +343,66 @@ PYEOF
     log_step_ok "$CURRENT_STEP"
 
     # Step 3: Generate Top5 JSON (Robust JSON parsing & validation)
-    exit 0
     CURRENT_STEP="[3/8] Generating Top5 JSON"
     log_step_start "$CURRENT_STEP"
 
     export DATE_STR JSON_FILE CANDIDATE_JSON_FILE TOP5_JSON_FILE
+    export BAILIAN_API_KEY BAILIAN_MODEL BAILIAN_BASE_URL
+    export DATA_DIR RUN_ID
+
     set +e
     python3 <<'PYEOF'
 import json
 import os
 import re
-import subprocess
 import string
-import uuid
+import sys
 import unicodedata
+import urllib.request
+import urllib.error
 from json import JSONDecoder, JSONDecodeError
 
-date_str = os.environ.get('DATE_STR', '')
-json_file = os.environ.get('JSON_FILE', '')
-candidate_json_file = os.environ.get('CANDIDATE_JSON_FILE', '')
-top5_json_file = os.environ.get('TOP5_JSON_FILE', '')
-TITLE_MAX_CHARS = 22
+# ── 环境变量 ──────────────────────────────────────────────────
+date_str          = os.environ.get("DATE_STR", "")
+json_file         = os.environ.get("JSON_FILE", "")
+candidate_json_file = os.environ.get("CANDIDATE_JSON_FILE", "")
+top5_json_file    = os.environ.get("TOP5_JSON_FILE", "")
+data_dir          = os.environ.get("DATA_DIR", "")
+run_id            = os.environ.get("RUN_ID", "unknown")
+
+api_key   = os.environ.get("BAILIAN_API_KEY") or \
+            os.environ.get("DASHSCOPE_API_KEY") or \
+            os.environ.get("ALIYUN_BAILIAN_API_KEY", "")
+model     = os.environ.get("BAILIAN_MODEL", "qwen-plus")
+api_url   = os.environ.get("BAILIAN_BASE_URL",
+            "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions")
+curl_timeout = int(os.environ.get("CURL_MAX_TIME", "180"))
+
+TITLE_MAX_CHARS   = 22
 SUMMARY_MAX_CHARS = 34
 
-def has_chinese(text: str) -> bool:
-    return bool(re.search(r'[\u4e00-\u9fff]', text or ""))
+if not api_key:
+    print("ERROR: 未找到百炼 API Key（BAILIAN_API_KEY / DASHSCOPE_API_KEY）",
+          file=sys.stderr)
+    sys.exit(1)
 
-def needs_cn_fallback(items):
-    # If any item lacks Chinese in title or summary, trigger fallback translation.
-    for it in items:
-        if not has_chinese(str(it.get("title", ""))) or not has_chinese(str(it.get("summary", ""))):
-            return True
-    return False
+# ── 工具函数 ──────────────────────────────────────────────────
+def clean_text(text: str) -> str:
+    s = str(text or "")
+    s = re.sub(r"https?://\S+", "", s)
+    s = re.sub(r"[#*_`]", " ", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s.strip(" .,:;|/-_")
 
-def fallback_translate_to_cn(items):
-    """Use openclaw agent to rewrite all items into Simplified Chinese JSON."""
-    translate_prompt = f"""你是中文科技编辑。请把下面 items 改写为中文海报文案，并严格输出 JSON 数组。
-
-硬约束：
-1) 所有 title、summary 必须是简体中文（专有名词可保留英文，如 OpenAI、GPU）。
-2) title 要尽量短；summary 要尽量短且信息完整。
-3) summary 必须补充 title 没有的新信息，不能复述 title。
-4) 仅输出 JSON 数组，不要解释，不要 markdown。
-
-输入 items:
-{json.dumps(items, ensure_ascii=False, indent=2)}
-"""
-    isolated_session_id = f"isolated-{uuid.uuid4().hex[:12]}"
-    cmd = [
-        "openclaw", "agent", "--session-id", isolated_session_id, "--json", "--channel", "no",
-        "--timeout", "180", "--thinking", "low", "--verbose", "off",
-        "--message", translate_prompt
-    ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    stdout_text = result.stdout or ""
-    ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
-    cleaned_stdout = ansi_escape.sub('', stdout_text)
-    decoder = JSONDecoder()
-
-    for i in range(len(cleaned_stdout)):
-        if cleaned_stdout[i] != '{' and cleaned_stdout[i] != '[':
-            continue
-        try:
-            obj, _ = decoder.raw_decode(cleaned_stdout[i:])
-            if isinstance(obj, dict) and "payloads" in obj and obj["payloads"]:
-                txt = obj["payloads"][0].get("text", "")
-                if isinstance(txt, str):
-                    for j in range(len(txt)):
-                        if txt[j] in "[{":
-                            try:
-                                arr, _ = decoder.raw_decode(txt[j:])
-                                if isinstance(arr, list):
-                                    return arr
-                            except JSONDecodeError:
-                                continue
-            if isinstance(obj, list):
-                return obj
-        except JSONDecodeError:
-            continue
-    raise RuntimeError("Fallback translation returned no valid JSON array")
-
-
-def calc_visual_length(text):
-    if not text:
-        return 0.0
+def calc_visual_length(text: str) -> float:
     total = 0.0
-    for ch in str(text):
+    for ch in str(text or ""):
         code = ord(ch)
         if ch.isspace():
             total += 0.32
-        elif (
-            0x4E00 <= code <= 0x9FFF
-            or 0x3400 <= code <= 0x4DBF
-            or 0x3000 <= code <= 0x303F
-            or 0xFF00 <= code <= 0xFFEF
-            or unicodedata.east_asian_width(ch) in {"F", "W"}
-        ):
+        elif (0x4E00 <= code <= 0x9FFF or 0x3400 <= code <= 0x4DBF
+              or 0x3000 <= code <= 0x303F or 0xFF00 <= code <= 0xFFEF
+              or unicodedata.east_asian_width(ch) in {"F", "W"}):
             total += 1.0
         elif "A" <= ch <= "Z":
             total += 0.72
@@ -452,511 +416,337 @@ def calc_visual_length(text):
             total += 0.70
     return round(total, 2)
 
-
-def smart_truncate_by_visual_length(text, max_visual_len):
-    if max_visual_len <= 0:
-        return ""
-    out = []
-    acc = 0.0
-    for ch in str(text):
+def smart_truncate(text: str, max_vlen: float) -> str:
+    out, acc = [], 0.0
+    for ch in str(text or ""):
         w = calc_visual_length(ch)
-        if acc + w > max_visual_len:
+        if acc + w > max_vlen:
             break
         out.append(ch)
         acc += w
     return "".join(out).rstrip()
 
+def enforce_visual_limits(title: str, summary: str):
+    title   = clean_text(title)
+    summary = clean_text(summary)
+    # 如果 summary 以 title 开头则去重
+    if summary.startswith(title):
+        summary = clean_text(summary[len(title):])
+    if len(title)   > TITLE_MAX_CHARS:   title   = title[:TITLE_MAX_CHARS]
+    if len(summary) > SUMMARY_MAX_CHARS: summary = summary[:SUMMARY_MAX_CHARS]
+    t_len = calc_visual_length(title)
+    s_len = calc_visual_length(summary)
+    if s_len > 34 or (t_len + s_len) > 52:
+        summary = smart_truncate(summary, min(34, 52 - t_len))
+    t_len = calc_visual_length(title)
+    s_len = calc_visual_length(summary)
+    if t_len > 22 or (t_len + s_len) > 52:
+        title = smart_truncate(title, min(22, 52 - s_len))
+    return clean_text(title), clean_text(summary)
 
-def compress_item_to_visual_limits(title, summary):
-    """LLM-first compression, then caller applies visual-length fallback truncation."""
-    prompt = f"""你是中文科技编辑。请压缩下面文案并输出 JSON。
-
-硬约束：
-1) 仅输出 JSON：{{"title":"...","summary":"..."}}
-2) title 与 summary 按视觉宽度尽量紧凑
-3) summary 不能复述 title，需补充新信息
-4) 目标：title_visual_len<=22, summary_visual_len<=34, combined<=52
-5) 简体中文输出（专有名词可保留英文）
-
-输入：
-title: {title}
-summary: {summary}
-"""
-    isolated_session_id = f"isolated-{uuid.uuid4().hex[:12]}"
-    cmd = [
-        "openclaw", "agent", "--session-id", isolated_session_id, "--json", "--channel", "no",
-        "--timeout", "120", "--thinking", "low", "--verbose", "off",
-        "--message", prompt
-    ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    text = (result.stdout or "") + "\n" + (result.stderr or "")
-    ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
-    cleaned = ansi_escape.sub('', text)
+def extract_first_json(text: str):
+    cleaned = re.sub(r"^```json\s*", "", text.strip(), flags=re.I)
+    cleaned = re.sub(r"^```\s*",    "", cleaned,       flags=re.I)
+    cleaned = re.sub(r"\s*```$",    "", cleaned)
     decoder = JSONDecoder()
-
-    # Try direct JSON objects from the stream.
-    for i in range(len(cleaned)):
-        if cleaned[i] != '{':
+    for i, ch in enumerate(cleaned):
+        if ch not in "[{":
             continue
         try:
             obj, _ = decoder.raw_decode(cleaned[i:])
+            return obj
         except JSONDecodeError:
             continue
-        if isinstance(obj, dict) and "title" in obj and "summary" in obj:
-            return str(obj["title"]).strip(), str(obj["summary"]).strip()
-        if isinstance(obj, dict) and "payloads" in obj and obj["payloads"]:
-            payload_text = obj["payloads"][0].get("text", "")
-            if isinstance(payload_text, str):
-                for j in range(len(payload_text)):
-                    if payload_text[j] != '{':
-                        continue
-                    try:
-                        inner, _ = decoder.raw_decode(payload_text[j:])
-                    except JSONDecodeError:
-                        continue
-                    if isinstance(inner, dict) and "title" in inner and "summary" in inner:
-                        return str(inner["title"]).strip(), str(inner["summary"]).strip()
-    return title, summary
+    return None
 
-
-def enforce_visual_limits(title, summary):
-    """Enforce visual weighted limits with fallback truncation order."""
-    was_trimmed = False
-    title = re.sub(r"\s+", " ", str(title)).strip()
-    summary = re.sub(r"\s+", " ", str(summary)).strip()
-
-    # Hard character limits requested by workflow.
-    if len(title) > TITLE_MAX_CHARS:
-        title = title[:TITLE_MAX_CHARS]
-        was_trimmed = True
-    if len(summary) > SUMMARY_MAX_CHARS:
-        summary = summary[:SUMMARY_MAX_CHARS]
-        was_trimmed = True
-
-    t_len = calc_visual_length(title)
-    s_len = calc_visual_length(summary)
-    c_len = round(t_len + s_len, 2)
-
-    # First truncate summary.
-    if s_len > 34 or c_len > 52:
-        allowed_summary = min(34, 52 - t_len)
-        summary = smart_truncate_by_visual_length(summary, allowed_summary)
-        was_trimmed = True
-
-    t_len = calc_visual_length(title)
-    s_len = calc_visual_length(summary)
-    c_len = round(t_len + s_len, 2)
-
-    # Then truncate title.
-    if t_len > 22 or c_len > 52:
-        allowed_title = min(22, 52 - s_len)
-        title = smart_truncate_by_visual_length(title, allowed_title)
-        was_trimmed = True
-
-    t_len = calc_visual_length(title)
-    s_len = calc_visual_length(summary)
-    c_len = round(t_len + s_len, 2)
-    ok = bool(
-        title
-        and summary
-        and len(title) <= TITLE_MAX_CHARS
-        and len(summary) <= SUMMARY_MAX_CHARS
-        and t_len <= 22
-        and s_len <= 34
-        and c_len <= 52
+def call_llm(prompt: str, step_label: str) -> dict:
+    """调用百炼 OpenAI 兼容接口，返回解析后的 JSON dict。"""
+    body = {
+        "model": model,
+        "messages": [
+            {"role": "system",
+             "content": "你是严谨的中文科技新闻编辑助手。所有输出必须是合法 JSON。"},
+            {"role": "user", "content": prompt},
+        ],
+        "temperature": 0.2,
+        "seed": 42,
+        "stream": False,
+        "response_format": {"type": "json_object"},
+    }
+    body_bytes = json.dumps(body, ensure_ascii=False).encode("utf-8")
+    req = urllib.request.Request(
+        api_url,
+        data=body_bytes,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type":  "application/json",
+        },
+        method="POST",
     )
-    return title, summary, t_len, s_len, c_len, was_trimmed, ok
+    # 落盘 prompt 供调试
+    if data_dir:
+        prompt_path = os.path.join(data_dir, f"step3_{step_label}_{run_id}.prompt.txt")
+        with open(prompt_path, "w", encoding="utf-8") as f:
+            f.write(prompt)
 
-# Load candidates
-with open(candidate_json_file, 'r', encoding='utf-8') as f:
+    try:
+        with urllib.request.urlopen(req, timeout=curl_timeout) as resp:
+            raw = resp.read().decode("utf-8")
+    except urllib.error.HTTPError as e:
+        body_err = e.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"百炼接口 HTTP {e.code}：{body_err[:500]}")
+    except urllib.error.URLError as e:
+        raise RuntimeError(f"百炼接口连接失败：{e.reason}")
+
+    # 落盘原始响应供调试
+    if data_dir:
+        resp_path = os.path.join(data_dir, f"step3_{step_label}_{run_id}.response.json")
+        with open(resp_path, "w", encoding="utf-8") as f:
+            f.write(raw)
+
+    payload = json.loads(raw)
+    content = (payload.get("choices", [{}])[0]
+                      .get("message", {})
+                      .get("content", ""))
+    obj = extract_first_json(content)
+    if obj is None:
+        raise RuntimeError(
+            f"[{step_label}] 模型返回中未找到合法 JSON。"
+            f"内容预览：{content[:400]}"
+        )
+    return obj
+
+# ── 读取候选 ──────────────────────────────────────────────────
+with open(candidate_json_file, "r", encoding="utf-8") as f:
     candidates = json.load(f)
 
-prompt = f"""你是「AI 每日资讯编辑」，负责从候选新闻中筛选 Top5，并生成用于海报展示的结构化内容。
+# 清洗 summary_cn 里的 markdown 噪声
+for c in candidates:
+    c["summary_cn"] = clean_text(c.get("summary_cn", ""))
 
-========================
-【核心任务】
-========================
-从候选新闻中选择最重要的 5 条，并输出 JSON：
+# ── Sub-step A：LLM 选出 Top5（只返回 id）────────────────────
+view_for_select = [
+    {
+        "id":            c["id"],
+        "title":         c["title"],
+        "source":        c["source"],
+        "rank_score":    c["importance_score"],
+        "category":      c["category"],
+        "content":       c["summary_cn"],
+    }
+    for c in candidates
+]
 
+prompt_select = f"""请从下面的 AI 新闻候选中选出 Top5，并以 JSON 输出。
+
+要求：
+1. 只做选择，不翻译，不生成 title，不生成 summary。
+2. 优先选择 rank_score 高、category 多样、信息完整的新闻。
+3. 尽量覆盖以下类别（有则选，无则跳过）：
+   bigtech、china_ai、chip_infrastructure、funding_mna、regulation_policy
+4. 同一事件只选一条，不重复。
+5. 输出必须是 JSON，不要 markdown，不要解释。
+6. 输出格式：
 {{
-  "date": "YYYY.MM.DD",
-  "template": "a/b/c",
   "items": [
-    {{
-      "title": "...",
-      "summary": "..."
-    }}
+    {{"id": "1"}},
+    {{"id": "2"}},
+    {{"id": "3"}},
+    {{"id": "4"}},
+    {{"id": "5"}}
   ]
 }}
 
-========================
-【标题与摘要 强制分工规则】
-========================
-
-【title（标题）】
-- 用一句话说明“谁 + 做了什么 / 发生了什么”
-- 只描述事件本身
-- 不写分析、不写意义、不写评价
-- 视觉加权长度目标：title_visual_len <= 22
-
-【summary（摘要）】
-summary 不是摘要，而是“标题之外的补充信息句”
-
-必须满足：
-1. 不能复述 title（禁止同义改写 / 扩写 / 换词重复）
-2. 必须提供“标题中没有的新信息”
-3. 优先补充：
-   - 行业影响
-   - 背后原因
-   - 商业意义
-   - 关键数字
-   - 未来趋势
-4. 必须让读者“多获得一层信息”
-
-========================
-【严格禁止（违反即重写）】
-========================
-
-以下情况一律视为不合格：
-
-- 用不同说法重复标题
-- “某公司宣布...，该公司表示...”（结构重复）
-- summary 只是 title 的扩写
-- summary 和 title 主语 + 动作一致
-- 没有新增信息
-
-========================
-【自检机制（必须执行）】
-========================
-
-对每一条数据生成后，执行检查：
-
-1. summary 是否只是 title 改写？ → 是 → 重写
-2. summary 是否提供新信息？ → 否 → 重写
-3. 删除 summary 后是否信息损失？ → 否 → 重写
-
-不允许输出未通过自检的内容。
-
-========================
-【模板选择规则】
-========================
-
-根据新闻整体风格选择：
-- a：偏政策 / 宏观
-- b：偏公司 / 产品（默认）
-- c：偏技术 / 科研
-
-========================
-【输出要求】
-========================
-
-1. 仅输出 JSON
-2. 不要解释
-3. 不要附加任何说明
-4. 不要出现 ``` 或 markdown
-5. items 必须为 5 条
-6. title 和 summary 必须为简体中文（专有名词可保留英文）
-7. 视觉加权长度目标：
-   - title_visual_len <= 22
-   - summary_visual_len <= 34
-   - title_visual_len + summary_visual_len <= 52
-
-========================
-【候选新闻】
-========================
-{json.dumps(candidates, ensure_ascii=False, indent=2)}
+候选新闻（共 {len(view_for_select)} 条）：
+{json.dumps(view_for_select, ensure_ascii=False, indent=2)}
 """
-# Generate a unique session ID for an isolated session
-isolated_session_id = f"isolated-{uuid.uuid4().hex[:12]}"
-cmd = [
-    "openclaw", "agent", "--session-id", isolated_session_id, "--json", "--channel", "no",
-    "--timeout", "180", "--thinking", "low", "--verbose", "off",
-    "--message", prompt
-]
-print(f"DEBUG: Using isolated session: {isolated_session_id}")
 
-result = subprocess.run(cmd, capture_output=True, text=True)
-stdout_text = result.stdout or ""
-stderr_text = result.stderr or ""
+result_select = call_llm(prompt_select, "A_select")
+selected_ids = [str(row.get("id", "")) for row in result_select.get("items", [])]
+if len(selected_ids) != 5:
+    raise RuntimeError(f"Sub-step A：LLM 返回 {len(selected_ids)} 条，需要 5 条")
 
-# Remove ANSI control codes
-ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
-cleaned_stdout = ansi_escape.sub('', stdout_text)
+cand_map = {str(c["id"]): c for c in candidates}
+top5_en = []
+seen = set()
+for sid in selected_ids:
+    if sid in cand_map and sid not in seen:
+        top5_en.append(cand_map[sid])
+        seen.add(sid)
+if len(top5_en) != 5:
+    raise RuntimeError(f"Sub-step A：id 匹配后只得到 {len(top5_en)} 条")
 
-# Filter out plugin registration logs and other non-JSON lines
-lines = cleaned_stdout.splitlines()
-filtered_lines = []
-for line in lines:
-    # Skip lines that look like plugin logs or system messages
-    if line.strip().startswith('[plugins]') or line.strip().startswith('Process still running') or line.strip().startswith('[diagnostic]'):
-        continue
-    filtered_lines.append(line)
-filtered_stdout = '\n'.join(filtered_lines)
+print(f"Sub-step A OK: selected ids={selected_ids}")
 
-# Try to parse JSON envelope using raw_decode to find first valid JSON object
-decoder = JSONDecoder()
-envelope = None
-payload_text = ""
-
-# Scan for JSON objects (prefer scanning from the end to find the actual JSON result)
-found_envelope = False
-# Strategy 1: Scan from the end to find the last JSON object (usually the actual result)
-for i in range(len(filtered_stdout) - 1, -1, -1):
-    if filtered_stdout[i] == '{':
-        try:
-            candidate, idx = decoder.raw_decode(filtered_stdout[i:])
-            # Priority 1: Envelope with payloads
-            if isinstance(candidate, dict) and "payloads" in candidate:
-                envelope = candidate
-                found_envelope = True
-                break
-            # Priority 2: Direct result with top5 and daily_brief
-            elif isinstance(candidate, dict) and "top5" in candidate and "daily_brief" in candidate:
-                envelope = candidate
-                found_envelope = True
-                break
-            # Priority 3: Direct result with date/template/items
-            elif isinstance(candidate, dict) and "items" in candidate and "template" in candidate:
-                envelope = candidate
-                found_envelope = True
-                break
-        except JSONDecodeError:
-            continue
-
-# Strategy 2: If not found from end, scan from start (fallback)
-if not found_envelope:
-    for i in range(len(filtered_stdout)):
-        if filtered_stdout[i] == '{':
-            try:
-                candidate, idx = decoder.raw_decode(filtered_stdout[i:])
-                # Priority 1: Envelope with payloads
-                if isinstance(candidate, dict) and "payloads" in candidate:
-                    envelope = candidate
-                    found_envelope = True
-                    break
-                # Priority 2: Direct result with top5 and daily_brief
-                elif isinstance(candidate, dict) and "top5" in candidate and "daily_brief" in candidate:
-                    envelope = candidate
-                    found_envelope = True
-                    break
-                # Priority 3: Direct result with date/template/items
-                elif isinstance(candidate, dict) and "items" in candidate and "template" in candidate:
-                    envelope = candidate
-                    found_envelope = True
-                    break
-            except JSONDecodeError:
-                continue
-
-if not found_envelope:
-    raise RuntimeError(f"No valid JSON object (envelope or direct result) found in LLM response. filtered_stdout preview: {filtered_stdout[:500] if filtered_stdout else 'EMPTY'}")
-
-# Extract payload_text from envelope
-if "payloads" in envelope and len(envelope["payloads"]) > 0:
-    payload_text = envelope["payloads"][0].get("text", "")
-    # If payload_text is a string that looks like a JSON string (quoted), try to decode it
-    if isinstance(payload_text, str) and payload_text.startswith('"') and payload_text.endswith('"'):
-        try:
-            payload_text = json.loads(payload_text)
-        except JSONDecodeError:
-            pass
-elif "top5" in envelope and "daily_brief" in envelope:
-    # Direct result, use envelope as llm_result
-    llm_result = envelope
-    payload_text = "" # Not needed
-elif "items" in envelope and "template" in envelope:
-    # Direct result in simplified schema
-    llm_result = envelope
-    payload_text = "" # Not needed
-else:
-    raise RuntimeError(f"Unexpected envelope structure: {list(envelope.keys())}")
-
-# Parse payload_text if not direct result
-if payload_text:
-    if isinstance(payload_text, dict):
-        llm_result = payload_text
-    elif isinstance(payload_text, str):
-        # Try to find JSON object in payload_text (in case it's wrapped in noise)
-        llm_result = None
-        for i in range(len(payload_text)):
-            if payload_text[i] == '{':
-                try:
-                    llm_result, idx = decoder.raw_decode(payload_text[i:])
-                    break
-                except JSONDecodeError:
-                    continue
-        if llm_result is None:
-            raise RuntimeError(f"No valid JSON object found in payload_text. Preview: {payload_text[:500]}")
-    else:
-        raise RuntimeError(f"Unexpected payload_text type: {type(payload_text)}")
-else:
-    # Already set llm_result in direct result branch
-    pass
-
-# Validate and normalize
-# Support both schemas:
-# 1) {"top5": [...], "daily_brief": {...}}
-# 2) {"date": "...", "template": "...", "items": [...]}
-if "top5" in llm_result and "daily_brief" in llm_result:
-    top5 = llm_result["top5"]
-    daily_brief = llm_result["daily_brief"]
-elif "items" in llm_result and "template" in llm_result:
-    top5 = llm_result["items"]
-    daily_brief = {
-        "date": llm_result.get("date", date_str),
-        "template": llm_result.get("template", "b"),
-        "items": llm_result["items"],
+# ── Sub-step B：LLM 翻译为中文事实稿 ─────────────────────────
+view_for_translate = [
+    {
+        "id":       c["id"],
+        "title_en": c["title"],
+        "source":   c["source"],
+        "content":  c["summary_cn"],
     }
-else:
-    raise RuntimeError(f"Missing required keys in LLM response. Keys: {list(llm_result.keys())}")
+    for c in top5_en
+]
 
-# Validate top5
-if not isinstance(top5, list):
-    raise RuntimeError(f"top5 is not a list: {type(top5)}")
-if len(top5) != 5:
-    raise RuntimeError(f"Expected 5 items in top5, got {len(top5)}")
+prompt_translate = f"""请将下面的 Top5 英文 AI 新闻翻译为中文标准事实稿，并以 JSON 输出。
 
-# Validate and normalize items
-items = []
-for i, item in enumerate(top5):
-    if not isinstance(item, dict):
-        raise RuntimeError(f"top5 item {i} is not a dict: {type(item)}")
-    
-    title = item.get("short_title", "").strip()
-    summary = item.get("short_summary", "").strip()
-    
-    # Fallback logic with FORCE fill
-    if not title:
-        title = item.get("title", "").strip()
-    # Force title: if still empty, use ID as placeholder (should not happen)
-    if not title:
-        title = f"News {i+1}"
-    
-    if not summary:
-        summary = item.get("summary", "").strip()
-    if not summary:
-        summary = item.get("summary_cn", "").strip()
-    # FORCE fill summary: if still empty, use a generic placeholder
-    if not summary:
-        summary = "AI 行业最新动态，请关注后续更新。"
-    
-    title = re.sub(r"\s+", " ", title).strip()
-    summary = re.sub(r"\s+", " ", summary).strip()
+要求：
+1. 每条只生成一段中文标准事实稿，不生成 title，不生成 summary。
+2. 中文表达自然、克制、资讯化。
+3. 尽量保留关键事实：时间、公司、人物、金额、产品、动作、数字。
+4. 不添加背景，不做评论，不延伸推断。
+5. 输出必须是 JSON，不要 markdown，不要解释。
+6. 输出格式：
+{{
+  "items": [
+    {{"id": "1", "fact_cn": "..."}}
+  ]
+}}
 
-    # LLM-first compression, then visual fallback truncation.
+输入：
+{json.dumps(view_for_translate, ensure_ascii=False, indent=2)}
+"""
+
+result_translate = call_llm(prompt_translate, "B_translate")
+facts_map = {str(item.get("id", "")): item.get("fact_cn", "")
+             for item in result_translate.get("items", [])}
+print(f"Sub-step B OK: translated {len(facts_map)} items")
+
+# ── Sub-step C：LLM 校正事实稿 ───────────────────────────────
+view_for_check = [
+    {
+        "id":       c["id"],
+        "title_en": c["title"],
+        "content_en": c["summary_cn"],
+        "fact_cn":  facts_map.get(str(c["id"]), ""),
+    }
+    for c in top5_en
+]
+
+prompt_check = f"""请对下面的中文事实稿做事实校正，并以 JSON 输出。
+
+要求：
+1. 只校正事实完整性、措辞准确性、数字和主体是否遗漏。
+2. 不扩写背景，不生成 title，不生成 summary。
+3. 如原稿已经准确，可微调措辞，但不要明显改写主题。
+4. 输出必须是 JSON，不要 markdown，不要解释。
+5. 输出格式：
+{{
+  "items": [
+    {{"id": "1", "fact_cn_checked": "..."}}
+  ]
+}}
+
+输入：
+{json.dumps(view_for_check, ensure_ascii=False, indent=2)}
+"""
+
+result_check = call_llm(prompt_check, "C_check")
+checked_map = {str(item.get("id", "")): item.get("fact_cn_checked", "")
+               for item in result_check.get("items", [])}
+print(f"Sub-step C OK: checked {len(checked_map)} items")
+
+# ── Sub-step D：LLM 生成 title 和 summary ────────────────────
+view_for_title = [
+    {
+        "id":             c["id"],
+        "fact_cn_checked": checked_map.get(str(c["id"]),
+                           facts_map.get(str(c["id"]), "")),
+    }
+    for c in top5_en
+]
+
+prompt_title = f"""请基于下面校正后的中文事实稿，为每条新闻生成最终 title 和 summary，并以 JSON 输出。
+
+要求：
+1. title 与 summary 必须低重复，summary 必须补充 title 没有的新信息。
+2. 中文表达自然、克制、资讯化。
+3. title 必须点明主体，禁止使用"该公司""某公司""人工智能公司"等泛称。
+4. title 不超过 22 个中文字符；summary 不超过 34 个中文字符。
+5. title 和 summary 都必须是完整短句，不能出现残句。
+6. 一条新闻只能表达一个主事件，不得并列混写两个信息点。
+7. title 概括"谁做了什么"，summary 补充关键结果、数字或背景。
+8. 不要照搬事实稿整句，不要写成评论句，不要使用夸张或判断性措辞。
+9. 输出必须是 JSON，不要 markdown，不要解释。
+10. 输出格式：
+{{
+  "items": [
+    {{"id": "1", "title": "...", "summary": "..."}}
+  ]
+}}
+
+输入：
+{json.dumps(view_for_title, ensure_ascii=False, indent=2)}
+"""
+
+result_title = call_llm(prompt_title, "D_title")
+title_items = result_title.get("items", [])
+if len(title_items) != 5:
+    raise RuntimeError(f"Sub-step D：返回 {len(title_items)} 条，需要 5 条")
+
+print(f"Sub-step D OK: generated {len(title_items)} title+summary pairs")
+
+# ── 最终拼装 ─────────────────────────────────────────────────
+top5_map = {str(c["id"]): c for c in top5_en}
+final_items  = []
+brief_items  = []
+
+for item in title_items:
+    sid   = str(item.get("id", ""))
+    title, summary = enforce_visual_limits(
+        item.get("title", ""),
+        item.get("summary", ""),
+    )
     t_len = calc_visual_length(title)
     s_len = calc_visual_length(summary)
     c_len = round(t_len + s_len, 2)
-    if t_len > 22 or s_len > 34 or c_len > 52:
-        title, summary = compress_item_to_visual_limits(title, summary)
-        title = re.sub(r"\s+", " ", title).strip()
-        summary = re.sub(r"\s+", " ", summary).strip()
-
-    orig_title = title
-    orig_summary = summary
-    orig_t_len = calc_visual_length(orig_title)
-    orig_s_len = calc_visual_length(orig_summary)
-    orig_c_len = round(orig_t_len + orig_s_len, 2)
-    title, summary, t_len, s_len, c_len, was_trimmed, ok = enforce_visual_limits(title, summary)
-    print(
-        f"VISUAL_CHECK item={i+1} "
-        f"orig_title={orig_title!r} orig_summary={orig_summary!r} "
-        f"orig_title_visual_len={orig_t_len} orig_summary_visual_len={orig_s_len} orig_combined_visual_len={orig_c_len} "
-        f"trimmed={was_trimmed} "
-        f"final_title={title!r} final_summary={summary!r} "
-        f"title_visual_len={t_len} summary_visual_len={s_len} combined_visual_len={c_len}"
-    )
-    if not ok:
-        raise RuntimeError(
-            f"Visual length validation failed for item {i+1}: "
-            f"title={t_len}, summary={s_len}, combined={c_len}"
-        )
-    
-    # Final check: ensure non-empty
+    print(f"VISUAL_CHECK id={sid} title_vlen={t_len} "
+          f"summary_vlen={s_len} combined={c_len} "
+          f"title={title!r} summary={summary!r}")
     if not title or not summary:
-        raise RuntimeError(f"top5 item {i} has empty title/summary after force fill: title='{title}', summary='{summary}'")
-    
-    items.append({
-        "title": title,
-        "summary": summary
+        raise RuntimeError(f"id={sid} title 或 summary 为空")
+    src = top5_map.get(sid, {})
+    final_items.append({
+        "id":      sid,
+        "title":   title,
+        "summary": summary,
+        "source":  src.get("source", ""),
+        "url":     src.get("url", ""),
     })
+    brief_items.append({"title": title, "summary": summary})
 
-# Ensure daily_brief structure
-daily_brief["date"] = date_str
-template = str(daily_brief.get("template", "b")).strip().lower()
-if template not in ["a", "b", "c"]:
-    template = "b"
-daily_brief["template"] = template
-daily_brief["items"] = items
+if len(final_items) != 5:
+    raise RuntimeError(f"最终条目数量异常：{len(final_items)}")
 
-if len(daily_brief["items"]) != 5:
-    raise RuntimeError(f"Final items count mismatch: {len(daily_brief['items'])}")
-
-# Chinese fallback: force all items into Chinese if LLM returned English lines.
-if needs_cn_fallback(daily_brief["items"]):
-    translated_items = fallback_translate_to_cn(daily_brief["items"])
-    if not isinstance(translated_items, list) or len(translated_items) != 5:
-        raise RuntimeError("Fallback translation failed: items count is not 5")
-    normalized = []
-    for i, item in enumerate(translated_items):
-        if not isinstance(item, dict):
-            raise RuntimeError(f"Fallback translation item {i} is not dict")
-        title = re.sub(r"\s+", " ", str(item.get("title", ""))).strip()
-        summary = re.sub(r"\s+", " ", str(item.get("summary", ""))).strip()
-        t_len = calc_visual_length(title)
-        s_len = calc_visual_length(summary)
-        c_len = round(t_len + s_len, 2)
-        if t_len > 22 or s_len > 34 or c_len > 52:
-            title, summary = compress_item_to_visual_limits(title, summary)
-            title = re.sub(r"\s+", " ", title).strip()
-            summary = re.sub(r"\s+", " ", summary).strip()
-        orig_title = title
-        orig_summary = summary
-        orig_t_len = calc_visual_length(orig_title)
-        orig_s_len = calc_visual_length(orig_summary)
-        orig_c_len = round(orig_t_len + orig_s_len, 2)
-        title, summary, t_len, s_len, c_len, was_trimmed, ok = enforce_visual_limits(title, summary)
-        print(
-            f"VISUAL_CHECK_FALLBACK item={i+1} "
-            f"orig_title={orig_title!r} orig_summary={orig_summary!r} "
-            f"orig_title_visual_len={orig_t_len} orig_summary_visual_len={orig_s_len} orig_combined_visual_len={orig_c_len} "
-            f"trimmed={was_trimmed} "
-            f"final_title={title!r} final_summary={summary!r} "
-            f"title_visual_len={t_len} summary_visual_len={s_len} combined_visual_len={c_len}"
-        )
-        if not ok:
-            raise RuntimeError(
-                f"Visual length validation failed in fallback item {i+1}: "
-                f"title={t_len}, summary={s_len}, combined={c_len}"
-            )
-        if not title or not summary:
-            raise RuntimeError(f"Fallback translation item {i} empty title/summary")
-        if not has_chinese(title) or not has_chinese(summary):
-            raise RuntimeError(f"Fallback translation item {i} still not Chinese")
-        normalized.append({"title": title, "summary": summary})
-
-    daily_brief["items"] = normalized
-    top5 = normalized
-
-# Write output files
+# 写 top5.json
 with open(top5_json_file, "w", encoding="utf-8") as f:
-    json.dump(top5, f, ensure_ascii=False, indent=2)
+    json.dump(final_items, f, ensure_ascii=False, indent=2)
+
+# 写 daily_brief.json
+daily_brief = {
+    "date":     date_str,
+    "template": "b",
+    "items":    brief_items,
+}
 with open(json_file, "w", encoding="utf-8") as f:
     json.dump(daily_brief, f, ensure_ascii=False, indent=2)
 
-print(f"Generated Top5 JSON: {top5_json_file}")
-print(f"Generated daily_brief: {json_file}")
+print(f"Step3 DONE: top5={top5_json_file}")
+print(f"Step3 DONE: daily_brief={json_file}")
 PYEOF
     PY_EXIT_CODE=$?
     set -e
 
     if [ $PY_EXIT_CODE -ne 0 ] || [ ! -f "$TOP5_JSON_FILE" ] || [ ! -f "$JSON_FILE" ]; then
-        ERROR_MSG="Top5 JSON generation failed (exit: $PY_EXIT_CODE, files missing)"
+        ERROR_MSG="Top5 JSON generation failed (exit: $PY_EXIT_CODE)"
         log_step_fail "$CURRENT_STEP" "$ERROR_MSG"
         continue
     fi
     log_step_ok "$CURRENT_STEP"
 
     # Step 4: Refine overflowing summaries (best-effort; never blocks rendering)
+    exit 0
     CURRENT_STEP="[4/8] Refining long summaries"
     log_step_start "$CURRENT_STEP"
 

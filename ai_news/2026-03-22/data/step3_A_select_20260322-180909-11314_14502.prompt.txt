@@ -1,0 +1,175 @@
+请从下面的 AI 新闻候选中选出 Top5，并以 JSON 输出。
+
+要求：
+1. 只做选择，不翻译，不生成 title，不生成 summary。
+2. 优先选择 rank_score 高、category 多样、信息完整的新闻。
+3. 尽量覆盖以下类别（有则选，无则跳过）：
+   bigtech、china_ai、chip_infrastructure、funding_mna、regulation_policy
+4. 同一事件只选一条，不重复。
+5. 输出必须是 JSON，不要 markdown，不要解释。
+6. 输出格式：
+{
+  "items": [
+    {"id": "1"},
+    {"id": "2"},
+    {"id": "3"},
+    {"id": "4"},
+    {"id": "5"}
+  ]
+}
+
+候选新闻（共 19 条）：
+[
+  {
+    "id": "1",
+    "title": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
+    "source": "Reuters",
+    "rank_score": 100.25,
+    "category": "china_ai",
+    "content": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin"
+  },
+  {
+    "id": "2",
+    "title": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google - Benzinga",
+    "source": "Benzinga",
+    "rank_score": 83.4,
+    "category": "bigtech",
+    "content": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google. OpenAI To Nearly Double Staff. OpenAI’s expansion comes at a crucial time as it faces increasing competition in t"
+  },
+  {
+    "id": "3",
+    "title": "The Hypocrisy at the Heart of the AI Industry - The Atlantic",
+    "source": "Theatlantic",
+    "rank_score": 82.7,
+    "category": "bigtech",
+    "content": "This large-scale piracy has been excused in a number of ways: OpenAI (which has a corporate partnership with The Atlantic ’s business team) has claimed that the company uses “publicly available i"
+  },
+  {
+    "id": "4",
+    "title": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
+    "source": "Moderndiplomacy",
+    "rank_score": 81.15,
+    "category": "regulation_policy",
+    "content": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th"
+  },
+  {
+    "id": "5",
+    "title": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption - Forbes",
+    "source": "Forbes",
+    "rank_score": 79.9,
+    "category": "bigtech",
+    "content": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption. On March 16, Reuters reported that OpenAI is in advanced talks with TPG, Advent International, Bain Capital, and Brookfield Asset M"
+  },
+  {
+    "id": "6",
+    "title": "Amid Meta, Google layoffs, Sam Altman's OpenAI plans to double workforce to 8000; here's why - DNA India",
+    "source": "Dnaindia",
+    "rank_score": 79.2,
+    "category": "bigtech",
+    "content": "+ Amid Meta, Google layoffs, Sam Altman’s OpenAI plans to double workforce to 8000; here’s why. Amid Meta, Google layoffs, Sam Altman’s OpenAI plans to double workforce to 8000; here’s why. Ami"
+  },
+  {
+    "id": "7",
+    "title": "Blue Origin Submits Application for Satellite Network to Host Data Centers in Orbit - MLQ.ai",
+    "source": "Mlq",
+    "rank_score": 71.6,
+    "category": "chip_infrastructure",
+    "content": "The company has only flown the New Glenn rocket twice, the launch vehicle planned for datacenter satellite deployments.[1] Additionally, Blue Origin has not yet launched a single TeraWave satellit"
+  },
+  {
+    "id": "8",
+    "title": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race - News18",
+    "source": "News18",
+    "rank_score": 71.5,
+    "category": "bigtech",
+    "content": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race. OpenAI plans to double staff to 8000 by 2026, boost hiring in research, product and technical ambassadorship, after"
+  },
+  {
+    "id": "9",
+    "title": "OpenAI Plans To Nearly Double Its Workforce - Let's Data Science",
+    "source": "Letsdatascience",
+    "rank_score": 71.5,
+    "category": "bigtech",
+    "content": "1,500+ Questions · 15 Domains · Unlimited Audio. OpenAI Plans To Nearly Double Its Workforce. OpenAI plans to nearly double its workforce to about 8,000 from 4,500 by the end of 2026, the Financ"
+  },
+  {
+    "id": "10",
+    "title": "What Is Physical AI, and What Does It Mean for Government? - GovTech",
+    "source": "Govtech",
+    "rank_score": 70.55,
+    "category": "chip_infrastructure",
+    "content": "WHAT IS PHYSICAL AI? IBM: “What is physical AI?”— “Physical AI refers to artificial intelligence (AI) systems that operate in and interact with the physical world, rather than existing onl"
+  },
+  {
+    "id": "11",
+    "title": "Google Search test replaces headlines and website titles with AI - 9to5Google",
+    "source": "9To5Google",
+    "rank_score": 69.4,
+    "category": "bigtech",
+    "content": "Google Search test replaces headlines and website titles with AI. Google Search has started testing the use of AI to replace headlines and website titles, a change that seems both unnecessary an"
+  },
+  {
+    "id": "12",
+    "title": "Oasis Security raises $120M Series B to secure rise of enterprise AI agents - ynetnews",
+    "source": "Ynetnews",
+    "rank_score": 69.25,
+    "category": "funding_mna",
+    "content": "Funding lifts total raised to $195 million as startup pushes platform to manage access for AI agents and other non-human identities across enterprise systems. The company said the latest round"
+  },
+  {
+    "id": "13",
+    "title": "The great robot race: How companies can balance speed to market and compliance in the U.S. - The Robot Report",
+    "source": "Therobotreport",
+    "rank_score": 68.75,
+    "category": "general_ai",
+    "content": "The current U.S. environment presents both challenges and opportunities for consumer robotics manufacturers and developers of AI-enabled products. The current absence of federal mandatory safety s"
+  },
+  {
+    "id": "14",
+    "title": "2025 Banking & Finance Visionaries - Los Angeles Times",
+    "source": "Latimes",
+    "rank_score": 67.85,
+    "category": "funding_mna",
+    "content": "Empowering America: How Bank of America Workforce Development Initiatives Invested $40M to Upskill the Nation. Zeitview Funding: $60M to Revolutionize the AI Inspection Platform. Mi"
+  },
+  {
+    "id": "15",
+    "title": "Nvidia Wants You to Build an 'OpenClaw Strategy'—If You Don't Know What That Means, You're Already Behind - inc.com",
+    "source": "Inc",
+    "rank_score": 67.4,
+    "category": "chip_infrastructure",
+    "content": "CEO Jensen Huang hails “the new computer”—and “the single most important release of software, probably ever.”. Nvidia chief executive Jensen Huang had one pointed question for all the developers"
+  },
+  {
+    "id": "16",
+    "title": "How the FBI can conduct mass surveillance – even without AI - The Guardian",
+    "source": "Theguardian",
+    "rank_score": 66.65,
+    "category": "general_ai",
+    "content": "Patel’s admission underscores how the government is able to conduct mass surveillance despite its assurances to abide by lawful use of AI and fourth amendment protections against unreasonable sear"
+  },
+  {
+    "id": "17",
+    "title": "A brave Marine colonel took on the Pentagon — and paid the price for it - Fox News",
+    "source": "Foxnews",
+    "rank_score": 65.25,
+    "category": "general_ai",
+    "content": "Everything about how Marine Colonel Drew Cukor ran Project Maven, the Department of Defense’s upstart AI initiative, put a target on his back. When Cukor launched Maven in 2017, the government sti"
+  },
+  {
+    "id": "18",
+    "title": "Kodiak CEO says making trucks drive themselves is only half the battle - The Verge",
+    "source": "Theverge",
+    "rank_score": 64.2,
+    "category": "general_ai",
+    "content": "In addition to Aurora’s plan to deploy hundreds of autonomous big rigs and Waabi expanding into robotaxis, you’ve also got Kodiak AI aiming to launch its own fully driverless long-haul freight ope"
+  },
+  {
+    "id": "19",
+    "title": "Self-Driving Scooters Launching In China - Interesting Engineering",
+    "source": "Interestingengineering",
+    "rank_score": 62.45,
+    "category": "general_ai",
+    "content": "NewslettersFrom daily news and career tips to monthly insights on AI, sustainability, Aerospace, and more—pick what matters and get it in your inbox. Access expert insights, exclusive content, and"
+  }
+]
