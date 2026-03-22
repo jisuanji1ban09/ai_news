@@ -46,15 +46,6 @@
   },
   {
     "id": "6",
-    "title": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race - News18",
-    "source": "News18",
-    "url": "https://www.news18.com/tech/openai-plans-to-double-workforce-to-8000-by-2026-to-gain-edge-in-ai-race-ws-l-9990350.html",
-    "summary_cn": "# OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race. ## OpenAI plans to double staff to 8000 by 2026, boost hiring in research, product and technical ambassadorship, after ...",
-    "category": "bigtech",
-    "importance_score": 81.3
-  },
-  {
-    "id": "7",
     "title": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption - Forbes",
     "source": "Forbes",
     "url": "https://www.forbes.com/sites/josipamajic/2026/03/21/pe-firms-offer-ai-labs-a-14b-shortcut-to-enterprise-adoption/",
@@ -63,7 +54,7 @@
     "importance_score": 79.9
   },
   {
-    "id": "8",
+    "id": "7",
     "title": "Amid Meta, Google layoffs, Sam Altman's OpenAI plans to double workforce to 8000; here's why - DNA India",
     "source": "Dnaindia",
     "url": "https://www.dnaindia.com/technology/report-amid-meta-google-layoffs-sam-altman-s-openai-plans-to-double-workforce-to-8000-here-s-why-3203858",
@@ -72,7 +63,7 @@
     "importance_score": 79.2
   },
   {
-    "id": "9",
+    "id": "8",
     "title": "OpenAI plans to double workforce to 8,000 amid rising competition - Telangana Today",
     "source": "Telanganatoday",
     "url": "https://telanganatoday.com/openai-plans-to-double-workforce-to-8000-amid-rising-competition",
@@ -81,7 +72,7 @@
     "importance_score": 76.75
   },
   {
-    "id": "10",
+    "id": "9",
     "title": "An exclusive tour of Amazon's Trainium lab, the chip that's won over Anthropic, OpenAI, even Apple - TechCrunch",
     "source": "Techcrunch",
     "url": "https://techcrunch.com/2026/03/22/an-exclusive-tour-of-amazons-trainium-lab-the-chip-thats-won-over-anthropic-openai-even-apple/",
@@ -90,16 +81,7 @@
     "importance_score": 74.4
   },
   {
-    "id": "11",
-    "title": "OpenAI reportedly plans to double its workforce to 8,000 employees - Engadget",
-    "source": "Engadget",
-    "url": "https://www.engadget.com/ai/openai-reportedly-plans-to-double-its-workforce-to-8000-employees-161028377.html",
-    "summary_cn": "# OpenAI reportedly plans to double its workforce to 8,000 employees. According to a report from the *Financial Times*, the AI giant is looking to expand its workforce to 8,000 employees by the en...",
-    "category": "bigtech",
-    "importance_score": 73.6
-  },
-  {
-    "id": "12",
+    "id": "10",
     "title": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports - The Star",
     "source": "Thestar",
     "url": "https://www.thestar.com.my/tech/tech-news/2026/03/21/openai-to-nearly-double-workforce-to-8000-by-end-2026-ft-reports",
@@ -108,7 +90,7 @@
     "importance_score": 73.25
   },
   {
-    "id": "13",
+    "id": "11",
     "title": "OpenAI's data center pivot underscores Wall Street spending concerns ahead of IPO - CNBC",
     "source": "Cnbc",
     "url": "https://www.cnbc.com/2026/03/22/openai-data-center-pivot-underscores-wall-street-ipo-concerns.html",
@@ -117,7 +99,7 @@
     "importance_score": 72.65
   },
   {
-    "id": "14",
+    "id": "12",
     "title": "Google Search test replaces headlines and website titles with AI - 9to5Google",
     "source": "9To5Google",
     "url": "https://9to5google.com/2026/03/21/google-search-test-replaces-headlines-and-website-titles-with-ai/",
@@ -126,22 +108,40 @@
     "importance_score": 71.15
   },
   {
+    "id": "13",
+    "title": "OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports - Reuters",
+    "source": "Reuters",
+    "url": "https://www.reuters.com/business/media-telecom/openai-expand-ads-chatgpt-all-free-low-cost-users-information-reports-2026-03-21/",
+    "summary_cn": "# OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports. March 21 (Reuters) - OpenAI has told ​advertising agencies it ‌is increasing the number ​of users ​shown ...",
+    "category": "bigtech",
+    "importance_score": 70.1
+  },
+  {
+    "id": "14",
+    "title": "OpenAI reportedly plans to double its workforce to 8,000 employees - Engadget",
+    "source": "Engadget",
+    "url": "https://www.engadget.com/ai/openai-reportedly-plans-to-double-its-workforce-to-8000-employees-161028377.html",
+    "summary_cn": "# OpenAI reportedly plans to double its workforce to 8,000 employees. According to a report from the *Financial Times*, the AI giant is looking to expand its workforce to 8,000 employees by the en...",
+    "category": "bigtech",
+    "importance_score": 68.7
+  },
+  {
     "id": "15",
+    "title": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race - News18",
+    "source": "News18",
+    "url": "https://www.news18.com/tech/openai-plans-to-double-workforce-to-8000-by-2026-to-gain-edge-in-ai-race-ws-l-9990350.html",
+    "summary_cn": "# OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race. ## OpenAI plans to double staff to 8000 by 2026, boost hiring in research, product and technical ambassadorship, after ...",
+    "category": "bigtech",
+    "importance_score": 68.35
+  },
+  {
+    "id": "16",
     "title": "What Is Physical AI, and What Does It Mean for Government? - GovTech",
     "source": "Govtech",
     "url": "https://www.govtech.com/blogs/lohrmann-on-cybersecurity/what-is-physical-ai-and-what-does-it-mean-for-government",
     "summary_cn": "### WHAT IS PHYSICAL AI? **IBM:** “What is physical AI?”— “Physical AI refers to artificial intelligence (AI) systems that operate in and interact with the physical world, rather than existing onl...",
     "category": "chip_infrastructure",
-    "importance_score": 70.55
-  },
-  {
-    "id": "16",
-    "title": "Mod Op Tool Helps Brands Respond To Dangerous AI-Generated Content 03/03/2026 - MediaPost",
-    "source": "Mediapost",
-    "url": "https://www.mediapost.com/publications/article/413144/mod-op-tool-helps-brands-respond-to-dangerous-ai-g.html?edition=",
-    "summary_cn": "Subscribe today to gain access to every *Research Intelligencer* article we publish as well as the exclusive daily newsletter, full access to *The MediaPost Cases*, first-look research and daily i...",
-    "category": "chip_infrastructure",
-    "importance_score": 67.4
+    "importance_score": 66.7
   },
   {
     "id": "17",
@@ -150,7 +150,7 @@
     "url": "https://www.inc.com/kevin-haynes/nvidia-wants-you-to-build-an-openclaw-strategy-if-you-dont-know-what-that-means-youre-already-behind/91320500",
     "summary_cn": "CEO Jensen Huang hails “the new computer”—and “the single most important release of software, probably ever.”. Nvidia chief executive Jensen Huang had one pointed question for all the developers, ...",
     "category": "chip_infrastructure",
-    "importance_score": 67.4
+    "importance_score": 66.7
   },
   {
     "id": "18",

@@ -50,14 +50,6 @@
   },
   {
     "id": "6",
-    "title": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race - News18",
-    "source": "News18",
-    "rank_score": 81.3,
-    "category": "bigtech",
-    "content": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race. OpenAI plans to double staff to 8000 by 2026, boost hiring in research, product and technical ambassadorship, after"
-  },
-  {
-    "id": "7",
     "title": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption - Forbes",
     "source": "Forbes",
     "rank_score": 79.9,
@@ -65,7 +57,7 @@
     "content": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption. On March 16, Reuters reported that OpenAI is in advanced talks with TPG, Advent International, Bain Capital, and Brookfield Asset M"
   },
   {
-    "id": "8",
+    "id": "7",
     "title": "Amid Meta, Google layoffs, Sam Altman's OpenAI plans to double workforce to 8000; here's why - DNA India",
     "source": "Dnaindia",
     "rank_score": 79.2,
@@ -73,7 +65,7 @@
     "content": "+ Amid Meta, Google layoffs, Sam Altman’s OpenAI plans to double workforce to 8000; here’s why. Amid Meta, Google layoffs, Sam Altman’s OpenAI plans to double workforce to 8000; here’s why. Ami"
   },
   {
-    "id": "9",
+    "id": "8",
     "title": "OpenAI plans to double workforce to 8,000 amid rising competition - Telangana Today",
     "source": "Telanganatoday",
     "rank_score": 76.75,
@@ -81,7 +73,7 @@
     "content": "Home | Science & Tech | Openai Plans To Double Workforce To 8000 Amid Rising Competition. OpenAI plans to double workforce to 8,000 amid rising competition. OpenAI plans to nearly double its wor"
   },
   {
-    "id": "10",
+    "id": "9",
     "title": "An exclusive tour of Amazon's Trainium lab, the chip that's won over Anthropic, OpenAI, even Apple - TechCrunch",
     "source": "Techcrunch",
     "rank_score": 74.4,
@@ -89,15 +81,7 @@
     "content": "An exclusive tour of Amazon’s Trainium lab, the chip that’s won over Anthropic, OpenAI, even Apple. Shortly after Amazon CEO Andy Jassy announced AWS’s groundbreaking $50 billion investment deal"
   },
   {
-    "id": "11",
-    "title": "OpenAI reportedly plans to double its workforce to 8,000 employees - Engadget",
-    "source": "Engadget",
-    "rank_score": 73.6,
-    "category": "bigtech",
-    "content": "OpenAI reportedly plans to double its workforce to 8,000 employees. According to a report from the Financial Times , the AI giant is looking to expand its workforce to 8,000 employees by the en"
-  },
-  {
-    "id": "12",
+    "id": "10",
     "title": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports - The Star",
     "source": "Thestar",
     "rank_score": 73.25,
@@ -105,7 +89,7 @@
     "content": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports. Tennis-Wimbledon to introduce video review technology. UBS faced technology outage that impacted trading business, Bloom"
   },
   {
-    "id": "13",
+    "id": "11",
     "title": "OpenAI's data center pivot underscores Wall Street spending concerns ahead of IPO - CNBC",
     "source": "Cnbc",
     "rank_score": 72.65,
@@ -113,7 +97,7 @@
     "content": "When OpenAI CEO Sam Altman took the stage at BlackRock's U.S. Infrastructure Summit earlier this month, he acknowledged his company is facing a harsh reality: data centers are hard. \"Anything at t"
   },
   {
-    "id": "14",
+    "id": "12",
     "title": "Google Search test replaces headlines and website titles with AI - 9to5Google",
     "source": "9To5Google",
     "rank_score": 71.15,
@@ -121,26 +105,42 @@
     "content": "Google Search test replaces headlines and website titles with AI. Google Search has started testing the use of AI to replace headlines and website titles, a change that seems both unnecessary an"
   },
   {
+    "id": "13",
+    "title": "OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports - Reuters",
+    "source": "Reuters",
+    "rank_score": 70.1,
+    "category": "bigtech",
+    "content": "OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports. March 21 (Reuters) - OpenAI has told ​advertising agencies it ‌is increasing the number ​of users ​shown"
+  },
+  {
+    "id": "14",
+    "title": "OpenAI reportedly plans to double its workforce to 8,000 employees - Engadget",
+    "source": "Engadget",
+    "rank_score": 68.7,
+    "category": "bigtech",
+    "content": "OpenAI reportedly plans to double its workforce to 8,000 employees. According to a report from the Financial Times , the AI giant is looking to expand its workforce to 8,000 employees by the en"
+  },
+  {
     "id": "15",
-    "title": "What Is Physical AI, and What Does It Mean for Government? - GovTech",
-    "source": "Govtech",
-    "rank_score": 70.55,
-    "category": "chip_infrastructure",
-    "content": "WHAT IS PHYSICAL AI? IBM: “What is physical AI?”— “Physical AI refers to artificial intelligence (AI) systems that operate in and interact with the physical world, rather than existing onl"
+    "title": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race - News18",
+    "source": "News18",
+    "rank_score": 68.35,
+    "category": "bigtech",
+    "content": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race. OpenAI plans to double staff to 8000 by 2026, boost hiring in research, product and technical ambassadorship, after"
   },
   {
     "id": "16",
-    "title": "Mod Op Tool Helps Brands Respond To Dangerous AI-Generated Content 03/03/2026 - MediaPost",
-    "source": "Mediapost",
-    "rank_score": 67.4,
+    "title": "What Is Physical AI, and What Does It Mean for Government? - GovTech",
+    "source": "Govtech",
+    "rank_score": 66.7,
     "category": "chip_infrastructure",
-    "content": "Subscribe today to gain access to every Research Intelligencer article we publish as well as the exclusive daily newsletter, full access to The MediaPost Cases , first-look research and daily i"
+    "content": "WHAT IS PHYSICAL AI? IBM: “What is physical AI?”— “Physical AI refers to artificial intelligence (AI) systems that operate in and interact with the physical world, rather than existing onl"
   },
   {
     "id": "17",
     "title": "Nvidia Wants You to Build an 'OpenClaw Strategy'—If You Don't Know What That Means, You're Already Behind - inc.com",
     "source": "Inc",
-    "rank_score": 67.4,
+    "rank_score": 66.7,
     "category": "chip_infrastructure",
     "content": "CEO Jensen Huang hails “the new computer”—and “the single most important release of software, probably ever.”. Nvidia chief executive Jensen Huang had one pointed question for all the developers"
   },

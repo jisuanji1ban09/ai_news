@@ -3,24 +3,24 @@
   "template": "b",
   "items": [
     {
-      "title": "欧洲观察人士担忧美国 AI 政策",
-      "summary": "美方倾向轻触式监管，立法者忧虑战略模糊"
+      "title": "欧洲观察人士评美国 AI 战略",
+      "summary": "美方倾向轻触式监管，凸显欧方定位模糊"
     },
     {
-      "title": "腾讯推出工具整合微信与 OpenClaw",
-      "summary": "3 月 22 日上线新工具，旨在应对科技竞争"
+      "title": "腾讯集成微信与 OpenClaw AI",
+      "summary": "3 月 22 日发布新工具，加剧中国科技竞争"
     },
     {
-      "title": "OpenAI 计划将员工规模扩大近一倍",
-      "summary": "此举旨在应对来自 Anthropic 及谷歌的竞争"
+      "title": "OpenAI 计划员工总数增近倍",
+      "summary": "应对 Anthropic 及谷歌竞争，处关键竞赛期"
     },
     {
-      "title": "亚马逊 AWS 达成 500 亿美元投资协议",
-      "summary": "Trainium 芯片获 Anthropic 及苹果等青睐"
+      "title": "AWS Trainium 芯片获多方青睐",
+      "summary": "继 500 亿投资后，客户含苹果及 OpenAI"
     },
     {
-      "title": "OpenAI 拟获私募股权 140 亿美元融资",
-      "summary": "正与 TPG 等四家机构谈判加速应用落地"
+      "title": "OpenAI 拟获 140 亿美元私募资金",
+      "summary": "正与 TPG 等四家机构谈判，加速应用落地"
     }
   ]
 }
