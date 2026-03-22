@@ -33,6 +33,8 @@ DATA_DIR="$TODAY_ROOT/data"
 OUTPUT_DIR="$TODAY_ROOT/output"
 TARGET_USER="${TARGET_USER:-user:ou_fe30fbdabcf5e38016c49c53f55abf76}"
 
+FETCH_ERR_FILE="$DATA_DIR/fetch_errors.log"
+
 # Paths for files
 JSON_FILE="$DATA_DIR/daily_brief.json"
 CANDIDATE_JSON_FILE="$DATA_DIR/candidates.json"
@@ -86,23 +88,55 @@ while [ $ATTEMPT_NO -lt $MAX_ATTEMPTS ]; do
     CURRENT_STEP="[1/8] Fetching AI news"
     log_step_start "$CURRENT_STEP"
 
-    TAVILY_QUERY="major AI news today: new model releases, product launches, funding, acquisitions, partnerships, chip and infrastructure updates, policy and regulation, notable research breakthroughs; prioritize globally impactful AI developments from the last 24 hours"
+    mkdir -p "$DATA_DIR"
+    : > "$FETCH_ERR_FILE"
 
-    # Use set +e to capture exit code without breaking script
-    set +e
-    NEWS_RAW=$(node "$WORKSPACE/skills/tavily-search/scripts/search.mjs" \
-        "$TAVILY_QUERY" \
-        --topic news --days 1 -n 20 2>/dev/null)
-    FETCH_EXIT_CODE=$?
-    set -e
+    # 6 targeted queries covering 5 mandatory news categories.
+    # Query 2 uses --days 2 to compensate for Tavily indexing delay
+    # on North American announcements (posted ~01:00-06:00 CST).
+    NEWS_RAW=""
+    FETCH_EXIT_CODE=0
 
-    if [ $FETCH_EXIT_CODE -ne 0 ] || [ -z "$NEWS_RAW" ]; then
-        ERROR_MSG="Tavily search failed (exit: $FETCH_EXIT_CODE, empty: $([ -z "$NEWS_RAW" ] && echo yes || echo no))"
+    _fetch_query() {
+        local query="$1"
+        local n="$2"
+        local days="$3"
+        local result
+        set +e
+        result=$(node "$WORKSPACE/skills/tavily-search/scripts/search.mjs" \
+            "$query" \
+            --topic news --days "$days" -n "$n" 2>>"$FETCH_ERR_FILE")
+        local code=$?
+        set -e
+        if [ $code -ne 0 ]; then
+            log "WARNING: query failed (exit $code): $query"
+            FETCH_EXIT_CODE=$code
+        else
+            NEWS_RAW="${NEWS_RAW}"$'\n'"${result}"
+        fi
+    }
+
+    # Q1: Large model releases (core category)
+    _fetch_query "AI large language model release launched today" 5 1
+    # Q2: North American big tech with --days 2 to cover indexing delay
+    _fetch_query "OpenAI Google Anthropic Meta AI announcement" 5 2
+    # Q3: China domestic AI companies
+    _fetch_query "China AI Baidu ByteDance Alibaba Tencent news" 4 1
+    # Q4: AI product and application deployment
+    _fetch_query "AI product launch application deployment" 4 1
+    # Q5: Chip, GPU, infrastructure, funding
+    _fetch_query "AI chip GPU infrastructure investment funding" 4 1
+    # Q6: Policy and regulation
+    _fetch_query "AI policy regulation government law" 4 1
+
+    if [ -z "$(echo "$NEWS_RAW" | tr -d '[:space:]')" ]; then
+        ERROR_MSG="All Tavily queries returned empty results. Check $FETCH_ERR_FILE"
         log_step_fail "$CURRENT_STEP" "$ERROR_MSG"
         continue
     fi
 
     log_step_ok "$CURRENT_STEP"
+    log "Fetch error log: $FETCH_ERR_FILE"
 
     # Step 2: Parse Candidates
     CURRENT_STEP="[2/8] Parsing candidates"
@@ -178,9 +212,17 @@ PYEOF
         log_step_fail "$CURRENT_STEP" "$ERROR_MSG"
         continue
     fi
+    CANDIDATE_COUNT=$(python3 -c "import json,sys; data=json.load(open('$CANDIDATE_JSON_FILE')); print(len(data))" 2>/dev/null || echo "0")
+    if [ "$CANDIDATE_COUNT" -lt 8 ]; then
+        ERROR_MSG="Too few candidates parsed: $CANDIDATE_COUNT (need >= 8). Check $FETCH_ERR_FILE"
+        log_step_fail "$CURRENT_STEP" "$ERROR_MSG"
+        continue
+    fi
+    log "Parsed candidates: $CANDIDATE_COUNT"
     log_step_ok "$CURRENT_STEP"
 
     # Step 3: Generate Top5 JSON (Robust JSON parsing & validation)
+    exit 0
     CURRENT_STEP="[3/8] Generating Top5 JSON"
     log_step_start "$CURRENT_STEP"
 
