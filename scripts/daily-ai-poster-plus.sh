@@ -154,10 +154,7 @@ output_json = os.environ.get("CANDIDATE_JSON_FILE", "")
 title_re = re.compile(r'^-\s+\*\*(.+?)\*\*(?:\s+\(relevance:\s*(\d+)%\))?')
 url_re = re.compile(r'^https?://', re.IGNORECASE)
 
-# ---------------------------------------------------------------------------
-# Noise filter: titles containing these keywords are dropped immediately.
-# Covers financial clickbait, non-AI tech news, and other off-topic content.
-# ---------------------------------------------------------------------------
+# Noise filter: drop titles containing these keywords
 NOISE_PATTERNS = re.compile(
     r'\b(bitcoin|crypto|cryptocurrency|ethereum|stock|stocks|nasdaq|s&p|'
     r'forex|etf|dividend|earnings report|quarterly result|'
@@ -165,7 +162,7 @@ NOISE_PATTERNS = re.compile(
     re.IGNORECASE
 )
 
-# Must contain at least one of these to be considered AI-related
+# Must contain at least one AI-related keyword to pass
 AI_REQUIRED = re.compile(
     r'\b(ai|artificial intelligence|machine learning|deep learning|llm|'
     r'openai|anthropic|google|microsoft|meta|nvidia|baidu|bytedance|'
@@ -181,84 +178,62 @@ def infer_source(url):
     return host.split(".")[0].replace("-", " ").title() or "Unknown"
 
 def infer_category(text):
-    """
-    Multi-signal category inference. Ordered from most-specific to least.
-    Each category checks a PRIMARY signal (strong indicator) and optionally
-    a SECONDARY signal for confirmation.
-    """
     t = text.lower()
-
-    # --- China domestic AI ---
     china_corps = ["baidu", "bytedance", "alibaba", "tencent", "huawei",
                    "xiaomi", "zhipu", "moonshot", "deepseek", "manus",
                    "wechat", "douyin", "kwai", "kuaishou", "iflytek"]
     if any(k in t for k in china_corps):
         return "china_ai"
-
-    # --- Chip / infrastructure ---
     chip_primary = ["nvidia", "amd", "intel", "tsmc", "qualcomm",
                     "gpu", "tpu", "npu", "semiconductor", "chip",
                     "datacenter", "data center", "infrastructure",
-                    "compute", "supercomputer", "blue origin satellite"]
+                    "compute", "supercomputer"]
     if any(k in t for k in chip_primary):
         return "chip_infrastructure"
-
-    # --- Funding / M&A ---
     funding_primary = ["funding", "raised", "raises", "series a", "series b",
                        "series c", "ipo", "acquisition", "acquires", "acquired",
-                       "merger", "valuation", "billion", "invest", "venture"]
+                       "merger", "valuation", "invest", "venture"]
     if any(k in t for k in funding_primary):
         return "funding_mna"
-
-    # --- Policy / regulation ---
     policy_primary = ["regulation", "regulator", "regulatory", "legislat",
                       "congress", "senate", "parliament", "government order",
-                      "executive order", "ban", "banned", "law", "legal",
-                      "lawsuit", "antitrust", "gdpr", "compliance", "audit"]
-    # Avoid false positives: only classify as policy if no strong product signal
+                      "executive order", "ban", "banned", "lawsuit",
+                      "antitrust", "gdpr", "compliance"]
     product_signal = ["launch", "release", "model", "product", "feature",
                       "update", "version", "deploy", "agent"]
     has_policy = any(k in t for k in policy_primary)
     has_product = any(k in t for k in product_signal)
     if has_policy and not has_product:
         return "regulation_policy"
-
-    # --- Big tech (non-China) ---
     bigtech_corps = ["openai", "google", "anthropic", "microsoft", "meta",
                      "amazon", "apple", "tesla", "sam altman", "elon musk",
                      "sundar pichai", "satya nadella", "jensen huang"]
     if any(k in t for k in bigtech_corps):
         return "bigtech"
-
-    # --- General AI (catch-all) ---
     return "general_ai"
 
 def title_fingerprint(title):
-    """
-    Normalize a title to a dedup key:
-    - lowercase
-    - strip source attribution suffix (e.g. " - Reuters", " | CNBC")
-    - remove punctuation and extra spaces
-    Returns a short token set so near-duplicate titles across sources match.
-    """
-    # Remove source suffix patterns: " - Source", " | Source", " : Source"
     t = re.sub(r'\s*[-|:]\s*[A-Za-z0-9 \.]+$', '', title).strip()
     t = t.lower()
     t = re.sub(r'[^\w\s]', '', t)
     t = re.sub(r'\s+', ' ', t).strip()
-    # Use a frozenset of words for order-independent matching
-    words = frozenset(t.split())
-    return words
+    return frozenset(t.split())
 
 def jaccard(a, b):
-    """Jaccard similarity between two frozensets."""
     if not a or not b:
         return 0.0
     return len(a & b) / len(a | b)
 
-# ---------------------------------------------------------------------------
-# Parse all raw items from Tavily markdown output
-# ---------------------------------------------------------------------------
+CATEGORY_BONUS = {
+    "bigtech": 8,
+    "china_ai": 7,
+    "chip_infrastructure": 6,
+    "funding_mna": 4,
+    "regulation_policy": 4,
+    "general_ai": 0,
+}
+
+# Parse all raw items
 raw_items = []
 i = 0
 lines = raw_text.splitlines()
@@ -292,9 +267,7 @@ while i < len(lines):
         "relevance": relevance,
     })
 
-# ---------------------------------------------------------------------------
-# Filter: remove noise and non-AI content
-# ---------------------------------------------------------------------------
+# Filter noise and non-AI content
 filtered = []
 for item in raw_items:
     combined = item["title"] + " " + item["summary"]
@@ -304,56 +277,30 @@ for item in raw_items:
         continue
     filtered.append(item)
 
-# ---------------------------------------------------------------------------
 # Dedup: URL-exact first, then near-duplicate title (Jaccard >= 0.65)
-# ---------------------------------------------------------------------------
 seen_urls = set()
-seen_fingerprints = []  # list of frozensets
+seen_fingerprints = []
 deduped = []
-
 for item in filtered:
-    # Exact URL dedup
     url = item["url"]
     if url and url in seen_urls:
         continue
-
-    # Near-duplicate title dedup
     fp = title_fingerprint(item["title"])
-    is_dup = False
-    for existing_fp in seen_fingerprints:
-        if jaccard(fp, existing_fp) >= 0.65:
-            is_dup = True
-            break
+    is_dup = any(jaccard(fp, ex) >= 0.65 for ex in seen_fingerprints)
     if is_dup:
         continue
-
     if url:
         seen_urls.add(url)
     seen_fingerprints.append(fp)
     deduped.append(item)
 
-# ---------------------------------------------------------------------------
-# Score and sort: relevance score with category bonus
-# ---------------------------------------------------------------------------
-CATEGORY_BONUS = {
-    "bigtech": 8,
-    "china_ai": 7,
-    "chip_infrastructure": 6,
-    "funding_mna": 4,
-    "regulation_policy": 4,
-    "general_ai": 0,
-}
-
-def compute_score(item, category):
-    base = 60 + (item["relevance"] * 0.35 if item["relevance"] is not None else 0)
-    return round(base + CATEGORY_BONUS.get(category, 0), 2)
-
-# Build final candidates (cap at 20)
+# Score, sort and cap at 20
 candidates = []
 for item in deduped[:20]:
     combined = item["title"] + " " + item["summary"]
     category = infer_category(combined)
-    score = compute_score(item, category)
+    base = 60 + (item["relevance"] * 0.35 if item["relevance"] is not None else 0)
+    score = round(base + CATEGORY_BONUS.get(category, 0), 2)
     candidates.append({
         "id": str(len(candidates) + 1),
         "title": item["title"],
@@ -364,16 +311,13 @@ for item in deduped[:20]:
         "importance_score": score,
     })
 
-# Sort by importance_score descending so Step 3 LLM sees best candidates first
 candidates.sort(key=lambda x: x["importance_score"], reverse=True)
-# Re-assign sequential IDs after sort
 for idx, c in enumerate(candidates):
     c["id"] = str(idx + 1)
 
 with open(output_json, "w", encoding="utf-8") as f:
     json.dump(candidates, f, ensure_ascii=False, indent=2)
 
-# Print summary for log
 category_counts = {}
 for c in candidates:
     cat = c["category"]
