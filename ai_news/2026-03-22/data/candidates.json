@@ -1,78 +1,33 @@
 [
   {
     "id": "1",
-    "title": "OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports - Reuters",
-    "source": "Reuters",
-    "url": "https://www.reuters.com/business/media-telecom/openai-expand-ads-chatgpt-all-free-low-cost-users-information-reports-2026-03-21/",
-    "summary_cn": "# OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports. March 21 (Reuters) - OpenAI has told ​advertising agencies it ‌is increasing the number ​of users ​shown ...",
-    "category": "general_ai",
-    "importance_score": 62.1
-  },
-  {
-    "id": "2",
-    "title": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports - Reuters",
-    "source": "Reuters",
-    "url": "https://www.reuters.com/business/openai-nearly-double-workforce-8000-by-end-2026-ft-reports-2026-03-21/",
-    "summary_cn": "# OpenAI to nearly double workforce to 8,000 by end-2026, FT reports. March 21 (Reuters) - Artificial intelligence start-up OpenAI plans to nearly ​double its workforce to 8,000 ‌from 4,500 by the...",
-    "category": "general_ai",
-    "importance_score": 60.7
-  },
-  {
-    "id": "3",
-    "title": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports - CNBC",
-    "source": "Cnbc",
-    "url": "https://www.cnbc.com/2026/03/21/openai-to-nearly-double-workforce-to-8000-by-end-2026-ft-reports.html",
-    "summary_cn": "# OpenAI to nearly double workforce to 8,000 by end-2026, FT reports. OpenAI CEO Sam Altman attends an event to pitch AI for businesses in Tokyo, Feb. 3, 2025. Artificial intelligence start-up Ope...",
-    "category": "general_ai",
-    "importance_score": 60.7
-  },
-  {
-    "id": "4",
-    "title": "Google Search test replaces headlines and website titles with AI - 9to5Google",
-    "source": "9To5Google",
-    "url": "https://9to5google.com/2026/03/21/google-search-test-replaces-headlines-and-website-titles-with-ai/",
-    "summary_cn": "# Google Search test replaces headlines and website titles with AI. Google Search has started testing the use of AI to replace headlines and website titles, a change that seems both unnecessary an...",
-    "category": "general_ai",
-    "importance_score": 60.7
-  },
-  {
-    "id": "5",
-    "title": "Nvidia Wants You to Build an 'OpenClaw Strategy'—If You Don't Know What That Means, You're Already Behind - inc.com",
-    "source": "Inc",
-    "url": "https://www.inc.com/kevin-haynes/nvidia-wants-you-to-build-an-openclaw-strategy-if-you-dont-know-what-that-means-youre-already-behind/91320500",
-    "summary_cn": "CEO Jensen Huang hails “the new computer”—and “the single most important release of software, probably ever.”. Nvidia chief executive Jensen Huang had one pointed question for all the developers, ...",
-    "category": "regulation_policy",
-    "importance_score": 60.7
-  },
-  {
-    "id": "6",
     "title": "OpenAI reportedly plans to double its workforce to 8,000 employees - Engadget",
     "source": "Engadget",
     "url": "https://www.engadget.com/ai/openai-reportedly-plans-to-double-its-workforce-to-8000-employees-161028377.html",
     "summary_cn": "# OpenAI reportedly plans to double its workforce to 8,000 employees. According to a report from the *Financial Times*, the AI giant is looking to expand its workforce to 8,000 employees by the en...",
-    "category": "general_ai",
-    "importance_score": 92.9
+    "category": "bigtech",
+    "importance_score": 100.9
   },
   {
-    "id": "7",
+    "id": "2",
     "title": "Amid Meta, Google layoffs, Sam Altman's OpenAI plans to double workforce to 8000; here's why - DNA India",
     "source": "Dnaindia",
     "url": "https://www.dnaindia.com/technology/report-amid-meta-google-layoffs-sam-altman-s-openai-plans-to-double-workforce-to-8000-here-s-why-3203858",
     "summary_cn": "+ Amid Meta, Google layoffs, Sam Altman’s OpenAI plans to double workforce to 8000; here’s why. Amid Meta, Google layoffs, Sam Altman’s OpenAI plans to double workforce to 8000; here’s why. ## Ami...",
-    "category": "general_ai",
-    "importance_score": 92.55
+    "category": "bigtech",
+    "importance_score": 100.55
   },
   {
-    "id": "8",
+    "id": "3",
     "title": "OpenAI plans to double workforce to 8,000 amid rising competition - Telangana Today",
     "source": "Telanganatoday",
     "url": "https://telanganatoday.com/openai-plans-to-double-workforce-to-8000-amid-rising-competition",
     "summary_cn": "Home | Science & Tech | Openai Plans To Double Workforce To 8000 Amid Rising Competition. # OpenAI plans to double workforce to 8,000 amid rising competition. OpenAI plans to nearly double its wor...",
-    "category": "general_ai",
-    "importance_score": 90.45
+    "category": "bigtech",
+    "importance_score": 98.45
   },
   {
-    "id": "9",
+    "id": "4",
     "title": "The Smartest Minds in AI Just Learned the World’s Most Valuable F-Word - WSJ",
     "source": "Wsj",
     "url": "https://www.wsj.com/tech/ai/openai-anthropic-claude-code-apple-steve-jobs-4cdc28d2?gaa_at=eafs&gaa_n=AWEtsqf4InLKiTQUCcAvj4h9ppr9Om0k4i9FFLboDvPDMwf0kL-0dGS3MU6C&gaa_ts=69be17bd&gaa_sig=GfkPbjTRPgw8-2x_UDmuFcLW62Q6KiwYFXhRs50NjIPf5UKiun_r1kbQUS83eAKYqEsJCT4g345oIq2AwoPnqw%3D%3D",
@@ -81,102 +36,147 @@
     "importance_score": 89.4
   },
   {
-    "id": "10",
+    "id": "5",
     "title": "OpenAI eyes 8,000 workforce amid rising AI competition: Report - lokmattimes.com",
     "source": "Lokmattimes",
     "url": "https://www.lokmattimes.com/business/openai-eyes-8000-workforce-amid-rising-ai-competition-report/",
     "summary_cn": "### Maharashtra News. * OpenAI eyes 8,000 workforce amid rising AI competition: Report. # OpenAI eyes 8,000 workforce amid rising AI competition: Report. ## New Delhi, March 21 OpenAI -- a parent ...",
-    "category": "general_ai",
-    "importance_score": 80.65
+    "category": "bigtech",
+    "importance_score": 88.65
   },
   {
-    "id": "11",
+    "id": "6",
     "title": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
     "source": "Reuters",
     "url": "https://www.reuters.com/technology/tencent-integrates-wechat-with-openclaw-ai-agent-amid-china-tech-battle-2026-03-22/",
     "summary_cn": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin...",
+    "category": "china_ai",
+    "importance_score": 88.35
+  },
+  {
+    "id": "7",
+    "title": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
+    "source": "Moderndiplomacy",
+    "url": "https://moderndiplomacy.eu/2026/03/21/trumps-ai-strategy-exposes-europes-strategic-ambiguity/",
+    "summary_cn": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th...",
     "category": "regulation_policy",
-    "importance_score": 81.35
+    "importance_score": 81.15
   },
   {
-    "id": "12",
-    "title": "Promising Bitcoin Stocks To Follow Today - March 21st - MarketBeat",
-    "source": "Marketbeat",
-    "url": "https://www.marketbeat.com/instant-alerts/promising-bitcoin-stocks-to-follow-today-march-21st-2026-03-21/",
-    "summary_cn": "The S&P 500 Broke Its 200-Day Moving Average—Here's What to Expect. Is the ARK Innovation ETF Finding a Floor? Tesla and Robinhood Set the Tone. 3 International Stocks Most U.S. Investors Have Nev...",
-    "category": "general_ai",
-    "importance_score": 67.0
-  },
-  {
-    "id": "13",
-    "title": "OpenClaw's ChatGPT moment sparks concern that AI models are becoming commodities - CNBC",
-    "source": "Cnbc",
-    "url": "https://www.cnbc.com/2026/03/21/openclaw-chatgpt-moment-sparks-concern-ai-models-becoming-commodities.html",
-    "summary_cn": "In his keynote, Huang described OpenClaw as the go-to option for building AI agents that can perform tasks like scouting eBay for deals and then placing bids, and said it \"exceeded what Linux did ...",
-    "category": "regulation_policy",
-    "importance_score": 65.6
-  },
-  {
-    "id": "14",
-    "title": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports - The Star",
-    "source": "Thestar",
-    "url": "https://www.thestar.com.my/tech/tech-news/2026/03/21/openai-to-nearly-double-workforce-to-8000-by-end-2026-ft-reports",
-    "summary_cn": "# OpenAI to nearly double workforce to 8,000 by end-2026, FT reports. ## Tennis-Wimbledon to introduce video review technology. ## UBS faced technology outage that impacted trading business, Bloom...",
-    "category": "general_ai",
-    "importance_score": 65.25
-  },
-  {
-    "id": "15",
+    "id": "8",
     "title": "Blue Origin Submits Application for Satellite Network to Host Data Centers in Orbit - MLQ.ai",
     "source": "Mlq",
     "url": "https://mlq.ai/news/blue-origin-submits-application-for-satellite-network-to-host-data-centers-in-orbit/",
     "summary_cn": "The company has only flown the New Glenn rocket twice, the launch vehicle planned for datacenter satellite deployments.[1] Additionally, Blue Origin has not yet launched a single TeraWave satellit...",
+    "category": "chip_infrastructure",
+    "importance_score": 71.6
+  },
+  {
+    "id": "9",
+    "title": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race - News18",
+    "source": "News18",
+    "url": "https://www.news18.com/tech/openai-plans-to-double-workforce-to-8000-by-2026-to-gain-edge-in-ai-race-ws-l-9990350.html",
+    "summary_cn": "# OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race. ## OpenAI plans to double staff to 8000 by 2026, boost hiring in research, product and technical ambassadorship, after ...",
+    "category": "bigtech",
+    "importance_score": 71.5
+  },
+  {
+    "id": "10",
+    "title": "OpenAI Plans To Nearly Double Its Workforce - Let's Data Science",
+    "source": "Letsdatascience",
+    "url": "https://letsdatascience.com/news/openai-plans-to-nearly-double-its-workforce-83290b1a",
+    "summary_cn": "1,500+ Questions · 15 Domains · Unlimited Audio. # OpenAI Plans To Nearly Double Its Workforce. OpenAI plans to nearly double its workforce to about 8,000 from 4,500 by the end of 2026, the Financ...",
+    "category": "bigtech",
+    "importance_score": 71.5
+  },
+  {
+    "id": "11",
+    "title": "How the FBI can conduct mass surveillance – even without AI - The Guardian",
+    "source": "Theguardian",
+    "url": "https://www.theguardian.com/technology/2026/mar/21/fbi-mass-surveillance-data-artificial-intelligence",
+    "summary_cn": "Patel’s admission underscores how the government is able to conduct mass surveillance despite its assurances to abide by lawful use of AI and fourth amendment protections against unreasonable sear...",
+    "category": "regulation_policy",
+    "importance_score": 70.65
+  },
+  {
+    "id": "12",
+    "title": "OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports - Reuters",
+    "source": "Reuters",
+    "url": "https://www.reuters.com/business/media-telecom/openai-expand-ads-chatgpt-all-free-low-cost-users-information-reports-2026-03-21/",
+    "summary_cn": "# OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports. March 21 (Reuters) - OpenAI has told ​advertising agencies it ‌is increasing the number ​of users ​shown ...",
+    "category": "bigtech",
+    "importance_score": 70.1
+  },
+  {
+    "id": "13",
+    "title": "Oasis Security raises $120M Series B to secure rise of enterprise AI agents - ynetnews",
+    "source": "Ynetnews",
+    "url": "https://www.ynetnews.com/business/article/b1x5dwhczx",
+    "summary_cn": "## Funding lifts total raised to $195 million as startup pushes platform to manage access for AI agents and other non-human identities across enterprise systems. The company said the latest round ...",
+    "category": "funding_mna",
+    "importance_score": 69.25
+  },
+  {
+    "id": "14",
+    "title": "The great robot race: How companies can balance speed to market and compliance in the U.S. - The Robot Report",
+    "source": "Therobotreport",
+    "url": "https://www.therobotreport.com/great-robot-race-how-companies-balance-speed-market-compliance-u-s/",
+    "summary_cn": "The current U.S. environment presents both challenges and opportunities for consumer robotics manufacturers and developers of AI-enabled products. The current absence of federal mandatory safety s...",
+    "category": "general_ai",
+    "importance_score": 68.75
+  },
+  {
+    "id": "15",
+    "title": "Google Search test replaces headlines and website titles with AI - 9to5Google",
+    "source": "9To5Google",
+    "url": "https://9to5google.com/2026/03/21/google-search-test-replaces-headlines-and-website-titles-with-ai/",
+    "summary_cn": "# Google Search test replaces headlines and website titles with AI. Google Search has started testing the use of AI to replace headlines and website titles, a change that seems both unnecessary an...",
+    "category": "bigtech",
+    "importance_score": 68.7
+  },
+  {
+    "id": "16",
+    "title": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports - Reuters",
+    "source": "Reuters",
+    "url": "https://www.reuters.com/business/openai-nearly-double-workforce-8000-by-end-2026-ft-reports-2026-03-21/",
+    "summary_cn": "# OpenAI to nearly double workforce to 8,000 by end-2026, FT reports. March 21 (Reuters) - Artificial intelligence start-up OpenAI plans to nearly ​double its workforce to 8,000 ‌from 4,500 by the...",
+    "category": "chip_infrastructure",
+    "importance_score": 66.7
+  },
+  {
+    "id": "17",
+    "title": "Nvidia Wants You to Build an 'OpenClaw Strategy'—If You Don't Know What That Means, You're Already Behind - inc.com",
+    "source": "Inc",
+    "url": "https://www.inc.com/kevin-haynes/nvidia-wants-you-to-build-an-openclaw-strategy-if-you-dont-know-what-that-means-youre-already-behind/91320500",
+    "summary_cn": "CEO Jensen Huang hails “the new computer”—and “the single most important release of software, probably ever.”. Nvidia chief executive Jensen Huang had one pointed question for all the developers, ...",
+    "category": "chip_infrastructure",
+    "importance_score": 66.7
+  },
+  {
+    "id": "18",
+    "title": "OpenClaw's ChatGPT moment sparks concern that AI models are becoming commodities - CNBC",
+    "source": "Cnbc",
+    "url": "https://www.cnbc.com/2026/03/21/openclaw-chatgpt-moment-sparks-concern-ai-models-becoming-commodities.html",
+    "summary_cn": "In his keynote, Huang described OpenClaw as the go-to option for building AI agents that can perform tasks like scouting eBay for deals and then placing bids, and said it \"exceeded what Linux did ...",
     "category": "general_ai",
     "importance_score": 65.6
   },
   {
-    "id": "16",
+    "id": "19",
+    "title": "A brave Marine colonel took on the Pentagon — and paid the price for it - Fox News",
+    "source": "Foxnews",
+    "url": "https://www.foxnews.com/opinion/marine-colonel-took-on-pentagon-paid-the-price-for-it",
+    "summary_cn": "Everything about how Marine Colonel Drew Cukor ran Project Maven, the Department of Defense’s upstart AI initiative, put a target on his back. When Cukor launched Maven in 2017, the government sti...",
+    "category": "general_ai",
+    "importance_score": 65.25
+  },
+  {
+    "id": "20",
     "title": "Kodiak CEO says making trucks drive themselves is only half the battle - The Verge",
     "source": "Theverge",
     "url": "https://www.theverge.com/transportation/897551/kodiak-ai-self-driving-truck-ceo-interview",
     "summary_cn": "In addition to Aurora’s plan to deploy hundreds of autonomous big rigs and Waabi expanding into robotaxis, you’ve also got Kodiak AI aiming to launch its own fully driverless long-haul freight ope...",
     "category": "general_ai",
     "importance_score": 64.2
-  },
-  {
-    "id": "17",
-    "title": "OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race - News18",
-    "source": "News18",
-    "url": "https://www.news18.com/tech/openai-plans-to-double-workforce-to-8000-by-2026-to-gain-edge-in-ai-race-ws-l-9990350.html",
-    "summary_cn": "# OpenAI Plans To Double Workforce To 8,000 By 2026 To Gain Edge In AI Race. ## OpenAI plans to double staff to 8000 by 2026, boost hiring in research, product and technical ambassadorship, after ...",
-    "category": "general_ai",
-    "importance_score": 63.5
-  },
-  {
-    "id": "18",
-    "title": "OpenAI Plans To Nearly Double Its Workforce - Let's Data Science",
-    "source": "Letsdatascience",
-    "url": "https://letsdatascience.com/news/openai-plans-to-nearly-double-its-workforce-83290b1a",
-    "summary_cn": "1,500+ Questions · 15 Domains · Unlimited Audio. # OpenAI Plans To Nearly Double Its Workforce. OpenAI plans to nearly double its workforce to about 8,000 from 4,500 by the end of 2026, the Financ...",
-    "category": "general_ai",
-    "importance_score": 63.5
-  },
-  {
-    "id": "19",
-    "title": "OpenAI Plans To Nearly Double Its Workforce - Let's Data Science",
-    "source": "Letsdatascience",
-    "url": "https://letsdatascience.com/news/openai-plans-to-nearly-double-its-workforce-83290b1a",
-    "summary_cn": "1,500+ Questions · 15 Domains · Unlimited Audio. # OpenAI Plans To Nearly Double Its Workforce. OpenAI plans to nearly double its workforce to about 8,000 from 4,500 by the end of 2026, the Financ...",
-    "category": "general_ai",
-    "importance_score": 66.65
-  },
-  {
-    "id": "20",
-    "title": "Taiwan Semiconductor Manufacturing (TSM) Staring at Chips Production Disruption Amid Iran War - Insider Monkey",
-    "source": "Insidermonkey",
-    "url": "https://www.insidermonkey.com/blog/taiwan-semiconductor-manufacturing-tsm-staring-at-chips-production-disruption-amid-iran-war-1721914/",
-    "summary_cn": "Taiwan Semiconductor Manufacturing Company Limited (NYSE:**TSM**) is **one of Harvard University’s top AI stock picks**. Consequently, Taiwan Semiconductor Manufacturing Company Limited (NYSE:TSM)...",
-    "category": "general_ai",
-    "importance_score": 65.25
   }
 ]

@@ -1,9 +1,10 @@
-[2026-03-22 17:09:04] === Attempt 1/3 ===
-[2026-03-22 17:09:04] Cleaning up old artifacts for attempt 1...
-[2026-03-22 17:09:04] STEP status=start step="[1/8] Fetching AI news" attempt=1 run_id=20260322-170904-8135_12680
-[2026-03-22 17:09:24] STEP status=ok step="[1/8] Fetching AI news" attempt=1 run_id=20260322-170904-8135_12680
-[2026-03-22 17:09:24] Fetch error log: /Users/wzh/project/news/ai_news/2026-03-22/data/fetch_errors.log
-[2026-03-22 17:09:24] STEP status=start step="[2/8] Parsing candidates" attempt=1 run_id=20260322-170904-8135_12680
-Parsed 20 candidates
-[2026-03-22 17:09:24] Parsed candidates: 20
-[2026-03-22 17:09:24] STEP status=ok step="[2/8] Parsing candidates" attempt=1 run_id=20260322-170904-8135_12680
+[2026-03-22 17:24:09] === Attempt 1/3 ===
+[2026-03-22 17:24:09] Cleaning up old artifacts for attempt 1...
+[2026-03-22 17:24:09] STEP status=start step="[1/8] Fetching AI news" attempt=1 run_id=20260322-172409-9012_3054
+[2026-03-22 17:24:23] STEP status=ok step="[1/8] Fetching AI news" attempt=1 run_id=20260322-172409-9012_3054
+[2026-03-22 17:24:23] Fetch error log: /Users/wzh/project/news/ai_news/2026-03-22/data/fetch_errors.log
+[2026-03-22 17:24:23] STEP status=start step="[2/8] Parsing candidates" attempt=1 run_id=20260322-172409-9012_3054
+Parsed 20 candidates after filter+dedup
+Category breakdown: {'bigtech': 8, 'general_ai': 5, 'china_ai': 1, 'regulation_policy': 2, 'chip_infrastructure': 3, 'funding_mna': 1}
+[2026-03-22 17:24:23] Parsed candidates: 20
+[2026-03-22 17:24:23] STEP status=ok step="[2/8] Parsing candidates" attempt=1 run_id=20260322-172409-9012_3054

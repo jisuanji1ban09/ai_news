@@ -154,6 +154,26 @@ output_json = os.environ.get("CANDIDATE_JSON_FILE", "")
 title_re = re.compile(r'^-\s+\*\*(.+?)\*\*(?:\s+\(relevance:\s*(\d+)%\))?')
 url_re = re.compile(r'^https?://', re.IGNORECASE)
 
+# ---------------------------------------------------------------------------
+# Noise filter: titles containing these keywords are dropped immediately.
+# Covers financial clickbait, non-AI tech news, and other off-topic content.
+# ---------------------------------------------------------------------------
+NOISE_PATTERNS = re.compile(
+    r'\b(bitcoin|crypto|cryptocurrency|ethereum|stock|stocks|nasdaq|s&p|'
+    r'forex|etf|dividend|earnings report|quarterly result|'
+    r'war|iran|military|missile|shooting|accident|weather)\b',
+    re.IGNORECASE
+)
+
+# Must contain at least one of these to be considered AI-related
+AI_REQUIRED = re.compile(
+    r'\b(ai|artificial intelligence|machine learning|deep learning|llm|'
+    r'openai|anthropic|google|microsoft|meta|nvidia|baidu|bytedance|'
+    r'alibaba|tencent|huawei|deepseek|gemini|chatgpt|claude|gpt|'
+    r'model|agent|chip|gpu|semiconductor|robot|autonomous)\b',
+    re.IGNORECASE
+)
+
 def infer_source(url):
     if not url: return "Unknown"
     host = urlparse(url).netloc.lower().split(":")[0]
@@ -161,48 +181,205 @@ def infer_source(url):
     return host.split(".")[0].replace("-", " ").title() or "Unknown"
 
 def infer_category(text):
-    if any(k in text for k in ["openai", "google", "microsoft", "anthropic"]): return "bigtech"
-    if any(k in text for k in ["funding", "raised", "acquisition"]): return "funding_mna"
-    if any(k in text for k in ["chip", "gpu", "semiconductor"]): return "chip_infrastructure"
-    if any(k in text for k in ["policy", "regulation", "law"]): return "regulation_policy"
+    """
+    Multi-signal category inference. Ordered from most-specific to least.
+    Each category checks a PRIMARY signal (strong indicator) and optionally
+    a SECONDARY signal for confirmation.
+    """
+    t = text.lower()
+
+    # --- China domestic AI ---
+    china_corps = ["baidu", "bytedance", "alibaba", "tencent", "huawei",
+                   "xiaomi", "zhipu", "moonshot", "deepseek", "manus",
+                   "wechat", "douyin", "kwai", "kuaishou", "iflytek"]
+    if any(k in t for k in china_corps):
+        return "china_ai"
+
+    # --- Chip / infrastructure ---
+    chip_primary = ["nvidia", "amd", "intel", "tsmc", "qualcomm",
+                    "gpu", "tpu", "npu", "semiconductor", "chip",
+                    "datacenter", "data center", "infrastructure",
+                    "compute", "supercomputer", "blue origin satellite"]
+    if any(k in t for k in chip_primary):
+        return "chip_infrastructure"
+
+    # --- Funding / M&A ---
+    funding_primary = ["funding", "raised", "raises", "series a", "series b",
+                       "series c", "ipo", "acquisition", "acquires", "acquired",
+                       "merger", "valuation", "billion", "invest", "venture"]
+    if any(k in t for k in funding_primary):
+        return "funding_mna"
+
+    # --- Policy / regulation ---
+    policy_primary = ["regulation", "regulator", "regulatory", "legislat",
+                      "congress", "senate", "parliament", "government order",
+                      "executive order", "ban", "banned", "law", "legal",
+                      "lawsuit", "antitrust", "gdpr", "compliance", "audit"]
+    # Avoid false positives: only classify as policy if no strong product signal
+    product_signal = ["launch", "release", "model", "product", "feature",
+                      "update", "version", "deploy", "agent"]
+    has_policy = any(k in t for k in policy_primary)
+    has_product = any(k in t for k in product_signal)
+    if has_policy and not has_product:
+        return "regulation_policy"
+
+    # --- Big tech (non-China) ---
+    bigtech_corps = ["openai", "google", "anthropic", "microsoft", "meta",
+                     "amazon", "apple", "tesla", "sam altman", "elon musk",
+                     "sundar pichai", "satya nadella", "jensen huang"]
+    if any(k in t for k in bigtech_corps):
+        return "bigtech"
+
+    # --- General AI (catch-all) ---
     return "general_ai"
 
-candidates = []
+def title_fingerprint(title):
+    """
+    Normalize a title to a dedup key:
+    - lowercase
+    - strip source attribution suffix (e.g. " - Reuters", " | CNBC")
+    - remove punctuation and extra spaces
+    Returns a short token set so near-duplicate titles across sources match.
+    """
+    # Remove source suffix patterns: " - Source", " | Source", " : Source"
+    t = re.sub(r'\s*[-|:]\s*[A-Za-z0-9 \.]+$', '', title).strip()
+    t = t.lower()
+    t = re.sub(r'[^\w\s]', '', t)
+    t = re.sub(r'\s+', ' ', t).strip()
+    # Use a frozenset of words for order-independent matching
+    words = frozenset(t.split())
+    return words
+
+def jaccard(a, b):
+    """Jaccard similarity between two frozensets."""
+    if not a or not b:
+        return 0.0
+    return len(a & b) / len(a | b)
+
+# ---------------------------------------------------------------------------
+# Parse all raw items from Tavily markdown output
+# ---------------------------------------------------------------------------
+raw_items = []
 i = 0
 lines = raw_text.splitlines()
-while i < len(lines) and len(candidates) < 20:
+while i < len(lines):
     line = lines[i].strip()
     m = title_re.match(line)
     if not m:
         i += 1
         continue
     title = m.group(1).strip()
+    relevance = int(m.group(2)) if m.group(2) else None
     url = ""
     summary = ""
     i += 1
     while i < len(lines):
         cur = lines[i].strip()
-        if not cur or title_re.match(cur): break
+        if not cur or title_re.match(cur):
+            break
         if url_re.match(cur):
-            if not url: url = cur
+            if not url:
+                url = cur
         else:
             summary += " " + cur
         i += 1
+    if len(summary) > 200:
+        summary = summary[:197] + "..."
+    raw_items.append({
+        "title": title,
+        "url": url,
+        "summary": summary.strip(),
+        "relevance": relevance,
+    })
 
-    if len(summary) > 200: summary = summary[:197] + "..."
+# ---------------------------------------------------------------------------
+# Filter: remove noise and non-AI content
+# ---------------------------------------------------------------------------
+filtered = []
+for item in raw_items:
+    combined = item["title"] + " " + item["summary"]
+    if NOISE_PATTERNS.search(combined):
+        continue
+    if not AI_REQUIRED.search(combined):
+        continue
+    filtered.append(item)
+
+# ---------------------------------------------------------------------------
+# Dedup: URL-exact first, then near-duplicate title (Jaccard >= 0.65)
+# ---------------------------------------------------------------------------
+seen_urls = set()
+seen_fingerprints = []  # list of frozensets
+deduped = []
+
+for item in filtered:
+    # Exact URL dedup
+    url = item["url"]
+    if url and url in seen_urls:
+        continue
+
+    # Near-duplicate title dedup
+    fp = title_fingerprint(item["title"])
+    is_dup = False
+    for existing_fp in seen_fingerprints:
+        if jaccard(fp, existing_fp) >= 0.65:
+            is_dup = True
+            break
+    if is_dup:
+        continue
+
+    if url:
+        seen_urls.add(url)
+    seen_fingerprints.append(fp)
+    deduped.append(item)
+
+# ---------------------------------------------------------------------------
+# Score and sort: relevance score with category bonus
+# ---------------------------------------------------------------------------
+CATEGORY_BONUS = {
+    "bigtech": 8,
+    "china_ai": 7,
+    "chip_infrastructure": 6,
+    "funding_mna": 4,
+    "regulation_policy": 4,
+    "general_ai": 0,
+}
+
+def compute_score(item, category):
+    base = 60 + (item["relevance"] * 0.35 if item["relevance"] is not None else 0)
+    return round(base + CATEGORY_BONUS.get(category, 0), 2)
+
+# Build final candidates (cap at 20)
+candidates = []
+for item in deduped[:20]:
+    combined = item["title"] + " " + item["summary"]
+    category = infer_category(combined)
+    score = compute_score(item, category)
     candidates.append({
         "id": str(len(candidates) + 1),
-        "title": title,
-        "source": infer_source(url),
-        "url": url,
-        "summary_cn": summary.strip(),
-        "category": infer_category(title + " " + summary),
-        "importance_score": 60 + int(m.group(2)) * 0.35 if m.group(2) else 60
+        "title": item["title"],
+        "source": infer_source(item["url"]),
+        "url": item["url"],
+        "summary_cn": item["summary"],
+        "category": category,
+        "importance_score": score,
     })
+
+# Sort by importance_score descending so Step 3 LLM sees best candidates first
+candidates.sort(key=lambda x: x["importance_score"], reverse=True)
+# Re-assign sequential IDs after sort
+for idx, c in enumerate(candidates):
+    c["id"] = str(idx + 1)
 
 with open(output_json, "w", encoding="utf-8") as f:
     json.dump(candidates, f, ensure_ascii=False, indent=2)
-print(f"Parsed {len(candidates)} candidates")
+
+# Print summary for log
+category_counts = {}
+for c in candidates:
+    cat = c["category"]
+    category_counts[cat] = category_counts.get(cat, 0) + 1
+print(f"Parsed {len(candidates)} candidates after filter+dedup")
+print(f"Category breakdown: {category_counts}")
 PYEOF
     PY_EXIT_CODE=$?
     set -e
