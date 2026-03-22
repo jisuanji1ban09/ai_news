@@ -1,0 +1,26 @@
+{
+  "date": "2026.03.23",
+  "template": "b",
+  "items": [
+    {
+      "title": "OpenAI 计划员工扩至近两倍",
+      "summary": "应对与 Anthropic 及谷歌的竞争"
+    },
+    {
+      "title": "山姆·阿尔特曼承认建设难题",
+      "summary": "引发华尔街对 IPO 前支出的担忧"
+    },
+    {
+      "title": "亚马逊 Trainium 芯片获多方青睐",
+      "summary": "AWS 已宣布高达 500 亿美元投资"
+    },
+    {
+      "title": "腾讯集成微信与 OpenClaw 智能体",
+      "summary": "周日推出工具应对科技竞争"
+    },
+    {
+      "title": "特朗普战略暴露欧洲立场模糊",
+      "summary": "立法者担忧美国轻触式监管政策"
+    }
+  ]
+}

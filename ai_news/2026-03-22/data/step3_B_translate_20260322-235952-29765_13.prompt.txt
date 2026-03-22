@@ -12,22 +12,22 @@
     "content": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google. OpenAI To Nearly Double Staff. OpenAI’s expansion comes at a crucial time as it faces increasing competition in t"
   },
   {
-    "id": "3",
-    "title_en": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
-    "source": "Reuters",
-    "content": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin"
-  },
-  {
-    "id": "5",
+    "id": "4",
     "title_en": "OpenAI's data center pivot underscores Wall Street spending concerns ahead of IPO - CNBC",
     "source": "Cnbc",
     "content": "When OpenAI CEO Sam Altman took the stage at BlackRock's U.S. Infrastructure Summit earlier this month, he acknowledged his company is facing a harsh reality: data centers are hard. \"Anything at t"
   },
   {
-    "id": "6",
+    "id": "5",
     "title_en": "An exclusive tour of Amazon's Trainium lab, the chip that's won over Anthropic, OpenAI, even Apple - TechCrunch",
     "source": "Techcrunch",
     "content": "An exclusive tour of Amazon’s Trainium lab, the chip that’s won over Anthropic, OpenAI, even Apple. Shortly after Amazon CEO Andy Jassy announced AWS’s groundbreaking $50 billion investment deal"
+  },
+  {
+    "id": "7",
+    "title_en": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
+    "source": "Reuters",
+    "content": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin"
   },
   {
     "id": "8",
