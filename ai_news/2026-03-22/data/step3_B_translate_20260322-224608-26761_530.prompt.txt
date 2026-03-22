@@ -1,0 +1,38 @@
+请将下面的 Top5 英文 AI 新闻翻译为中文标准事实稿，并以 JSON 输出。
+要求：
+1. 每条只生成一段中文事实稿，不生成 title，不生成 summary。
+2. 中文表达自然、克制、资讯化，保留关键事实：时间、公司、人物、金额、产品、数字。
+3. 不添加背景，不做评论，不延伸推断。
+4. 仅输出 JSON，格式：{"items":[{"id":"1","fact_cn":"..."}]}
+输入：[
+  {
+    "id": "1",
+    "title_en": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
+    "source": "Moderndiplomacy",
+    "content": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th"
+  },
+  {
+    "id": "3",
+    "title_en": "Tencent integrates WeChat with OpenClaw AI agent amid China tech battle - Reuters",
+    "source": "Reuters",
+    "content": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin"
+  },
+  {
+    "id": "4",
+    "title_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google - Benzinga",
+    "source": "Benzinga",
+    "content": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google. OpenAI To Nearly Double Staff. OpenAI’s expansion comes at a crucial time as it faces increasing competition in t"
+  },
+  {
+    "id": "10",
+    "title_en": "An exclusive tour of Amazon's Trainium lab, the chip that's won over Anthropic, OpenAI, even Apple - TechCrunch",
+    "source": "Techcrunch",
+    "content": "An exclusive tour of Amazon’s Trainium lab, the chip that’s won over Anthropic, OpenAI, even Apple. Shortly after Amazon CEO Andy Jassy announced AWS’s groundbreaking $50 billion investment deal"
+  },
+  {
+    "id": "7",
+    "title_en": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption - Forbes",
+    "source": "Forbes",
+    "content": "PE Firms Offer AI Labs A $14B Shortcut To Enterprise Adoption. On March 16, Reuters reported that OpenAI is in advanced talks with TPG, Advent International, Bain Capital, and Brookfield Asset M"
+  }
+]
