@@ -27,22 +27,22 @@ summary: "对手包括 Anthropic 及 Google，Benzinga 报"  ← 残句且信息
 输入：[
   {
     "id": "1",
-    "fact_cn_checked": "欧洲观察人士指出，美国立法者对特朗普政府人工智能战略的表态反映出其倾向于轻触式监管、市场优先及容忍风险的政策取向，这凸显了欧洲在相关战略定位上的模糊性。"
-  },
-  {
-    "id": "3",
-    "fact_cn_checked": "3 月 22 日，腾讯（0700.HK）发布新工具，将其微信消息平台与 OpenClaw AI 智能体集成，此举被视为中国科技竞争背景下的最新动作。"
+    "fact_cn_checked": "OpenAI 计划在与 Anthropic 和谷歌的 AI 竞争加剧之际，将其员工规模扩大近一倍。"
   },
   {
     "id": "4",
-    "fact_cn_checked": "面对来自 Anthropic 和谷歌的日益激烈的竞争，OpenAI 计划将其员工总数增加近一倍，以应对当前关键时期的人工智能竞赛。"
-  },
-  {
-    "id": "9",
-    "fact_cn_checked": "继亚马逊 CEO 安迪·贾西宣布 AWS 达成 500 亿美元投资协议后，独家探访显示其 Trainium 芯片已获得 Anthropic、OpenAI 乃至苹果公司的青睐。"
+    "fact_cn_checked": "腾讯于 3 月 22 日（周日）推出新工具，将微信消息服务与 OpenClaw AI 智能体进行集成。"
   },
   {
     "id": "6",
-    "fact_cn_checked": "3 月 16 日路透社报道，OpenAI 正与 TPG、Advent International、贝恩资本和布鲁克菲尔德资产管理公司进行高级谈判，私募股权公司拟提供 140 亿美元资金以加速 AI 实验室的企业级应用落地。"
+    "fact_cn_checked": "OpenAI CEO 山姆·阿尔特曼在本月早些时候的黑石美国基础设施峰会上承认数据中心建设面临严峻现实，此举凸显了华尔街在其 IPO 前对支出问题的担忧。"
+  },
+  {
+    "id": "7",
+    "fact_cn_checked": "在亚马逊 CEO 安迪·贾西宣布 AWS 达成 500 亿美元投资协议后，独家探访显示其 Trainium 芯片已赢得 Anthropic、OpenAI 乃至苹果的认可。"
+  },
+  {
+    "id": "9",
+    "fact_cn_checked": "特朗普的 AI 战略暴露出欧洲在监管力度、市场优先性及风险容忍度方面的战略模糊性，引发立法者关切。"
   }
 ]

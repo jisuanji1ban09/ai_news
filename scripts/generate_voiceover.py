@@ -298,13 +298,21 @@ def extract_subject(title: str) -> str:
     return clean_text(title[:14])
 
 
+_BREAK_CHARS_VO = set("，。！？、；：")
+
+
 def trim_clause(text: str, limit: int) -> str:
-    """Trim text to a soft length limit without trailing connectors."""
+    """Trim text to a soft length limit, preferring punctuation boundaries."""
     trimmed = clean_text(text)
     if len(trimmed) <= limit:
         return trimmed
-    shortened = trimmed[:limit].rstrip("，、和及与在把对的")
-    return clean_text(shortened)
+    # 优先在标点边界处截断，向前最多回退 6 个字符
+    candidate = trimmed[:limit]
+    for i in range(len(candidate) - 1, max(len(candidate) - 7, -1), -1):
+        if candidate[i] in _BREAK_CHARS_VO:
+            return clean_text(candidate[:i + 1])
+    # 找不到标点边界则去掉尾部连接词
+    return clean_text(candidate.rstrip("，、和及与在把对的"))
 
 
 def rewrite_title(title: str, summary: str, group: str) -> str:
@@ -369,7 +377,7 @@ def rewrite_detail(summary: str, title: str, group: str, uncertain: bool) -> str
     if any(hint in detail for hint in ACTION_HINTS):
         if "研发" in detail and not uncertain and "继续" not in detail:
             detail = detail.replace("研发", "研发", 1)
-        return trim_clause(detail, 20)
+        return trim_clause(detail, 28)
 
     if group == "investment":
         detail = f"主要投向{detail}"
@@ -382,7 +390,7 @@ def rewrite_detail(summary: str, title: str, group: str, uncertain: bool) -> str
     else:
         detail = f"重点是{detail}"
 
-    return trim_clause(detail, 20)
+    return trim_clause(detail, 28)
 
 
 def generate_news_sentence(item: Mapping[str, Any]) -> str:
@@ -424,12 +432,8 @@ def generate_script(items: Sequence[Mapping[str, Any]], date_str: str | None = N
     script_date = format_date(date_str)
     ordinals = ("第一条", "第二条", "第三条", "第四条", "第五条")
 
-    # 钩子式开场：用最重要的第一条新闻做诱饵
-    first_title = get_preferred_value(items[0], TITLE_KEYS)
-    first_subject = extract_subject(first_title) if first_title else "AI圈"
-
     lines = [
-        f"{first_subject}有大动作！今天 AI 圈这 5 条消息你一定要知道。",
+        "今天 AI 圈有大事！这 5 条消息你一定要知道。",
         "",
     ]
 
