@@ -154,7 +154,6 @@ output_json = os.environ.get("CANDIDATE_JSON_FILE", "")
 title_re = re.compile(r'^-\s+\*\*(.+?)\*\*(?:\s+\(relevance:\s*(\d+)%\))?')
 url_re = re.compile(r'^https?://', re.IGNORECASE)
 
-# Noise filter: drop titles containing these keywords
 NOISE_PATTERNS = re.compile(
     r'\b(bitcoin|crypto|cryptocurrency|ethereum|stock|stocks|nasdaq|s&p|'
     r'forex|etf|dividend|earnings report|quarterly result|'
@@ -162,7 +161,6 @@ NOISE_PATTERNS = re.compile(
     re.IGNORECASE
 )
 
-# Must contain at least one AI-related keyword to pass
 AI_REQUIRED = re.compile(
     r'\b(ai|artificial intelligence|machine learning|deep learning|llm|'
     r'openai|anthropic|google|microsoft|meta|nvidia|baidu|bytedance|'
@@ -233,7 +231,6 @@ CATEGORY_BONUS = {
     "general_ai": 0,
 }
 
-# Parse all raw items
 raw_items = []
 i = 0
 lines = raw_text.splitlines()
@@ -260,14 +257,8 @@ while i < len(lines):
         i += 1
     if len(summary) > 200:
         summary = summary[:197] + "..."
-    raw_items.append({
-        "title": title,
-        "url": url,
-        "summary": summary.strip(),
-        "relevance": relevance,
-    })
+    raw_items.append({"title": title, "url": url, "summary": summary.strip(), "relevance": relevance})
 
-# Filter noise and non-AI content
 filtered = []
 for item in raw_items:
     combined = item["title"] + " " + item["summary"]
@@ -277,7 +268,6 @@ for item in raw_items:
         continue
     filtered.append(item)
 
-# Dedup: URL-exact first, then near-duplicate title (Jaccard >= 0.65)
 seen_urls = set()
 seen_fingerprints = []
 deduped = []
@@ -294,7 +284,6 @@ for item in filtered:
     seen_fingerprints.append(fp)
     deduped.append(item)
 
-# Score, sort and cap at 20
 candidates = []
 for item in deduped[:20]:
     combined = item["title"] + " " + item["summary"]
@@ -325,6 +314,7 @@ for c in candidates:
 print(f"Parsed {len(candidates)} candidates after filter+dedup")
 print(f"Category breakdown: {category_counts}")
 PYEOF
+
     PY_EXIT_CODE=$?
     set -e
 
@@ -362,39 +352,36 @@ import urllib.request
 import urllib.error
 from json import JSONDecoder, JSONDecodeError
 
-# ── 环境变量 ──────────────────────────────────────────────────
-date_str          = os.environ.get("DATE_STR", "")
-json_file         = os.environ.get("JSON_FILE", "")
+date_str            = os.environ.get("DATE_STR", "")
+json_file           = os.environ.get("JSON_FILE", "")
 candidate_json_file = os.environ.get("CANDIDATE_JSON_FILE", "")
-top5_json_file    = os.environ.get("TOP5_JSON_FILE", "")
-data_dir          = os.environ.get("DATA_DIR", "")
-run_id            = os.environ.get("RUN_ID", "unknown")
+top5_json_file      = os.environ.get("TOP5_JSON_FILE", "")
+data_dir            = os.environ.get("DATA_DIR", "")
+run_id              = os.environ.get("RUN_ID", "unknown")
 
-api_key   = os.environ.get("BAILIAN_API_KEY") or \
-            os.environ.get("DASHSCOPE_API_KEY") or \
-            os.environ.get("ALIYUN_BAILIAN_API_KEY", "")
-model     = os.environ.get("BAILIAN_MODEL", "qwen-plus")
-api_url   = os.environ.get("BAILIAN_BASE_URL",
-            "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions")
+api_key  = (os.environ.get("BAILIAN_API_KEY") or
+            os.environ.get("DASHSCOPE_API_KEY") or
+            os.environ.get("ALIYUN_BAILIAN_API_KEY", ""))
+model    = os.environ.get("BAILIAN_MODEL", "qwen-plus")
+api_url  = os.environ.get("BAILIAN_BASE_URL",
+           "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions")
 curl_timeout = int(os.environ.get("CURL_MAX_TIME", "180"))
 
 TITLE_MAX_CHARS   = 22
 SUMMARY_MAX_CHARS = 34
 
 if not api_key:
-    print("ERROR: 未找到百炼 API Key（BAILIAN_API_KEY / DASHSCOPE_API_KEY）",
-          file=sys.stderr)
+    print("ERROR: 未找到百炼 API Key", file=sys.stderr)
     sys.exit(1)
 
-# ── 工具函数 ──────────────────────────────────────────────────
-def clean_text(text: str) -> str:
+def clean_text(text):
     s = str(text or "")
     s = re.sub(r"https?://\S+", "", s)
     s = re.sub(r"[#*_`]", " ", s)
     s = re.sub(r"\s+", " ", s).strip()
     return s.strip(" .,:;|/-_")
 
-def calc_visual_length(text: str) -> float:
+def calc_visual_length(text):
     total = 0.0
     for ch in str(text or ""):
         code = ord(ch)
@@ -404,19 +391,14 @@ def calc_visual_length(text: str) -> float:
               or 0x3000 <= code <= 0x303F or 0xFF00 <= code <= 0xFFEF
               or unicodedata.east_asian_width(ch) in {"F", "W"}):
             total += 1.0
-        elif "A" <= ch <= "Z":
-            total += 0.72
-        elif "a" <= ch <= "z":
-            total += 0.62
-        elif "0" <= ch <= "9":
-            total += 0.58
-        elif ch in string.punctuation:
-            total += 0.35
-        else:
-            total += 0.70
+        elif "A" <= ch <= "Z": total += 0.72
+        elif "a" <= ch <= "z": total += 0.62
+        elif "0" <= ch <= "9": total += 0.58
+        elif ch in string.punctuation: total += 0.35
+        else: total += 0.70
     return round(total, 2)
 
-def smart_truncate(text: str, max_vlen: float) -> str:
+def smart_truncate(text, max_vlen):
     out, acc = [], 0.0
     for ch in str(text or ""):
         w = calc_visual_length(ch)
@@ -426,59 +408,38 @@ def smart_truncate(text: str, max_vlen: float) -> str:
         acc += w
     return "".join(out).rstrip()
 
-# 中文标点断句优先位置（截断时优先在这些位置停止）
 _BREAK_CHARS = set("，。！？、；：")
 
-def _truncate_at_boundary(text: str, max_vlen: float) -> str:
-    """
-    先用 smart_truncate 按视觉长度截断，
-    然后尝试在最近的标点边界处截断，避免残句。
-    如果找不到合适边界则保留 smart_truncate 结果。
-    """
+def truncate_at_boundary(text, max_vlen):
     truncated = smart_truncate(text, max_vlen)
-    if not truncated:
+    if not truncated or truncated == text:
         return truncated
-    # 如果截断点恰好在完整词/句末尾则直接返回
-    if truncated == text:
-        return truncated
-    # 向前找最近的标点断点（最多回退 6 个字符）
     for i in range(len(truncated) - 1, max(len(truncated) - 7, -1), -1):
         if truncated[i] in _BREAK_CHARS:
             return truncated[:i + 1]
-    # 找不到标点边界，返回 smart_truncate 结果
     return truncated
 
-def enforce_visual_limits(title: str, summary: str):
+def enforce_visual_limits(title, summary):
     title   = clean_text(title)
     summary = clean_text(summary)
-    # 如果 summary 以 title 开头则去重
     if summary.startswith(title):
         summary = clean_text(summary[len(title):])
-
     t_len = calc_visual_length(title)
     s_len = calc_visual_length(summary)
-
-    # 先处理 summary
     if s_len > 34 or (t_len + s_len) > 52:
-        allowed_s = min(34.0, 52.0 - t_len)
-        summary = _truncate_at_boundary(summary, allowed_s)
+        summary = truncate_at_boundary(summary, min(34.0, 52.0 - t_len))
         summary = clean_text(summary)
-
     t_len = calc_visual_length(title)
     s_len = calc_visual_length(summary)
-
-    # 再处理 title
     if t_len > 22 or (t_len + s_len) > 52:
-        allowed_t = min(22.0, 52.0 - s_len)
-        title = _truncate_at_boundary(title, allowed_t)
+        title = truncate_at_boundary(title, min(22.0, 52.0 - s_len))
         title = clean_text(title)
-
     return title, summary
 
-def extract_first_json(text: str):
+def extract_first_json(text):
     cleaned = re.sub(r"^```json\s*", "", text.strip(), flags=re.I)
-    cleaned = re.sub(r"^```\s*",    "", cleaned,       flags=re.I)
-    cleaned = re.sub(r"\s*```$",    "", cleaned)
+    cleaned = re.sub(r"^```\s*", "", cleaned, flags=re.I)
+    cleaned = re.sub(r"\s*```$", "", cleaned)
     decoder = JSONDecoder()
     for i, ch in enumerate(cleaned):
         if ch not in "[{":
@@ -490,8 +451,7 @@ def extract_first_json(text: str):
             continue
     return None
 
-def call_llm(prompt: str, step_label: str) -> dict:
-    """调用百炼 OpenAI 兼容接口，返回解析后的 JSON dict。"""
+def call_llm(prompt, step_label):
     body = {
         "model": model,
         "messages": [
@@ -508,95 +468,57 @@ def call_llm(prompt: str, step_label: str) -> dict:
     req = urllib.request.Request(
         api_url,
         data=body_bytes,
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type":  "application/json",
-        },
+        headers={"Authorization": f"Bearer {api_key}",
+                 "Content-Type": "application/json"},
         method="POST",
     )
-    # 落盘 prompt 供调试
     if data_dir:
-        prompt_path = os.path.join(data_dir, f"step3_{step_label}_{run_id}.prompt.txt")
-        with open(prompt_path, "w", encoding="utf-8") as f:
+        with open(os.path.join(data_dir, f"step3_{step_label}_{run_id}.prompt.txt"),
+                  "w", encoding="utf-8") as f:
             f.write(prompt)
-
     try:
         with urllib.request.urlopen(req, timeout=curl_timeout) as resp:
             raw = resp.read().decode("utf-8")
     except urllib.error.HTTPError as e:
-        body_err = e.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"百炼接口 HTTP {e.code}：{body_err[:500]}")
+        raise RuntimeError(f"HTTP {e.code}: {e.read().decode('utf-8','replace')[:400]}")
     except urllib.error.URLError as e:
-        raise RuntimeError(f"百炼接口连接失败：{e.reason}")
-
-    # 落盘原始响应供调试
+        raise RuntimeError(f"连接失败: {e.reason}")
     if data_dir:
-        resp_path = os.path.join(data_dir, f"step3_{step_label}_{run_id}.response.json")
-        with open(resp_path, "w", encoding="utf-8") as f:
+        with open(os.path.join(data_dir, f"step3_{step_label}_{run_id}.response.json"),
+                  "w", encoding="utf-8") as f:
             f.write(raw)
-
     payload = json.loads(raw)
     content = (payload.get("choices", [{}])[0]
-                      .get("message", {})
-                      .get("content", ""))
+                      .get("message", {}).get("content", ""))
     obj = extract_first_json(content)
     if obj is None:
-        raise RuntimeError(
-            f"[{step_label}] 模型返回中未找到合法 JSON。"
-            f"内容预览：{content[:400]}"
-        )
+        raise RuntimeError(f"[{step_label}] 未找到合法 JSON，预览: {content[:300]}")
     return obj
 
-# ── 读取候选 ──────────────────────────────────────────────────
 with open(candidate_json_file, "r", encoding="utf-8") as f:
     candidates = json.load(f)
-
-# 清洗 summary_cn 里的 markdown 噪声
 for c in candidates:
     c["summary_cn"] = clean_text(c.get("summary_cn", ""))
 
-# ── Sub-step A：LLM 选出 Top5（只返回 id）────────────────────
-view_for_select = [
-    {
-        "id":            c["id"],
-        "title":         c["title"],
-        "source":        c["source"],
-        "rank_score":    c["importance_score"],
-        "category":      c["category"],
-        "content":       c["summary_cn"],
-    }
-    for c in candidates
-]
-
+# Sub-step A: 选 Top5
+view_select = [{"id": c["id"], "title": c["title"], "source": c["source"],
+                "rank_score": c["importance_score"], "category": c["category"],
+                "content": c["summary_cn"]} for c in candidates]
 prompt_select = f"""请从下面的 AI 新闻候选中选出 Top5，并以 JSON 输出。
-
 要求：
 1. 只做选择，不翻译，不生成 title，不生成 summary。
 2. 优先选择 rank_score 高、category 多样、信息完整的新闻。
-3. 尽量覆盖以下类别（有则选，无则跳过）：
-   bigtech、china_ai、chip_infrastructure、funding_mna、regulation_policy
+3. 尽量覆盖：bigtech、china_ai、chip_infrastructure、funding_mna、regulation_policy
 4. 同一事件只选一条，不重复。
-5. 输出必须是 JSON，不要 markdown，不要解释。
-6. 输出格式：
-{{
-  "items": [
-    {{"id": "1"}},
-    {{"id": "2"}},
-    {{"id": "3"}},
-    {{"id": "4"}},
-    {{"id": "5"}}
-  ]
-}}
+5. 仅输出 JSON，不要 markdown，不要解释。
+输出格式：{{"items":[{{"id":"1"}},{{"id":"2"}},{{"id":"3"}},{{"id":"4"}},{{"id":"5"}}]}}
+候选（共 {len(view_select)} 条）：
+{json.dumps(view_select, ensure_ascii=False, indent=2)}"""
 
-候选新闻（共 {len(view_for_select)} 条）：
-{json.dumps(view_for_select, ensure_ascii=False, indent=2)}
-"""
-
-result_select = call_llm(prompt_select, "A_select")
-selected_ids = [str(row.get("id", "")) for row in result_select.get("items", [])]
+result_a = call_llm(prompt_select, "A_select")
+selected_ids = [str(r.get("id", "")) for r in result_a.get("items", [])]
 if len(selected_ids) != 5:
-    raise RuntimeError(f"Sub-step A：LLM 返回 {len(selected_ids)} 条，需要 5 条")
-
+    raise RuntimeError(f"Sub-step A 返回 {len(selected_ids)} 条，需要 5 条")
 cand_map = {str(c["id"]): c for c in candidates}
 top5_en = []
 seen = set()
@@ -605,197 +527,113 @@ for sid in selected_ids:
         top5_en.append(cand_map[sid])
         seen.add(sid)
 if len(top5_en) != 5:
-    raise RuntimeError(f"Sub-step A：id 匹配后只得到 {len(top5_en)} 条")
-
+    raise RuntimeError(f"Sub-step A id 匹配后只得 {len(top5_en)} 条")
 print(f"Sub-step A OK: selected ids={selected_ids}")
 
-# ── Sub-step B：LLM 翻译为中文事实稿 ─────────────────────────
-view_for_translate = [
-    {
-        "id":       c["id"],
-        "title_en": c["title"],
-        "source":   c["source"],
-        "content":  c["summary_cn"],
-    }
-    for c in top5_en
-]
-
+# Sub-step B: 翻译
+view_translate = [{"id": c["id"], "title_en": c["title"],
+                   "source": c["source"], "content": c["summary_cn"]} for c in top5_en]
 prompt_translate = f"""请将下面的 Top5 英文 AI 新闻翻译为中文标准事实稿，并以 JSON 输出。
-
 要求：
-1. 每条只生成一段中文标准事实稿，不生成 title，不生成 summary。
-2. 中文表达自然、克制、资讯化。
-3. 尽量保留关键事实：时间、公司、人物、金额、产品、动作、数字。
-4. 不添加背景，不做评论，不延伸推断。
-5. 输出必须是 JSON，不要 markdown，不要解释。
-6. 输出格式：
-{{
-  "items": [
-    {{"id": "1", "fact_cn": "..."}}
-  ]
-}}
+1. 每条只生成一段中文事实稿，不生成 title，不生成 summary。
+2. 中文表达自然、克制、资讯化，保留关键事实：时间、公司、人物、金额、产品、数字。
+3. 不添加背景，不做评论，不延伸推断。
+4. 仅输出 JSON，格式：{{"items":[{{"id":"1","fact_cn":"..."}}]}}
+输入：{json.dumps(view_translate, ensure_ascii=False, indent=2)}"""
 
-输入：
-{json.dumps(view_for_translate, ensure_ascii=False, indent=2)}
-"""
-
-result_translate = call_llm(prompt_translate, "B_translate")
-facts_map = {str(item.get("id", "")): item.get("fact_cn", "")
-             for item in result_translate.get("items", [])}
+result_b = call_llm(prompt_translate, "B_translate")
+facts_map = {str(i.get("id","")): i.get("fact_cn","") for i in result_b.get("items",[])}
 print(f"Sub-step B OK: translated {len(facts_map)} items")
 
-# ── Sub-step C：LLM 校正事实稿 ───────────────────────────────
-view_for_check = [
-    {
-        "id":       c["id"],
-        "title_en": c["title"],
-        "content_en": c["summary_cn"],
-        "fact_cn":  facts_map.get(str(c["id"]), ""),
-    }
-    for c in top5_en
-]
-
+# Sub-step C: 校正
+view_check = [{"id": c["id"], "title_en": c["title"],
+               "content_en": c["summary_cn"],
+               "fact_cn": facts_map.get(str(c["id"]),"")} for c in top5_en]
 prompt_check = f"""请对下面的中文事实稿做事实校正，并以 JSON 输出。
-
 要求：
 1. 只校正事实完整性、措辞准确性、数字和主体是否遗漏。
-2. 不扩写背景，不生成 title，不生成 summary。
-3. 如原稿已经准确，可微调措辞，但不要明显改写主题。
-4. 输出必须是 JSON，不要 markdown，不要解释。
-5. 输出格式：
-{{
-  "items": [
-    {{"id": "1", "fact_cn_checked": "..."}}
-  ]
-}}
+2. 不扩写，不生成 title，不生成 summary。
+3. 仅输出 JSON，格式：{{"items":[{{"id":"1","fact_cn_checked":"..."}}]}}
+输入：{json.dumps(view_check, ensure_ascii=False, indent=2)}"""
 
-输入：
-{json.dumps(view_for_check, ensure_ascii=False, indent=2)}
-"""
-
-result_check = call_llm(prompt_check, "C_check")
-checked_map = {str(item.get("id", "")): item.get("fact_cn_checked", "")
-               for item in result_check.get("items", [])}
+result_c = call_llm(prompt_check, "C_check")
+checked_map = {str(i.get("id","")): i.get("fact_cn_checked","")
+               for i in result_c.get("items",[])}
 print(f"Sub-step C OK: checked {len(checked_map)} items")
 
-# ── Sub-step D：LLM 生成 title 和 summary ────────────────────
-view_for_title = [
-    {
-        "id":             c["id"],
-        "fact_cn_checked": checked_map.get(str(c["id"]),
-                           facts_map.get(str(c["id"]), "")),
-    }
-    for c in top5_en
-]
-
+# Sub-step D: 生成 title + summary
+view_title = [{"id": c["id"],
+               "fact_cn_checked": checked_map.get(str(c["id"]),
+                                  facts_map.get(str(c["id"]),""))}
+              for c in top5_en]
 prompt_title = f"""请基于下面校正后的中文事实稿，为每条新闻生成最终 title 和 summary，并以 JSON 输出。
 
 【长度硬约束——必须在生成时就满足，不能靠截断补救】
-视觉长度计算规则：中文字符=1.0，大写字母=0.72，小写字母=0.62，
-数字=0.58，标点=0.35，空格=0.32。
-- title 视觉长度必须 <= 22
-- summary 视觉长度必须 <= 34
-- title + summary 视觉长度合计必须 <= 52
-- title 和 summary 都必须在完整语义处结束，不能在词语、数字、
-  公司名、金额中间截断，不能出现残句
+视觉长度规则：中文字符=1.0，大写字母=0.72，小写字母=0.62，数字=0.58，标点=0.35，空格=0.32。
+- title 视觉长度 <= 22
+- summary 视觉长度 <= 34
+- title + summary 合计 <= 52
+- title 和 summary 必须在完整语义处结束，不能在词语、数字、公司名、金额中间截断
 
 【内容约束】
-1. title 概括"谁做了什么"，点明主体公司或人物全名，
-   禁止使用"该公司""某公司""人工智能公司"等泛称。
-2. summary 必须补充 title 没有的新信息，优先补充：
-   关键数字（金额、比例、规模）、具体结果、核心原因。
-   禁止只写时间、背景或重复 title 的主谓结构。
+1. title 概括"谁做了什么"，必须点明主体全名，禁止用"该公司""某公司"等泛称。
+2. summary 必须补充 title 没有的新信息，优先补充关键数字、具体结果、核心原因。
+   禁止只写时间、背景，禁止重复 title 的主谓结构。
 3. title 与 summary 禁止同义改写，禁止换词重复。
-4. 中文表达自然、克制、资讯化，不写评论句，
-   不使用夸张或判断性措辞。
+4. 不写评论句，不使用夸张或判断性措辞。
 5. 一条新闻只表达一个主事件，不得并列两个信息点。
-
-【输出格式】
-输出必须是 JSON，不要 markdown，不要解释。
-{{
-  "items": [
-    {{"id": "1", "title": "...", "summary": "..."}}
-  ]
-}}
 
 【示例——合格】
 title: "OpenAI 计划将员工扩至 8000 人"
 summary: "现有员工约 4500 人，年底前完成翻倍扩招"
-→ title 完整，summary 补充了具体数字，无重复
 
 【示例——不合格】
-title: "OpenAI 计划在 AI 竞争期间将员工人"   ← 残句，在"人"处截断
-summary: "对手包括 Anthropic 及 Google，Benzinga 报"  ← 残句 + 来源不是新信息
+title: "OpenAI 计划在 AI 竞争期间将员工人"  ← 残句
+summary: "对手包括 Anthropic 及 Google，Benzinga 报"  ← 残句且信息无价值
 
-输入：
-{json.dumps(view_for_title, ensure_ascii=False, indent=2)}
-"""
+仅输出 JSON，格式：{{"items":[{{"id":"1","title":"...","summary":"..."}}]}}
+输入：{json.dumps(view_title, ensure_ascii=False, indent=2)}"""
 
-result_title = call_llm(prompt_title, "D_title")
-title_items = result_title.get("items", [])
+result_d = call_llm(prompt_title, "D_title")
+title_items = result_d.get("items", [])
 if len(title_items) != 5:
-    raise RuntimeError(f"Sub-step D：返回 {len(title_items)} 条，需要 5 条")
+    raise RuntimeError(f"Sub-step D 返回 {len(title_items)} 条，需要 5 条")
+print(f"Sub-step D OK: generated {len(title_items)} pairs")
 
-print(f"Sub-step D OK: generated {len(title_items)} title+summary pairs")
-
-# ── 最终拼装 ─────────────────────────────────────────────────
+# 拼装输出
 top5_map = {str(c["id"]): c for c in top5_en}
-final_items  = []
-brief_items  = []
-
+final_items = []
+brief_items = []
 for item in title_items:
-    sid   = str(item.get("id", ""))
-    title, summary = enforce_visual_limits(
-        item.get("title", ""),
-        item.get("summary", ""),
-    )
+    sid = str(item.get("id", ""))
+    title, summary = enforce_visual_limits(item.get("title",""), item.get("summary",""))
     t_len = calc_visual_length(title)
     s_len = calc_visual_length(summary)
-    c_len = round(t_len + s_len, 2)
-    print(f"VISUAL_CHECK id={sid} title_vlen={t_len} "
-          f"summary_vlen={s_len} combined={c_len} "
-          f"title={title!r} summary={summary!r}")
+    print(f"VISUAL_CHECK id={sid} title_vlen={t_len} summary_vlen={s_len} "
+          f"combined={round(t_len+s_len,2)} title={title!r} summary={summary!r}")
     if not title or not summary:
         raise RuntimeError(f"id={sid} title 或 summary 为空")
     src = top5_map.get(sid, {})
-    final_items.append({
-        "id":      sid,
-        "title":   title,
-        "summary": summary,
-        "source":  src.get("source", ""),
-        "url":     src.get("url", ""),
-    })
+    final_items.append({"id": sid, "title": title, "summary": summary,
+                        "source": src.get("source",""), "url": src.get("url","")})
     brief_items.append({"title": title, "summary": summary})
 
 if len(final_items) != 5:
-    raise RuntimeError(f"最终条目数量异常：{len(final_items)}")
+    raise RuntimeError(f"最终条目数量异常: {len(final_items)}")
 
-# 写 top5.json
 with open(top5_json_file, "w", encoding="utf-8") as f:
     json.dump(final_items, f, ensure_ascii=False, indent=2)
 
-# 写 daily_brief.json
-daily_brief = {
-    "date":     date_str,
-    "template": "b",
-    "items":    brief_items,
-}
 with open(json_file, "w", encoding="utf-8") as f:
-    json.dump(daily_brief, f, ensure_ascii=False, indent=2)
+    json.dump({"date": date_str, "template": "b", "items": brief_items},
+              f, ensure_ascii=False, indent=2)
 
 print(f"Step3 DONE: top5={top5_json_file}")
 print(f"Step3 DONE: daily_brief={json_file}")
 PYEOF
-    PY_EXIT_CODE=$?
-    set -e
 
-    if [ $PY_EXIT_CODE -ne 0 ] || [ ! -f "$TOP5_JSON_FILE" ] || [ ! -f "$JSON_FILE" ]; then
-        ERROR_MSG="Top5 JSON generation failed (exit: $PY_EXIT_CODE)"
-        log_step_fail "$CURRENT_STEP" "$ERROR_MSG"
-        continue
-    fi
-    log_step_ok "$CURRENT_STEP"
 
+    exit 0
     # Step 4: Refine overflowing summaries (best-effort; never blocks rendering)
     exit 0
     CURRENT_STEP="[4/8] Refining long summaries"

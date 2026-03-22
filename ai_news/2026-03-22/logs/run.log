@@ -196,3 +196,25 @@ RuntimeError: 百炼接口连接失败：_ssl.c:1112: The handshake operation ti
 [info]: [ 'client ready' ]
 ✅ Sent via Feishu. Message ID: om_x100b54c8c7f614b4c2b28d1dc959bdf (chat ou_fe30fbdabcf5e38016c49c53f55abf76)
 [2026-03-22 18:46:44] Failure notification sent.
+[2026-03-22 18:55:15] === Attempt 1/3 ===
+[2026-03-22 18:55:15] Cleaning up old artifacts for attempt 1...
+[2026-03-22 18:55:15] STEP status=start step="[1/8] Fetching AI news" attempt=1 run_id=20260322-185515-12995_19571
+[2026-03-22 18:55:33] STEP status=ok step="[1/8] Fetching AI news" attempt=1 run_id=20260322-185515-12995_19571
+[2026-03-22 18:55:33] Fetch error log: /Users/wzh/project/news/ai_news/2026-03-22/data/fetch_errors.log
+[2026-03-22 18:55:33] STEP status=start step="[2/8] Parsing candidates" attempt=1 run_id=20260322-185515-12995_19571
+Parsed 17 candidates after filter+dedup
+Category breakdown: {'bigtech': 7, 'china_ai': 1, 'regulation_policy': 1, 'general_ai': 6, 'chip_infrastructure': 2}
+[2026-03-22 18:55:34] Parsed candidates: 17
+[2026-03-22 18:55:34] STEP status=ok step="[2/8] Parsing candidates" attempt=1 run_id=20260322-185515-12995_19571
+[2026-03-22 18:55:34] STEP status=start step="[3/8] Generating Top5 JSON" attempt=1 run_id=20260322-185515-12995_19571
+Sub-step A OK: selected ids=['1', '4', '6', '8', '12']
+Sub-step B OK: translated 5 items
+Sub-step C OK: checked 5 items
+Sub-step D OK: generated 5 pairs
+VISUAL_CHECK id=1 title_vlen=16.34 summary_vlen=15.78 combined=32.12 title='OpenAI 计划将员工规模扩大近一倍' summary='应对 Anthropic 与 Google 竞争'
+VISUAL_CHECK id=4 title_vlen=17.8 summary_vlen=16.43 combined=34.23 title='腾讯推出微信消息集成 OpenClaw 工具' summary='0700.HK 周日发布，属科技竞争举措'
+VISUAL_CHECK id=6 title_vlen=16.0 summary_vlen=16.0 combined=32.0 title='特朗普人工智能战略暴露欧洲模糊性' summary='欧洲立法者声明表明对相关问题担忧'
+VISUAL_CHECK id=8 title_vlen=18.52 summary_vlen=17.48 combined=36.0 title='Kanav Bhatnagar 担任前线部署工程师' summary='24 岁，职位称人工智能领域最热门工作'
+VISUAL_CHECK id=12 title_vlen=17.56 summary_vlen=14.0 combined=31.56 title='IBM 定义物理 AI 为物理世界交互系统' summary='讨论涉及概念对政府领域的意义'
+Step3 DONE: top5=/Users/wzh/project/news/ai_news/2026-03-22/data/top5.json
+Step3 DONE: daily_brief=/Users/wzh/project/news/ai_news/2026-03-22/data/daily_brief.json

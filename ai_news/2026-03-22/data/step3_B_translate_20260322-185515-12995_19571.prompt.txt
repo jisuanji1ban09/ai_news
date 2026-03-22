@@ -1,20 +1,10 @@
 请将下面的 Top5 英文 AI 新闻翻译为中文标准事实稿，并以 JSON 输出。
-
 要求：
-1. 每条只生成一段中文标准事实稿，不生成 title，不生成 summary。
-2. 中文表达自然、克制、资讯化。
-3. 尽量保留关键事实：时间、公司、人物、金额、产品、动作、数字。
-4. 不添加背景，不做评论，不延伸推断。
-5. 输出必须是 JSON，不要 markdown，不要解释。
-6. 输出格式：
-{
-  "items": [
-    {"id": "1", "fact_cn": "..."}
-  ]
-}
-
-输入：
-[
+1. 每条只生成一段中文事实稿，不生成 title，不生成 summary。
+2. 中文表达自然、克制、资讯化，保留关键事实：时间、公司、人物、金额、产品、数字。
+3. 不添加背景，不做评论，不延伸推断。
+4. 仅输出 JSON，格式：{"items":[{"id":"1","fact_cn":"..."}]}
+输入：[
   {
     "id": "1",
     "title_en": "OpenAI Plans To Nearly Double Workforce Amid AI Race With Anthropic, Google - Benzinga",
@@ -28,16 +18,16 @@
     "content": "REUTERS/Maxim Shemetov/File Photo Purchase Licensing Rights, opens new tab. BEIJING, March 22 (Reuters) - Tencent(0700.HK), opens new tab launched a tool on Sunday to integrate its WeChat messagin"
   },
   {
-    "id": "5",
-    "title_en": "OpenAI Unifies ChatGPT, Browser and Codex Into One Desktop Super App, Redefining Productivity and Focus - Qoo10.co.id",
-    "source": "Qoo10",
-    "content": "OpenAI Unifies ChatGPT, Browser and Codex Into One Desktop Super App, Redefining Productivity and Focus. OpenAI plans to integrate its ChatGPT app, web browser, and Codex coding app into a singl"
-  },
-  {
-    "id": "10",
+    "id": "6",
     "title_en": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
     "source": "Moderndiplomacy",
     "content": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th"
+  },
+  {
+    "id": "8",
+    "title_en": "I'm a 24-year-old with the 'hottest job in AI.' These are the skills you need to get a role like mine. - Business Insider",
+    "source": "Businessinsider",
+    "content": "I'm a 24-year-old with the 'hottest job in AI.' These are the skills you need to get a role like mine. Kanav Bhatnagar's job title, forward deployed engineer, has been described as the \"hottes"
   },
   {
     "id": "12",

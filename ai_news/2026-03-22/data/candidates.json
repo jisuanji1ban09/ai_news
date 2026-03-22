@@ -37,21 +37,21 @@
   },
   {
     "id": "5",
-    "title": "OpenAI Unifies ChatGPT, Browser and Codex Into One Desktop Super App, Redefining Productivity and Focus - Qoo10.co.id",
-    "source": "Qoo10",
-    "url": "https://www.qoo10.co.id/en/international/78795/openai-unifies-chatgpt-browser-and-codex-into-one-desktop-super-app-redefining-productivity-and-focus/",
-    "summary_cn": "# OpenAI Unifies ChatGPT, Browser and Codex Into One Desktop Super App, Redefining Productivity and Focus. OpenAI plans to integrate its ChatGPT app, web browser, and Codex coding app into a singl...",
-    "category": "bigtech",
-    "importance_score": 99.5
-  },
-  {
-    "id": "6",
     "title": "OpenAI plans to double workforce to 8,000 amid rising competition - Telangana Today",
     "source": "Telanganatoday",
     "url": "https://telanganatoday.com/openai-plans-to-double-workforce-to-8000-amid-rising-competition",
     "summary_cn": "Home | Science & Tech | Openai Plans To Double Workforce To 8000 Amid Rising Competition. # OpenAI plans to double workforce to 8,000 amid rising competition. OpenAI plans to nearly double its wor...",
     "category": "bigtech",
     "importance_score": 98.45
+  },
+  {
+    "id": "6",
+    "title": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
+    "source": "Moderndiplomacy",
+    "url": "https://moderndiplomacy.eu/2026/03/21/trumps-ai-strategy-exposes-europes-strategic-ambiguity/",
+    "summary_cn": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th...",
+    "category": "regulation_policy",
+    "importance_score": 98.3
   },
   {
     "id": "7",
@@ -82,12 +82,12 @@
   },
   {
     "id": "10",
-    "title": "Trump’s AI Strategy Exposes Europe’s Strategic Ambiguity - Modern Diplomacy",
-    "source": "Moderndiplomacy",
-    "url": "https://moderndiplomacy.eu/2026/03/21/trumps-ai-strategy-exposes-europes-strategic-ambiguity/",
-    "summary_cn": "Europe often views U.S. AI policy through a familiar lens: light-touch regulation, market primacy, and a tolerance for risk. The statements of the lawmakers clearly indicate their concerns that th...",
-    "category": "regulation_policy",
-    "importance_score": 81.15
+    "title": "OpenAI Plans To Nearly Double Its Workforce - Let's Data Science",
+    "source": "Letsdatascience",
+    "url": "https://letsdatascience.com/news/openai-plans-to-nearly-double-its-workforce-83290b1a",
+    "summary_cn": "1,500+ Questions · 15 Domains · Unlimited Audio. # OpenAI Plans To Nearly Double Its Workforce. OpenAI plans to nearly double its workforce to about 8,000 from 4,500 by the end of 2026, the Financ...",
+    "category": "bigtech",
+    "importance_score": 74.65
   },
   {
     "id": "11",
@@ -100,69 +100,51 @@
   },
   {
     "id": "12",
-    "title": "OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports - Reuters",
-    "source": "Reuters",
-    "url": "https://www.reuters.com/business/media-telecom/openai-expand-ads-chatgpt-all-free-low-cost-users-information-reports-2026-03-21/",
-    "summary_cn": "# OpenAI to expand ads on ChatGPT to all free and low-cost users, The Information reports. March 21 (Reuters) - OpenAI has told ​advertising agencies it ‌is increasing the number ​of users ​shown ...",
-    "category": "bigtech",
-    "importance_score": 70.1
-  },
-  {
-    "id": "13",
-    "title": "The great robot race: How companies can balance speed to market and compliance in the U.S. - The Robot Report",
-    "source": "Therobotreport",
-    "url": "https://www.therobotreport.com/great-robot-race-how-companies-balance-speed-market-compliance-u-s/",
-    "summary_cn": "The current U.S. environment presents both challenges and opportunities for consumer robotics manufacturers and developers of AI-enabled products. The current absence of federal mandatory safety s...",
-    "category": "general_ai",
-    "importance_score": 68.75
-  },
-  {
-    "id": "14",
     "title": "What Is Physical AI, and What Does It Mean for Government? - GovTech",
     "source": "Govtech",
     "url": "https://www.govtech.com/blogs/lohrmann-on-cybersecurity/what-is-physical-ai-and-what-does-it-mean-for-government",
     "summary_cn": "### WHAT IS PHYSICAL AI? **IBM:** “What is physical AI?”— “Physical AI refers to artificial intelligence (AI) systems that operate in and interact with the physical world, rather than existing onl...",
     "category": "chip_infrastructure",
-    "importance_score": 66.7
+    "importance_score": 70.55
   },
   {
-    "id": "15",
-    "title": "OpenAI to nearly double workforce to 8,000 by end-2026, FT reports - Reuters",
-    "source": "Reuters",
-    "url": "https://www.reuters.com/business/openai-nearly-double-workforce-8000-by-end-2026-ft-reports-2026-03-21/",
-    "summary_cn": "# OpenAI to nearly double workforce to 8,000 by end-2026, FT reports. March 21 (Reuters) - Artificial intelligence start-up OpenAI plans to nearly ​double its workforce to 8,000 ‌from 4,500 by the...",
-    "category": "chip_infrastructure",
-    "importance_score": 66.7
+    "id": "13",
+    "title": "OpenAI Plans to Double Workforce to 8,000 by 2026 - HOKANEWS.COM",
+    "source": "Hokanews",
+    "url": "https://www.hokanews.com/2026/03/openai-plans-to-double-workforce-to.html",
+    "summary_cn": "OpenAI plans to expand workforce to 8,000 by 2026, intensifying competition with rivals like Anthropic in the AI industry. ## **OpenAI Plans Major Workforce Expansion to Compete With AI Rivals by ...",
+    "category": "bigtech",
+    "importance_score": 70.1
   },
   {
-    "id": "16",
+    "id": "14",
     "title": "Nvidia Wants You to Build an 'OpenClaw Strategy'—If You Don't Know What That Means, You're Already Behind - inc.com",
     "source": "Inc",
     "url": "https://www.inc.com/kevin-haynes/nvidia-wants-you-to-build-an-openclaw-strategy-if-you-dont-know-what-that-means-youre-already-behind/91320500",
     "summary_cn": "CEO Jensen Huang hails “the new computer”—and “the single most important release of software, probably ever.”. Nvidia chief executive Jensen Huang had one pointed question for all the developers, ...",
     "category": "chip_infrastructure",
-    "importance_score": 66.7
+    "importance_score": 67.4
   },
   {
-    "id": "17",
+    "id": "15",
     "title": "How the FBI can conduct mass surveillance – even without AI - The Guardian",
     "source": "Theguardian",
     "url": "https://www.theguardian.com/technology/2026/mar/21/fbi-mass-surveillance-data-artificial-intelligence",
     "summary_cn": "Patel’s admission underscores how the government is able to conduct mass surveillance despite its assurances to abide by lawful use of AI and fourth amendment protections against unreasonable sear...",
     "category": "general_ai",
-    "importance_score": 66.65
+    "importance_score": 65.95
   },
   {
-    "id": "18",
-    "title": "A brave Marine colonel took on the Pentagon — and paid the price for it - Fox News",
-    "source": "Foxnews",
-    "url": "https://www.foxnews.com/opinion/marine-colonel-took-on-pentagon-paid-the-price-for-it",
-    "summary_cn": "Everything about how Marine Colonel Drew Cukor ran Project Maven, the Department of Defense’s upstart AI initiative, put a target on his back. When Cukor launched Maven in 2017, the government sti...",
+    "id": "16",
+    "title": "The great robot race: How companies can balance speed to market and compliance in the U.S. - The Robot Report",
+    "source": "Therobotreport",
+    "url": "https://www.therobotreport.com/great-robot-race-how-companies-balance-speed-market-compliance-u-s/",
+    "summary_cn": "The current U.S. environment presents both challenges and opportunities for consumer robotics manufacturers and developers of AI-enabled products. The current absence of federal mandatory safety s...",
     "category": "general_ai",
-    "importance_score": 65.25
+    "importance_score": 64.2
   },
   {
-    "id": "19",
+    "id": "17",
     "title": "Self-Driving Scooters Launching In China - Interesting Engineering",
     "source": "Interestingengineering",
     "url": "https://interestingengineering.com/videos/self-driving-scooters-launching-in-china",
